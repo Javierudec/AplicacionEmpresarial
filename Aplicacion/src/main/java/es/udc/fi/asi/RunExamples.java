@@ -17,6 +17,7 @@ public class RunExamples {
     			(EmployeeService) context.getBean("employeeServiceBean");
     	
     	Employee e = employeeService.findEmployeeById(7369);
+    	System.out.println("asdas");
     	System.out.println(e);
     
     }

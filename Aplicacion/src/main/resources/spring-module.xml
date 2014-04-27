@@ -14,9 +14,9 @@
 	<bean id="dataSourceBean" class="org.apache.commons.dbcp.BasicDataSource"
     	destroy-method="close">
     	<property name="driverClassName" value="org.postgresql.Driver" />
-    	<property name="url" value="jdbc:postgresql://localhost:5432/asidb" />
-    	<property name="username" value="postgres" />
-    	<property name="password" value="asi" />
+    	<property name="url" value="jdbc:postgresql://stevie.heliohost.org/lcjury_empresarial" />
+    	<property name="username" value="lcjury" />
+    	<property name="password" value="3mpr3sar!al3s" />
   	</bean>
 	
 	<!-- DAO implementations -->
