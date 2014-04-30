@@ -1,13 +1,25 @@
 package es.model.article;
 
+import java.util.ArrayList;
+
 public interface ArticleDAO {
 
+	public int findLastID();
+	
 	public abstract Article find( int ID )
 		throws es.model.util.exceptions.InstanceNotFoundException;
 	
+	public abstract ArrayList<Article> findArticlesByAuthorName( String authorName );
+	
 	public abstract Article insert( String articleTitle, String articleContent, String authorName );
 	
-	// y si el ID no existe?
+	public abstract void addArticleCalification( int calification, String userName, int articleID );
+	
+	public abstract int findCalification( String userName, int articleID )
+			throws es.model.util.exceptions.InstanceNotFoundException;
+	
+	public abstract int findCalificationAverage( int articleID );
+	
 	public abstract Article update( Article article);
 	public abstract void delete( int ID );
 }

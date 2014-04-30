@@ -20,11 +20,19 @@
   	</bean>
 	
 	<!-- DAO implementations -->
-	<bean id="employeeDaoBean" class="es.model.employee.JdbcEmployeeDAO" >
+	<bean id="actorDaoBean" class="es.model.actor.JdbcActorDAO" >
 		<property name="dataSource" ref="dataSourceBean" />
 	</bean>
 	
-	<bean id="departmentDaoBean" class="es.model.department.JdbcDepartmentDAO" >
+	<bean id="articleDaoBean" class="es.model.article.JdbcArticleDAO" >
+		<property name="dataSource" ref="dataSourceBean" />
+	</bean>
+	
+	<bean id="userDaoBean" class="es.model.user.JdbcUserDAO" >
+		<property name="dataSource" ref="dataSourceBean" />
+	</bean>
+	
+	<bean id="tagDAOBean" class="es.model.tag.JdbcTagDAO" >
 		<property name="dataSource" ref="dataSourceBean" />
 	</bean>
 	
@@ -34,10 +42,11 @@
     	<property name="dataSource" ref="dataSourceBean" />
   	</bean>
 	
-	<!-- EmployeeService -->
-	<bean id="employeeServiceBean" class="es.model.employeeservice.EmployeeServiceImpl">
-		<property name="employeeDAO" ref="employeeDaoBean" />
-		<property name="departmentDAO" ref="departmentDaoBean" />
+	<!-- UserService -->
+	<bean id="articleServiceBean" class="es.model.service.ArticleService">
+		<property name="UserDAO" ref="userDaoBean" />
+		<property name="ArticleDAO" ref="articleDaoBean" />
+		<property name="TagDAO" ref="tagDAOBean" />
 		<property name="transactionManager" ref="transactionManagerBean" />
 	</bean>
  
