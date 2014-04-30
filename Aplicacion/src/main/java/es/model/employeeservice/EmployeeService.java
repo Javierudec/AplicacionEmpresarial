@@ -1,7 +1,7 @@
-package es.udc.fi.asi.model.employeeservice;
+package es.model.employeeservice;
 
-import es.udc.fi.asi.model.employee.Employee;
-import es.udc.fi.asi.model.util.exceptions.InstanceNotFoundException;
+import es.model.employee.Employee;
+import es.model.util.exceptions.InstanceNotFoundException;
 
 /**
  * Employee service.

@@ -1,10 +1,10 @@
-package es.udc.fi.asi;
+package recommend;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import es.udc.fi.asi.model.employee.Employee;
-import es.udc.fi.asi.model.employeeservice.EmployeeService;
+import es.model.employee.Employee;
+import es.model.employeeservice.EmployeeService;
 
 public class RunExamples {
 	

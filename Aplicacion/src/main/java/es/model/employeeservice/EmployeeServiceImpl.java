@@ -1,12 +1,12 @@
-package es.udc.fi.asi.model.employeeservice;
+package es.model.employeeservice;
 
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 
-import es.udc.fi.asi.model.department.DepartmentDAO;
-import es.udc.fi.asi.model.employee.Employee;
-import es.udc.fi.asi.model.employee.EmployeeDAO;
-import es.udc.fi.asi.model.util.exceptions.InstanceNotFoundException;
+import es.model.department.DepartmentDAO;
+import es.model.employee.Employee;
+import es.model.employee.EmployeeDAO;
+import es.model.util.exceptions.InstanceNotFoundException;
 
 public class EmployeeServiceImpl implements EmployeeService {
 	

@@ -1,6 +1,6 @@
-package es.udc.fi.asi.model.department;
+package es.model.department;
 
-import es.udc.fi.asi.model.util.exceptions.InstanceNotFoundException;
+import es.model.util.exceptions.InstanceNotFoundException;
 
 /**
  * Data access operations for Departments.

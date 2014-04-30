@@ -1,4 +1,4 @@
-package es.udc.fi.asi.model.employee;
+package es.model.employee;
 
 public class Employee {
 	

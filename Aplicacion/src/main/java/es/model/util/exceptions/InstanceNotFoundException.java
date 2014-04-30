@@ -1,4 +1,4 @@
-package es.udc.fi.asi.model.util.exceptions;
+package es.model.util.exceptions;
 
 public class InstanceNotFoundException extends Exception {
 

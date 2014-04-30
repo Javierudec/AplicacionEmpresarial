@@ -1,4 +1,4 @@
-package es.udc.fi.asi.model.employee;
+package es.model.employee;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +10,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import es.udc.fi.asi.model.util.exceptions.InstanceNotFoundException;
+import es.model.util.exceptions.InstanceNotFoundException;
 
 /**
  * Implements the data access operations for the "Employee" entity using JDBC.

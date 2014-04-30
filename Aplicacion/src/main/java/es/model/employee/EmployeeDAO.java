@@ -1,8 +1,8 @@
-package es.udc.fi.asi.model.employee;
+package es.model.employee;
 
 import java.util.List;
 
-import es.udc.fi.asi.model.util.exceptions.InstanceNotFoundException;
+import es.model.util.exceptions.InstanceNotFoundException;
 
 /**
  * Interface for data access operations for "Employee" entities.

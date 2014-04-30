@@ -1,4 +1,4 @@
-package es.udc.fi.asi.model.department;
+package es.model.department;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 import javax.sql.DataSource;
 
-import es.udc.fi.asi.model.util.exceptions.InstanceNotFoundException;
+import es.model.util.exceptions.InstanceNotFoundException;
 
 public class JdbcDepartmentDAO implements DepartmentDAO {
 	

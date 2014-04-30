@@ -1,4 +1,4 @@
-package es.udc.fi.asi.model.department;
+package es.model.department;
 
 public class Department {
 	
