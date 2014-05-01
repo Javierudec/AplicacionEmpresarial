@@ -33,6 +33,8 @@ public class JdbcTagDAO implements TagDAO {
 				int newTagID = resultSet.getInt(1);
 				String newTagName = resultSet.getString(2);
 				
+				//System.out.println(newTagName);
+				
 				tag = new Tag(newTagID, newTagName );
 			} else {
 				throw new InstanceNotFoundException();
@@ -114,6 +116,7 @@ public class JdbcTagDAO implements TagDAO {
 			if( resultSet.next() ){
 				int tagID = resultSet.getInt(1);
 				tag = new Tag( tagID, tagName );
+				//System.out.println(tagID + " " + tagName);
 			}
 		} catch ( SQLException e ){
 			throw new RuntimeException(e);
@@ -133,7 +136,8 @@ public class JdbcTagDAO implements TagDAO {
 			statement.setInt(1, article.getID());
 			statement.setInt(2, tag.getID());
 			
-			statement.executeQuery();
+			statement.executeUpdate();
+			//statement.executeQuery();
 			// TODO: como verificamos que se ejecuto y no hubo error?
 			
 		} catch ( SQLException e ){

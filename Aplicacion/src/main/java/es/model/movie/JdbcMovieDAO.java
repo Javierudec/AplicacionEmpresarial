@@ -128,4 +128,10 @@ public class JdbcMovieDAO implements MovieDAO {
 		// TODO Auto-generated method stub
 	}
 
+	public void addCalificationToMovie(String movieTitle, String username,
+			int calification) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

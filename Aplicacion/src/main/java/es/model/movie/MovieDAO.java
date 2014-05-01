@@ -17,10 +17,11 @@ public interface MovieDAO {
 	
 	public abstract void addGenreToMovie(String movieTitle, int genreID);
 	
+	public abstract void addCalificationToMovie(String movieTitle, String username, int calification);
+	
 	public abstract void update(Movie movie)
 			throws InstanceNotFoundException;
 
-	
 	public abstract void delete(String movieName)
 			throws InstanceNotFoundException;
 	

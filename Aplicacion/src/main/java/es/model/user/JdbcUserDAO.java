@@ -40,15 +40,19 @@ public class JdbcUserDAO implements UserDAO {
 	}
 
 	public User insert(User user) {
+		if(user == null) return null;
+		
+		PreparedStatement statement;
+		
 		try{
 			Connection connection = dataSource.getConnection();
-			PreparedStatement statement = connection.prepareStatement(
+			statement = connection.prepareStatement(
 					"INSERT INTO site_user(name,password,mail,rights) VALUES (?,?,?,0);");
 			statement.setString(1, user.getName());
 			statement.setString(2, user.getPassword());
 			statement.setString(3, user.getEmail());
 			
-			statement.executeQuery();
+			statement.executeUpdate();
 			
 		} catch ( SQLException e ){
 			throw new RuntimeException(e);

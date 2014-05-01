@@ -91,14 +91,20 @@ public class JdbcArticleDAO implements ArticleDAO {
 		Article article = null;
 		try{
 			Connection connection = dataSource.getConnection();
+			/*
 			PreparedStatement statement = connection.prepareStatement(
 					"INSERT INTO article (title, content, username) VALUES (?, ?, ?);" +
-					"SELECT currval(pg_get_serial_sequence('article','id'));"); // TODO: test this			
+					"SELECT currval(pg_get_serial_sequence('article','id'));"); // TODO: test this	
+			*/
 			
+			PreparedStatement statement = connection.prepareStatement("INSERT INTO article (title, content, username) VALUES (?, ?, ?);");
 			statement.setString(1, articleTitle );
 			statement.setString(2, articleContent );
 			statement.setString(3, authorName );
 			
+			statement.executeUpdate();
+			
+			statement = connection.prepareStatement("SELECT currval(pg_get_serial_sequence('article','id'));");
 			ResultSet resultSet = statement.executeQuery();
 			
 			if( resultSet.next() ){

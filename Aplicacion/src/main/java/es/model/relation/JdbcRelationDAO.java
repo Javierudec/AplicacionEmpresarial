@@ -1,7 +1,15 @@
 package es.model.relation;
 
+import javax.sql.DataSource;
+
 public class JdbcRelationDAO implements RelationDAO {
 
+	private DataSource dataSource;
+	
+	public void setDataSource( DataSource dataSource ){
+		this.dataSource = dataSource;
+	}
+	
 	public Relation find(String sourceMovie, String destinyMovie,
 			String username) {
 		// TODO Auto-generated method stub

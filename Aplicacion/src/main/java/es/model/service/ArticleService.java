@@ -26,11 +26,14 @@ public Article addArticle( String articleTitle, String articleContent, String au
 	
 	Article article = articleDAO.insert(articleTitle, articleContent, authorName);
 	
-	while( tagsID.iterator().hasNext() ){
-		int tagID = tagsID.iterator().next();
+	for(int i = 0; i < tagsID.size(); i++)
+	{
+		int tagID = tagsID.get(i);
+		//System.out.println(tagID);
 		Tag tag = tagDAO.find(tagID);
 		tagDAO.insertArticleOwnTag(article, tag);
 	}
+	
 	return article;
 }
 

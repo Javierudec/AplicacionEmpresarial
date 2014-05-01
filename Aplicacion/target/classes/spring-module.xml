@@ -19,7 +19,7 @@
     	<property name="password" value="luis378379" />
   	</bean>
   	
-  	<!-- JURY DATABASE
+  	<!-- JURY DATABASE 
 	<bean id="dataSourceBean" class="org.apache.commons.dbcp.BasicDataSource"
     	destroy-method="close">
     	<property name="driverClassName" value="org.postgresql.Driver" />
@@ -28,9 +28,14 @@
     	<property name="password" value="3mpr3sar!al3s" />
   	</bean>
   	-->
+  	
 	
 	<!-- DAO implementations -->
 	<bean id="actorDAOBean" class="es.model.actor.JdbcActorDAO" >
+		<property name="dataSource" ref="dataSourceBean" />
+	</bean>
+	
+	<bean id="relationDAOBean" class="es.model.relation.JdbcRelationDAO" >
 		<property name="dataSource" ref="dataSourceBean" />
 	</bean>
 	
@@ -75,5 +80,12 @@
 		<property name="transactionManager" ref="transactionManagerBean" />
 	</bean>
 	
- 
+ 	<!-- MovieService -->
+	<bean id="movieServiceBean" class="es.model.service.MovieService">
+		<property name="ActorDAO" ref="actorDAOBean" />
+		<property name="GenreDAO" ref="genreDAOBean" />
+		<property name="RelationDAO" ref="relationDAOBean" />
+		<property name="MovieDAO" ref="movieDAOBean" />
+		<property name="transactionManager" ref="transactionManagerBean" />
+	</bean>
 </beans>
