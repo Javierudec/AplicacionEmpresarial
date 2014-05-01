@@ -15,6 +15,9 @@ public class JdbcTagDAO implements TagDAO {
 
 	private DataSource dataSource;
 	
+	/*
+	 * Probado!
+	 */
 	public Tag find(int tagID) throws InstanceNotFoundException {		
 		Tag tag = null;
 		
@@ -94,20 +97,22 @@ public class JdbcTagDAO implements TagDAO {
 		return tagList;
 	}
 
+	/*
+	 * Probado!
+	 * - Actualmente se permiten tag's con el mismo nombre (lo que no deberia ser, añadir throw)
+	 */
 	public Tag insert(String tagName) {
 		Tag tag = null;
 		try{
 			Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
-					"INSERT INTO tag (name) VALUES (?);" +
-					"SELECT currval(pg_get_serial_sequence('tag','id'));"); // TODO: test this
+					"INSERT INTO tag (name) VALUES (?) RETURNING id;");
 			statement.setString(1, tagName);
 			
 			ResultSet resultSet = statement.executeQuery();
 			
 			if( resultSet.next() ){
 				int tagID = resultSet.getInt(1);
-				
 				tag = new Tag( tagID, tagName );
 			}
 		} catch ( SQLException e ){
@@ -115,6 +120,7 @@ public class JdbcTagDAO implements TagDAO {
 		}
 		return tag;
 	}
+	
 	/*
 	 * 	Asigna la relacion articulo-tag
 	 */

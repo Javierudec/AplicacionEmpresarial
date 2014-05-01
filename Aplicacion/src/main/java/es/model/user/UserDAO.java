@@ -9,7 +9,9 @@ public interface UserDAO {
 	public abstract User insert( User user );
 	
 	// y si el user no existe?
-	public abstract User update( User user );
-	public abstract void delete( String userName );
+	public abstract User update( User user )
+			throws InstanceNotFoundException;
+	public abstract void delete( String userName )
+			throws InstanceNotFoundException;
 	
 }

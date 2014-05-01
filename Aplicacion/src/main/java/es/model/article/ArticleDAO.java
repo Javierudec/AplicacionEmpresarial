@@ -6,10 +6,10 @@ public interface ArticleDAO {
 
 	public int findLastID();
 	
-	public abstract Article find( int ID )
+	public abstract Article find( int articleID )
 		throws es.model.util.exceptions.InstanceNotFoundException;
 	
-	public abstract ArrayList<Article> findArticlesByAuthorName( String authorName );
+	public abstract ArrayList<Article> findArticlesByAuthorID( String authorName, int amount );
 	
 	public abstract Article insert( String articleTitle, String articleContent, String authorName );
 	
@@ -20,6 +20,9 @@ public interface ArticleDAO {
 	
 	public abstract int findCalificationAverage( int articleID );
 	
-	public abstract Article update( Article article);
-	public abstract void delete( int ID );
+	public abstract Article update( Article article)
+		throws es.model.util.exceptions.InstanceNotFoundException;
+	
+	public abstract void delete( int ID )
+		throws es.model.util.exceptions.InstanceNotFoundException;
 }

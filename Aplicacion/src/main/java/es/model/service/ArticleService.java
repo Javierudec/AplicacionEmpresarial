@@ -20,7 +20,8 @@ private UserDAO userDAO;
 @SuppressWarnings("unused")
 private PlatformTransactionManager transactionManager;
 
-@Transactional(rollbackFor={InstanceNotFoundException.class})
+
+@Transactional(rollbackFor={ InstanceNotFoundException.class })
 public Article addArticle( String articleTitle, String articleContent, String authorName, ArrayList<Integer> tagsID ) throws InstanceNotFoundException{
 	
 	Article article = articleDAO.insert(articleTitle, articleContent, authorName);

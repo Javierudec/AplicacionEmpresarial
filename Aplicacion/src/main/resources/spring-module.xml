@@ -14,25 +14,43 @@
 	<bean id="dataSourceBean" class="org.apache.commons.dbcp.BasicDataSource"
     	destroy-method="close">
     	<property name="driverClassName" value="org.postgresql.Driver" />
+    	<property name="url" value="jdbc:postgresql://plop.inf.udec.cl:5432/ljury" />
+    	<property name="username" value="ljury" />
+    	<property name="password" value="luis378379" />
+  	</bean>
+  	
+  	<!-- JURY DATABASE
+	<bean id="dataSourceBean" class="org.apache.commons.dbcp.BasicDataSource"
+    	destroy-method="close">
+    	<property name="driverClassName" value="org.postgresql.Driver" />
     	<property name="url" value="jdbc:postgresql://stevie.heliohost.org/lcjury_empresarial" />
     	<property name="username" value="lcjury" />
     	<property name="password" value="3mpr3sar!al3s" />
   	</bean>
+  	-->
 	
 	<!-- DAO implementations -->
-	<bean id="actorDaoBean" class="es.model.actor.JdbcActorDAO" >
+	<bean id="actorDAOBean" class="es.model.actor.JdbcActorDAO" >
 		<property name="dataSource" ref="dataSourceBean" />
 	</bean>
 	
-	<bean id="articleDaoBean" class="es.model.article.JdbcArticleDAO" >
+	<bean id="articleDAOBean" class="es.model.article.JdbcArticleDAO" >
 		<property name="dataSource" ref="dataSourceBean" />
 	</bean>
 	
-	<bean id="userDaoBean" class="es.model.user.JdbcUserDAO" >
+	<bean id="genreDAOBean" class="es.model.genre.JdbcGenreDAO" >
+		<property name="dataSource" ref="dataSourceBean" />
+	</bean>
+	
+	<bean id="movieDAOBean" class="es.model.movie.JdbcMovieDAO" >
 		<property name="dataSource" ref="dataSourceBean" />
 	</bean>
 	
 	<bean id="tagDAOBean" class="es.model.tag.JdbcTagDAO" >
+		<property name="dataSource" ref="dataSourceBean" />
+	</bean>
+	
+	<bean id="userDAOBean" class="es.model.user.JdbcUserDAO" >
 		<property name="dataSource" ref="dataSourceBean" />
 	</bean>
 	
@@ -41,13 +59,21 @@
   			class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
     	<property name="dataSource" ref="dataSourceBean" />
   	</bean>
-	
-	<!-- UserService -->
+  	
+	<!-- ArticleService -->
 	<bean id="articleServiceBean" class="es.model.service.ArticleService">
-		<property name="UserDAO" ref="userDaoBean" />
-		<property name="ArticleDAO" ref="articleDaoBean" />
+		<property name="UserDAO" ref="userDAOBean" />
+		<property name="ArticleDAO" ref="articleDAOBean" />
 		<property name="TagDAO" ref="tagDAOBean" />
 		<property name="transactionManager" ref="transactionManagerBean" />
 	</bean>
+	
+	<!-- UserService -->
+	<bean id="userServiceBean" class="es.model.service.UserService">
+		<property name="UserDAO" ref="userDAOBean" />
+		<property name="ArticleDAO" ref="articleDAOBean" />
+		<property name="transactionManager" ref="transactionManagerBean" />
+	</bean>
+	
  
 </beans>

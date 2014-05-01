@@ -22,4 +22,8 @@ public class Article {
 	public void setTitle( String _title ){ title = _title; }
 	public void setContent( String _content ){ content = _content; }
 	public void setAuthor( String _author ){ author = _author; }
+	
+	public String toString(){
+		return "["+ID+", "+title+",\n "+content+", "+author+"]\n"; 
+	}
 }

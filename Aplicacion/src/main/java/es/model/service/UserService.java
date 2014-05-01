@@ -20,7 +20,8 @@ public class UserService {
 	private PlatformTransactionManager transactionManager;
 	
 	public ArrayList<Article> findArticlesOfUser( String authorName ){	
-		return articleDAO.findArticlesByAuthorName(authorName);
+		return articleDAO.findArticlesByAuthorID(authorName, 10);
+		
 	}
 
 	// TODO : If user Name already exist in data base, throw something.

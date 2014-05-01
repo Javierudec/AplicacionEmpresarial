@@ -6,6 +6,10 @@ public interface GenreDAO {
 		throws es.model.util.exceptions.InstanceNotFoundException;
 	
 	public Genre insert( String genreName );
-	public Genre update( Genre genre );
-	public void delete( int genreID );
+	
+	public Genre update( Genre genre )
+		throws es.model.util.exceptions.InstanceNotFoundException;
+	
+	public void delete( int genreID )
+		throws es.model.util.exceptions.InstanceNotFoundException;
 }
