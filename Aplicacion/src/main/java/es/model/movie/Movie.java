@@ -5,7 +5,7 @@ public class Movie {
 	private String synopsys;
 	private java.sql.Date premiereDate;
 	
-	Movie(String _name, String _synopsys, java.sql.Date _premiereDate){
+	public Movie(String _name, String _synopsys, java.sql.Date _premiereDate){
 		name = _name;
 		synopsys = _synopsys;
 		premiereDate = _premiereDate;

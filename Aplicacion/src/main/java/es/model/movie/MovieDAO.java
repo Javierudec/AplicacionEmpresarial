@@ -13,6 +13,9 @@ public interface MovieDAO {
 	
 	public abstract Movie insert(Movie movie);
 
+	public abstract void addActorToMovie(String movieTitle, int actorID);
+	
+	public abstract void addGenreToMovie(String movieTitle, int genreID);
 	
 	public abstract void update(Movie movie)
 			throws InstanceNotFoundException;

@@ -17,7 +17,7 @@ public class RunExamples {
     			new ClassPathXmlApplicationContext("spring-module.xml");
     	
  
-    	
+    	/*
     	ArticleService articleService = 
     			(ArticleService) context.getBean("articleServiceBean");
     	Article a = articleService.findArticleByID(1);
@@ -29,7 +29,7 @@ public class RunExamples {
     	ArrayList<Integer> tagList = new ArrayList<Integer>();
     	tagList.add( 1 );
     	articleService.addArticle("Titulo del articulo", "contenido del articulo", "lcjury", tagList);
-    	
+    	*/
 
     	
     	

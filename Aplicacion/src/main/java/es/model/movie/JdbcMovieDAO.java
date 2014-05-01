@@ -120,4 +120,12 @@ public class JdbcMovieDAO implements MovieDAO {
 		this.dataSource = dataSource;
 	}
 
+	public void addActorToMovie(String movieTitle, int actorID) {
+		// TODO Auto-generated method stub
+	}
+
+	public void addGenreToMovie(String movieTitle, int actorID) {
+		// TODO Auto-generated method stub
+	}
+
 }
