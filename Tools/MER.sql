@@ -71,7 +71,8 @@ ALTER TABLE public.rank_id_seq OWNER TO lcjury;
 CREATE TABLE article (
     id integer DEFAULT nextval('rank_id_seq'::regclass) NOT NULL,
     title character varying(255),
-    content text
+    content text,
+    username character varying(255)
 );
 
 
@@ -325,6 +326,14 @@ ALTER TABLE ONLY article_has_tag
 
 
 --
+-- Name: article_username_fkey; Type: FK CONSTRAINT; Schema: public; Owner: lcjury
+--
+
+ALTER TABLE ONLY article
+    ADD CONSTRAINT article_username_fkey FOREIGN KEY (username) REFERENCES site_user(name);
+
+
+--
 -- Name: movie_actor_idactor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: lcjury
 --
 
@@ -415,6 +424,51 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --
+-- Name: actor_id_seq; Type: ACL; Schema: public; Owner: lcjury
+--
+
+REVOKE ALL ON SEQUENCE actor_id_seq FROM PUBLIC;
+REVOKE ALL ON SEQUENCE actor_id_seq FROM lcjury;
+GRANT ALL ON SEQUENCE actor_id_seq TO lcjury;
+
+
+--
+-- Name: actor; Type: ACL; Schema: public; Owner: lcjury
+--
+
+REVOKE ALL ON TABLE actor FROM PUBLIC;
+REVOKE ALL ON TABLE actor FROM lcjury;
+GRANT ALL ON TABLE actor TO lcjury;
+
+
+--
+-- Name: rank_id_seq; Type: ACL; Schema: public; Owner: lcjury
+--
+
+REVOKE ALL ON SEQUENCE rank_id_seq FROM PUBLIC;
+REVOKE ALL ON SEQUENCE rank_id_seq FROM lcjury;
+GRANT ALL ON SEQUENCE rank_id_seq TO lcjury;
+
+
+--
+-- Name: article; Type: ACL; Schema: public; Owner: lcjury
+--
+
+REVOKE ALL ON TABLE article FROM PUBLIC;
+REVOKE ALL ON TABLE article FROM lcjury;
+GRANT ALL ON TABLE article TO lcjury;
+
+
+--
+-- Name: article_has_tag; Type: ACL; Schema: public; Owner: lcjury
+--
+
+REVOKE ALL ON TABLE article_has_tag FROM PUBLIC;
+REVOKE ALL ON TABLE article_has_tag FROM lcjury;
+GRANT ALL ON TABLE article_has_tag TO lcjury;
+
+
+--
 -- Name: department_id_seq; Type: ACL; Schema: public; Owner: lcjury
 --
 
@@ -430,6 +484,105 @@ GRANT ALL ON SEQUENCE department_id_seq TO lcjury;
 REVOKE ALL ON SEQUENCE employee_id_seq FROM PUBLIC;
 REVOKE ALL ON SEQUENCE employee_id_seq FROM lcjury;
 GRANT ALL ON SEQUENCE employee_id_seq TO lcjury;
+
+
+--
+-- Name: genre_id_seq; Type: ACL; Schema: public; Owner: lcjury
+--
+
+REVOKE ALL ON SEQUENCE genre_id_seq FROM PUBLIC;
+REVOKE ALL ON SEQUENCE genre_id_seq FROM lcjury;
+GRANT ALL ON SEQUENCE genre_id_seq TO lcjury;
+
+
+--
+-- Name: genre; Type: ACL; Schema: public; Owner: lcjury
+--
+
+REVOKE ALL ON TABLE genre FROM PUBLIC;
+REVOKE ALL ON TABLE genre FROM lcjury;
+GRANT ALL ON TABLE genre TO lcjury;
+
+
+--
+-- Name: movie; Type: ACL; Schema: public; Owner: lcjury
+--
+
+REVOKE ALL ON TABLE movie FROM PUBLIC;
+REVOKE ALL ON TABLE movie FROM lcjury;
+GRANT ALL ON TABLE movie TO lcjury;
+
+
+--
+-- Name: movie_actor; Type: ACL; Schema: public; Owner: lcjury
+--
+
+REVOKE ALL ON TABLE movie_actor FROM PUBLIC;
+REVOKE ALL ON TABLE movie_actor FROM lcjury;
+GRANT ALL ON TABLE movie_actor TO lcjury;
+
+
+--
+-- Name: movie_genre; Type: ACL; Schema: public; Owner: lcjury
+--
+
+REVOKE ALL ON TABLE movie_genre FROM PUBLIC;
+REVOKE ALL ON TABLE movie_genre FROM lcjury;
+GRANT ALL ON TABLE movie_genre TO lcjury;
+
+
+--
+-- Name: rank_article; Type: ACL; Schema: public; Owner: lcjury
+--
+
+REVOKE ALL ON TABLE rank_article FROM PUBLIC;
+REVOKE ALL ON TABLE rank_article FROM lcjury;
+GRANT ALL ON TABLE rank_article TO lcjury;
+
+
+--
+-- Name: rank_movie; Type: ACL; Schema: public; Owner: lcjury
+--
+
+REVOKE ALL ON TABLE rank_movie FROM PUBLIC;
+REVOKE ALL ON TABLE rank_movie FROM lcjury;
+GRANT ALL ON TABLE rank_movie TO lcjury;
+
+
+--
+-- Name: relation; Type: ACL; Schema: public; Owner: lcjury
+--
+
+REVOKE ALL ON TABLE relation FROM PUBLIC;
+REVOKE ALL ON TABLE relation FROM lcjury;
+GRANT ALL ON TABLE relation TO lcjury;
+
+
+--
+-- Name: site_user; Type: ACL; Schema: public; Owner: lcjury
+--
+
+REVOKE ALL ON TABLE site_user FROM PUBLIC;
+REVOKE ALL ON TABLE site_user FROM lcjury;
+GRANT ALL ON TABLE site_user TO lcjury;
+
+
+--
+-- Name: tag_id_seq; Type: ACL; Schema: public; Owner: lcjury
+--
+
+REVOKE ALL ON SEQUENCE tag_id_seq FROM PUBLIC;
+REVOKE ALL ON SEQUENCE tag_id_seq FROM lcjury;
+GRANT ALL ON SEQUENCE tag_id_seq TO lcjury;
+
+
+--
+-- Name: tag; Type: ACL; Schema: public; Owner: lcjury
+--
+
+REVOKE ALL ON TABLE tag FROM PUBLIC;
+REVOKE ALL ON TABLE tag FROM lcjury;
+GRANT ALL ON TABLE tag TO lcjury;
 
 
 --
