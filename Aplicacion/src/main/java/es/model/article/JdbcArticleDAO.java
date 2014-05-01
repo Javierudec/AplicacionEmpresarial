@@ -20,8 +20,7 @@ public class JdbcArticleDAO implements ArticleDAO {
 			Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT currval(pg_get_serial_sequence('article','id'));"); // TODO: test this			
-			
-			
+
 			ResultSet resultSet = statement.executeQuery();
 			
 			if( resultSet.next() ){
@@ -67,7 +66,7 @@ public class JdbcArticleDAO implements ArticleDAO {
 		try{
 			Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
-					"SELECT id,  title, content, username FROM article WHERE author = ?");
+					"SELECT id,  title, content, username FROM article WHERE username = ?");
 			statement.setString( 1, authorName );
 			
 			ResultSet resultSet = statement.executeQuery();
@@ -91,11 +90,6 @@ public class JdbcArticleDAO implements ArticleDAO {
 		Article article = null;
 		try{
 			Connection connection = dataSource.getConnection();
-			/*
-			PreparedStatement statement = connection.prepareStatement(
-					"INSERT INTO article (title, content, username) VALUES (?, ?, ?);" +
-					"SELECT currval(pg_get_serial_sequence('article','id'));"); // TODO: test this	
-			*/
 			
 			PreparedStatement statement = connection.prepareStatement("INSERT INTO article (title, content, username) VALUES (?, ?, ?);");
 			statement.setString(1, articleTitle );

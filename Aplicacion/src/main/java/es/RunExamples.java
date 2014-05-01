@@ -24,7 +24,6 @@ public class RunExamples {
     	MovieService movieService = (MovieService) context.getBean("movieServiceBean");
     	
     	System.out.println("-===== USER SERVICE TEST =====-");
-    	//userService.addUser(new User("lcjury5", "12345", "a@a.cl"));
     	ArrayList<Article> articleList = userService.findArticlesOfUser("lcjury");
  
     	for(int i = 0; i < articleList.size(); i++)
