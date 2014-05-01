@@ -4,7 +4,6 @@ public class Relation {
 	private String sourceMovie;
 	private String destinyMovie;
 	private String username;
-	private Integer approvalCount;
 	private String comment;
 	
 	public Relation(String sourceMovie, String destinyMovie, String username, String comment)
@@ -13,7 +12,6 @@ public class Relation {
 		this.destinyMovie = destinyMovie;
 		this.username = username;
 		this.comment = comment;
-		this.approvalCount = 0;
 	}
 	
 	public String getSourceMovie()
@@ -46,16 +44,6 @@ public class Relation {
 		this.username = username;
 	}
 	
-	public Integer getApprovalCount()
-	{
-		return this.approvalCount;
-	}
-	
-	public void setApprovalCount(Integer approvalCount)
-	{
-		this.approvalCount = approvalCount;
-	}
-	
 	public String getComment()
 	{
 		return this.comment;
@@ -64,5 +52,8 @@ public class Relation {
 	public void setComment(String comment)
 	{
 		this.comment = comment;
+	}
+	public String toString(){
+		return "[ "+sourceMovie+" --> "+ destinyMovie+" ]\n[ "+username+" : "+comment+" ]\n";
 	}
 }

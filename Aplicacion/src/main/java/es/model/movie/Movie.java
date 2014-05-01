@@ -11,11 +11,15 @@ public class Movie {
 		premiereDate = _premiereDate;
 	}
 	
-	String getName(){ return name; }
-	String getSynopsys(){ return synopsys; }
-	java.sql.Date getPremiereDate(){ return premiereDate; }
+	public String getName(){ return name; }
+	public String getSynopsys(){ return synopsys; }
+	public java.sql.Date getPremiereDate(){ return premiereDate; }
 	
-	void setName( String _name ){ name = _name; }
-	void setSynopsys( String _synopsys ){ synopsys = _synopsys; }
-	void setPremiereDate( java.sql.Date _premiereDate ) { premiereDate = _premiereDate; }	
+	public void setName( String _name ){ name = _name; }
+	public void setSynopsys( String _synopsys ){ synopsys = _synopsys; }
+	public void setPremiereDate( java.sql.Date _premiereDate ) { premiereDate = _premiereDate; }	
+	
+	public String toString(){
+		return "[ "+name+" - "+premiereDate+" ]\n[ "+premiereDate+" ]"; 
+	}
 }

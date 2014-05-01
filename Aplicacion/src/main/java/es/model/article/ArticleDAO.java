@@ -9,7 +9,7 @@ public interface ArticleDAO {
 	public abstract Article find( int articleID )
 		throws es.model.util.exceptions.InstanceNotFoundException;
 	
-	public abstract ArrayList<Article> findArticlesByAuthorID( String authorName, int amount );
+	public abstract ArrayList<Article> findArticlesByAuthorName( String authorName, int amount );
 	
 	public abstract Article insert( String articleTitle, String articleContent, String authorName );
 	

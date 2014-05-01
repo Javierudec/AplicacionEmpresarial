@@ -11,6 +11,15 @@ public interface MovieDAO {
 	
 	public abstract ArrayList<Movie> findByPremiereDate(java.sql.Date date, int amount); 
 	
+	public abstract ArrayList<Movie> findMoviesForGenre(int genreID, int amount);
+	
+	public abstract ArrayList<Movie> findMoviesByActor(int actorID); 
+
+	public abstract int findCalification(String movieName, String userName)
+			throws InstanceNotFoundException; 
+
+	public abstract int findCalificationAverage(String movieName);
+	
 	public abstract Movie insert(Movie movie);
 
 	public abstract void addActorToMovie(String movieTitle, int actorID);

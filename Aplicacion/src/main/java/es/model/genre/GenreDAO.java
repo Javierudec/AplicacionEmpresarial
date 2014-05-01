@@ -1,9 +1,13 @@
 package es.model.genre;
 
+import java.util.ArrayList;
+
 public interface GenreDAO {
 	
 	public Genre find( int ID )
 		throws es.model.util.exceptions.InstanceNotFoundException;
+
+	public ArrayList<Genre> findGenresForMovie(String movieName);
 	
 	public Genre insert( String genreName );
 	

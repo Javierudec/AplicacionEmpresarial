@@ -19,8 +19,9 @@ public class JdbcArticleDAO implements ArticleDAO {
 		try{
 			Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
-					"SELECT currval(pg_get_serial_sequence('article','id'));"); // TODO: test this			
-
+					"SELECT MAX(id) FROM article"); 
+			// TODO: el MAX(id) se puede cambiar por la secuencia utilizada, ¿mas eficiente?
+			
 			ResultSet resultSet = statement.executeQuery();
 			
 			if( resultSet.next() ){
@@ -32,6 +33,7 @@ public class JdbcArticleDAO implements ArticleDAO {
 		return lastID;
 	}
 
+	//Tested!
 	public Article find(int articleID) throws InstanceNotFoundException {
 		Article article = null;
 		try{
@@ -59,7 +61,8 @@ public class JdbcArticleDAO implements ArticleDAO {
 		return article;
 	}
 
-	public ArrayList<Article> findArticlesByAuthorID( String authorName, int amount ) {
+	// Tested!
+	public ArrayList<Article> findArticlesByAuthorName( String authorName, int amount ) {
 		
 		ArrayList<Article> articleList = new ArrayList<Article>();
 		
@@ -129,14 +132,14 @@ public class JdbcArticleDAO implements ArticleDAO {
 			throw new RuntimeException(e);
 		}
 	}
-
+	// Tested
 	public int findCalification(String userName, int articleID)
 			throws InstanceNotFoundException {
 		int Calification = 0;
 		try{
 			Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
-					"SELECT rank FROM rank_article WHERE username='?' AND rankedarticle='?';");
+					"SELECT rank FROM rank_article WHERE username=? AND rankedarticle=?;");
 			
 			statement.setString(1, userName );
 			statement.setInt(2, articleID );
@@ -153,10 +156,27 @@ public class JdbcArticleDAO implements ArticleDAO {
 		}
 		return Calification;	
 	}
-
+//Tested!
 	public int findCalificationAverage(int articleID) {
-		// TODO Auto-generated method stub
-		return 0;
+			int Calification = 0;
+			try{
+				Connection connection = dataSource.getConnection();
+				PreparedStatement statement = connection.prepareStatement(
+						"SELECT AVG(rank) FROM rank_article WHERE rankedarticle=?;");
+				
+				statement.setInt(1, articleID );
+				
+				ResultSet resultSet = statement.executeQuery();
+				
+				if( resultSet.next() ){
+					Calification = resultSet.getInt(1);
+				} else
+					throw new RuntimeException();
+				
+			} catch ( SQLException e ){
+				throw new RuntimeException(e);
+			}
+			return Calification;	
 	}
 
 	public Article update(Article article) throws InstanceNotFoundException {

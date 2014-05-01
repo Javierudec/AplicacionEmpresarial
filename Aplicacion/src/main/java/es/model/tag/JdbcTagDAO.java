@@ -45,6 +45,7 @@ public class JdbcTagDAO implements TagDAO {
 		return tag;
 	}
 
+	// Tested!
 	public Tag findByName(String tagName) throws InstanceNotFoundException {
 		Tag tag = null;
 		
@@ -69,29 +70,20 @@ public class JdbcTagDAO implements TagDAO {
 		}
 		return tag;
 	}
-
+	//Tested!
 	public ArrayList<Tag> findTagsByArticleID(int articleID) {
 		ArrayList<Tag> tagList = new ArrayList<Tag>();
 		
 		try{
 			Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
-					"SELECT id, name FROM article_has_tag WHERE idarticle = ?");
+					"SELECT tag.* FROM tag, article_has_tag WHERE article_has_tag.idarticle = ? AND article_has_tag.idtag = tag.id ");
 			statement.setInt(1, articleID);
 			
 			ResultSet resultSet = statement.executeQuery();
 			
 			while( resultSet.next() ){
-				int tagID = resultSet.getInt(2);
-				
-				Tag tag;
-				try {
-					tag = this.find( tagID );
-					tagList.add( tag );
-				} catch (InstanceNotFoundException e) {
-					//e.printStackTrace();
-					// TODO: se supone que por constrains del servidor esto no ocurre.
-				}
+				tagList.add( new Tag(resultSet.getInt(1), resultSet.getString(2)));
 			}
 		} catch ( SQLException e ){
 			throw new RuntimeException(e);
@@ -116,7 +108,6 @@ public class JdbcTagDAO implements TagDAO {
 			if( resultSet.next() ){
 				int tagID = resultSet.getInt(1);
 				tag = new Tag( tagID, tagName );
-				//System.out.println(tagID + " " + tagName);
 			}
 		} catch ( SQLException e ){
 			throw new RuntimeException(e);

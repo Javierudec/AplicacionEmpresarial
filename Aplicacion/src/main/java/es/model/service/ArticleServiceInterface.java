@@ -24,6 +24,6 @@ public interface ArticleServiceInterface {
 
 	public abstract ArrayList<Tag> findTagsByArticleID( int articleID );
 
-	public ArrayList<Article> findLastArticles( int amount ) throws InstanceNotFoundException;
+	public ArrayList<Article> findLastArticles( int amount );
 
 }

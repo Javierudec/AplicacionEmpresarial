@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
@@ -13,13 +14,14 @@ public class JdbcActorDAO implements ActorDAO {
 
 	private DataSource dataSource;
 	
+	// Tested!
 	public Actor find(int actorID) throws InstanceNotFoundException {
 		Actor actor = null;
 		
 		try{
 			Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
-					"SELECT id,  name FROM actor WHERE id = ?");
+					"SELECT id, name FROM actor WHERE id = ?");
 			statement.setInt(1, actorID);
 			
 			ResultSet resultSet = statement.executeQuery();
@@ -38,14 +40,40 @@ public class JdbcActorDAO implements ActorDAO {
 		return actor;
 
 	}
-
+	/*
+	 * Tested!
+	 * TODO: add amount!
+	 */
+	public ArrayList<Actor> findActorsForMovie(String movieName)
+	{
+		ArrayList<Actor> actors = new ArrayList<Actor>();
+		
+		try{
+			Connection connection = dataSource.getConnection();
+			PreparedStatement statement = connection.prepareStatement(
+					"SELECT actor.* FROM actor, movie_has_actor WHERE movie_has_actor.movietitle = ? AND movie_has_actor.idactor = actor.id");
+			
+			statement.setString( 1, movieName );
+			//statement.setInt( 2, amount );
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			while( resultSet.next() )
+				actors.add( new Actor(resultSet.getInt(1),resultSet.getString(2) ) );
+			
+		} catch ( SQLException e ){
+			throw new RuntimeException(e);
+		}
+		return actors;
+	}
+	
+	// Tested!
 	public Actor insert(String actorName) {
 		Actor actor = null;
 		try{
 			Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
-					"INSERT INTO actor (name) VALUES (?);" +
-					"SELECT currval(pg_get_serial_sequence('actor','id'));"); // TODO: test this			
+					"INSERT INTO actor (name) VALUES (?) RETURNING id;");		
 			
 			statement.setString(1, actorName );
 			ResultSet resultSet = statement.executeQuery();

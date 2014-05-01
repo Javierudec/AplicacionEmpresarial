@@ -13,6 +13,7 @@ public class JdbcUserDAO implements UserDAO {
 	
 	private DataSource dataSource;
 
+	
 	public User find(String userName) throws InstanceNotFoundException {
 		User user = null;
 		
@@ -39,11 +40,9 @@ public class JdbcUserDAO implements UserDAO {
 		return user;
 	}
 
-	public User insert(User user) {
-		if(user == null) return null;
-		
+	// TODO: check if user already exist!
+	public User insert(User user) {		
 		PreparedStatement statement;
-		
 		try{
 			Connection connection = dataSource.getConnection();
 			statement = connection.prepareStatement(

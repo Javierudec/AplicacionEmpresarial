@@ -25,6 +25,145 @@ public class MovieService implements MovieServiceInterface {
 	@SuppressWarnings("unused")
 	private PlatformTransactionManager transactionManager;
 	
+	
+	// Tested
+	@Transactional
+	public Genre addGenre(String genreName) 
+	{
+		Genre genre = genreDAO.insert(genreName);
+		
+		return genre;
+	}
+	
+	// Tested!
+	@Transactional
+	public Actor addActor(String actorName)
+	{
+		Actor actor = actorDAO.insert(actorName);
+		
+		return actor;
+	}
+	
+	//Tested!
+	@Transactional
+	public Movie addMovie(String name, String synopsis, Date premierDate, ArrayList<Integer> actorsID, ArrayList<Integer> genresID) 
+	{
+		Movie movie = movieDAO.insert(new Movie(name, synopsis, premierDate));
+		
+		
+		for( int i = 0; i < actorsID.size(); ++i ) 
+			movieDAO.addActorToMovie(name, actorsID.get(i));
+		
+		for( int i = 0; i < actorsID.size(); ++i ) 
+			movieDAO.addGenreToMovie(name, genresID.get(i));
+		
+		return movie;
+	}
+	
+	// Tested!
+	@Transactional
+	public void addRelationForMovie(String sourceName, String destinyMovie, String username, String comment) 
+	{
+		relationDAO.insert( new Relation(sourceName, destinyMovie, username, comment) );		
+	}
+
+	/*
+	 * Tested!
+	 * TODO: añadir la restriccion, solo una calificacion por usuario
+	 */
+	@Transactional
+	public void setMovieCalificationForUser(String userName, String movieName, Integer calification) 
+	{
+		movieDAO.addCalificationToMovie( userName, movieName, calification);		
+	}
+	// Tested!
+	public Genre findGenreByID(Integer id) throws InstanceNotFoundException {
+		Genre genre = null;
+		try {
+			genre = genreDAO.find(id);
+		} catch (InstanceNotFoundException e) {
+			throw e;
+		}
+		return genre;
+	}
+
+	//Tested!
+	public Actor findActorByID(Integer id) throws InstanceNotFoundException {
+		Actor actor = null;
+		try {
+			actor = actorDAO.find(id);
+		} catch (InstanceNotFoundException e) {
+			throw e;
+		}
+		return actor;
+	}
+
+	//Tested!
+	public Movie findMovieByName(String movieName) throws InstanceNotFoundException {
+		Movie movie = null;
+		try {
+			movie = movieDAO.find(movieName);
+		} catch (InstanceNotFoundException e) {
+			throw e;
+		}
+		return movie;
+	}
+	// Tested!
+	public ArrayList<Movie> findMoviesForGenre(Integer genreID) 
+	{
+		return movieDAO.findMoviesForGenre( genreID, 10 );
+	}
+	// Tested!
+	public ArrayList<Movie> findMoviesByActor(Integer actorID) 
+	{
+		return movieDAO.findMoviesByActor( actorID );
+	}
+	// Tested!
+	public ArrayList<Genre> findGenreForMovie(String movieName) 
+	{
+		return genreDAO.findGenresForMovie( movieName );
+	}
+	// Tested!
+	public ArrayList<Actor> findActorForMovie(String movieName)
+	{
+		return actorDAO.findActorsForMovie( movieName );
+	}
+	// Tested!
+	public Integer findCalification(String movieName, String userName) throws InstanceNotFoundException 
+	{
+		return movieDAO.findCalification( movieName, userName );
+	}
+	// Tested!
+	public Integer findCalificationAverage(String movieName) 
+	{
+		return movieDAO.findCalificationAverage( movieName );
+	}
+	// Tested!
+	public ArrayList<Relation> findRelationsForMovie(String movieName, Integer amount) 
+	{
+		return relationDAO.findRelationForMovie( movieName, amount );
+	}
+	// Tested
+	// No tiene sentido que authorName == userName
+	public Boolean userHasApprovedMovieRelation(String sourceName, String destinyName, String authorName, String userName)
+	{
+		return relationDAO.userHasApprovedMovieRelation(sourceName, destinyName, authorName, userName);
+		
+	}
+	// Tested
+	public void setApprovedStatus(String sourceName, String destinyName,
+			String authorName, String userName, Boolean approvalStatus) {
+		try {
+			if( approvalStatus )
+				relationDAO.insertApproval( sourceName, destinyName, authorName, userName );
+			else
+				relationDAO.deleteApproval( sourceName, destinyName, authorName, userName );
+		} catch (InstanceNotFoundException e) {
+			// Si el estado no corresponde en verdad no se quiere hacer nada mas.
+		}
+	}
+	
+	
 	public void setActorDAO(ActorDAO actorDAO) 
 	{
 		this.actorDAO = actorDAO;
@@ -44,150 +183,11 @@ public class MovieService implements MovieServiceInterface {
 	{
 		this.relationDAO = relationDAO;
 	}
-	
 	public void setTransactionManager(PlatformTransactionManager transactionManager) 
 	{
 		this.transactionManager = transactionManager;
 	}
-	
-	@Transactional
-	public Genre addGenre(String genreName) 
-	{
-		Genre genre = genreDAO.insert(genreName);
-		
-		return genre;
-	}
-	
-	@Transactional
-	public Actor addActor(String actorName)
-	{
-		Actor actor = actorDAO.insert(actorName);
-		
-		return actor;
-	}
-	
-	@Transactional
-	public Movie addMovie(String name, String synopsis, Date premierDate, ArrayList<Integer> actorsID, ArrayList<Integer> genresID) 
-	{
-		Movie movie = movieDAO.insert(new Movie(name, synopsis, premierDate));
-		
-		while(actorsID.iterator().hasNext()) 
-		{
-			int currID = actorsID.iterator().next();
-			movieDAO.addActorToMovie(name, currID);
-		}
-		
-		while(genresID.iterator().hasNext())
-		{
-			int currID = genresID.iterator().next();
-			movieDAO.addGenreToMovie(name, currID);
-		}
-		
-		return movie;
-	}
 
-	@Transactional
-	public void addRelationForMovie(String sourceName, String destinyMovie, String username, String comment) 
-	{
-		relationDAO.insert(new Relation(sourceName, destinyMovie, username, comment));		
-	}
 
-	@Transactional
-	public void setMovieCalificationForUser(String username, String movieID, Integer calification) 
-	{
-		movieDAO.addCalificationToMovie(movieID, username, calification);		
-	}
-
-	public Genre findGenreByID(Integer id) {
-		Genre genre = null;
-		try {
-			genre = genreDAO.find(id);
-		} catch (InstanceNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return genre;
-	}
-
-	public Actor findActorByID(Integer id) {
-		Actor actor = null;
-		try {
-			actor = actorDAO.find(id);
-		} catch (InstanceNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return actor;
-	}
-
-	public Movie findMovieByName(String movieName) {
-		Movie movie = null;
-		try {
-			movie = movieDAO.find(movieName);
-		} catch (InstanceNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return movie;
-	}
-
-	public ArrayList<Movie> findMoviesForGenre(Integer genreID) 
-	{
-	
-		return null;
-	}
-
-	public ArrayList<Movie> findMoviesByActor(Integer actorID) 
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public ArrayList<Genre> findGenreForMovie(String movieName) 
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public ArrayList<Actor> findActorForMovie(String movieName)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Integer findCalification(String movieName, String username) 
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Integer findCalificationAverage(String movieName) 
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public ArrayList<Relation> findRelationsForMovie(String movieName,
-			Integer amount) 
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Boolean userHasApprovedMovieRelation(String sourceName,
-			String destinyName, String username)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void setApprovedStatus(String sourceName, String destinyName,
-			String username, Boolean approvalStatus)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-	
 	
 }

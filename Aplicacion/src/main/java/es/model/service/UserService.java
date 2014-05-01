@@ -12,43 +12,28 @@ import es.model.user.UserDAO;
 import es.model.util.exceptions.InstanceNotFoundException;
 
 
-public class UserService {
+public class UserService implements UserServiceInterface {
 	
 	private UserDAO userDAO;
 	private ArticleDAO articleDAO;
 	@SuppressWarnings("unused")
 	private PlatformTransactionManager transactionManager;
 	
+	//Tested!
 	public ArrayList<Article> findArticlesOfUser( String authorName ){	
-		return articleDAO.findArticlesByAuthorID(authorName, 10);
-		
+		return articleDAO.findArticlesByAuthorName(authorName, 10);
 	}
 
-	// TODO : If user Name already exist in data base, throw something.
+	// Tested!
+	// TODO: throw if user already exist!
 	public User addUser( User user ){
 		return userDAO.insert(user);
 	}
 
-	/**
-	 * 
-	 * @param userName user name to be found.
-	 * @return User class with the user data.
-	 * @throws InstanceNotFoundException in case that the user name isn't found.
-	 */
+	// Tested
 	public User findUserByName(String userName) throws InstanceNotFoundException {
-		//TransactionStatus transactionStatus =
-		//		transactionManager.getTransaction(null);
 		User user = null;
-		
-		
 		user = userDAO.find( userName ); 
-		//		transactionManager.commit(transactionStatus);	// COMMIT
-				
-		//} catch (RuntimeException e) {
-		//	transactionManager.rollback(transactionStatus);	// ROLLBACK
-		//	throw e;
-		//}
-		
 		return user;
 	}		
 

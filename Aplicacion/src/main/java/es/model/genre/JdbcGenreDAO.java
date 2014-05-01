@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
@@ -38,17 +39,42 @@ public class JdbcGenreDAO implements GenreDAO {
 		}
 		return genre;
 	}
+	/*
+	 * Tested!
+	 * TODO: add amount!
+	 */
+	public ArrayList<Genre> findGenresForMovie(String movieName){
 
+		ArrayList<Genre> genre = new ArrayList<Genre>();
+		
+		try{
+			Connection connection = dataSource.getConnection();
+			PreparedStatement statement = connection.prepareStatement(
+					"SELECT genre.* FROM genre, movie_has_genre WHERE movie_has_genre.movietitle = ? AND movie_has_genre.idgenre = genre.id");
+			
+			statement.setString( 1, movieName );
+			//statement.setInt( 2, amount );
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			while( resultSet.next() )
+				genre.add( new Genre(resultSet.getInt(1),resultSet.getString(2) ) );
+			
+		} catch ( SQLException e ){
+			throw new RuntimeException(e);
+		}
+		return genre;
+	}
+
+	// Tested!
 	public Genre insert(String genreName) {
 		Genre genre = null;
 		try{
 			Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
-					"INSERT INTO genre (name) VALUES (?);" +
-					"SELECT currval(pg_get_serial_sequence('genre','id'));"); // TODO: test this			
+					"INSERT INTO genre (name) VALUES (?) RETURNING id;");	
 			
 			statement.setString(1, genreName );
-			
 			ResultSet resultSet = statement.executeQuery();
 			
 			if( resultSet.next() ){
@@ -61,9 +87,9 @@ public class JdbcGenreDAO implements GenreDAO {
 			throw new RuntimeException(e);
 		}
 		return genre;
-
 	}
 
+	
 	public Genre update(Genre genre) throws InstanceNotFoundException {
 		
 		try{

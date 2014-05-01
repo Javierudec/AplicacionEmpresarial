@@ -47,13 +47,13 @@ public void addArticleCalificationForUser( int calification, String userName, in
 	
 	articleDAO.addArticleCalification(calification, userName, articleID);	
 }
-
+//Tested!
 public Tag addTag( String tagName ){
 	Tag tag;
 	tag = tagDAO.insert(tagName);
 	return tag;
 }
-
+//Tested!
 public boolean tagExist( String tagName ){
 	try {
 		tagDAO.findByName(tagName);
@@ -62,35 +62,40 @@ public boolean tagExist( String tagName ){
 	}
 	return true;
 }
-
+//Tested!
 public Article findArticleByID( int articleID ) throws InstanceNotFoundException{
 	Article article;
 	article = articleDAO.find(articleID);
 	
 	return article;
 }
-
+//Tested
 public int findCalification( String userName, int articleID ) throws InstanceNotFoundException{
 	return articleDAO.findCalification(userName, articleID);
 }
-
+//Tested!
 public int findCalificationAverage( int articleID ){
 	return articleDAO.findCalificationAverage(articleID);
 }
-
+//Tested!
 public ArrayList<Tag> findTagsByArticleID( int articleID ){
 	ArrayList<Tag> tagList;
 	tagList = tagDAO.findTagsByArticleID(articleID);
 	return tagList;
 }
-
-// TODO: REVISAR, en verdad nunca "deberia" darse ese throws.
-@Transactional(rollbackFor={InstanceNotFoundException.class})
-public ArrayList<Article> findLastArticles( int amount ) throws InstanceNotFoundException{
+//Tested
+// TODO: y si los numeros no estan de corrido?
+public ArrayList<Article> findLastArticles( int amount ) {
 	ArrayList<Article> articleList = new ArrayList<Article>();
 	int lastID = articleDAO.findLastID();
-	while( amount-- > 0 )
-		articleList.add( articleDAO.find(lastID--) );
+	
+	while( 0 < amount && lastID > 0 )
+		amount--;
+		try {
+			articleList.add( articleDAO.find(lastID--) );
+		} catch (InstanceNotFoundException e) {
+			
+		}
 	return articleList;
 }
 

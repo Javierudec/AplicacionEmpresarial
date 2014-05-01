@@ -19,4 +19,5 @@ public class User {
 	public void setPassword( String _password ){ password = _password; }
 	public void setEmail( String _email ){ email = _email; }
 	
+	public String toString(){ return "[ "+name+" - "+email+" ] ";}
 }
