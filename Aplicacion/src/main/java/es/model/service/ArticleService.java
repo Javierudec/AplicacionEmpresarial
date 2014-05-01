@@ -12,7 +12,7 @@ import es.model.tag.TagDAO;
 import es.model.user.UserDAO;
 import es.model.util.exceptions.InstanceNotFoundException;
 
-public class ArticleService {
+public class ArticleService implements ArticleServiceInterface{
 
 private TagDAO tagDAO;
 private ArticleDAO articleDAO;
@@ -29,7 +29,6 @@ public Article addArticle( String articleTitle, String articleContent, String au
 	for(int i = 0; i < tagsID.size(); i++)
 	{
 		int tagID = tagsID.get(i);
-		//System.out.println(tagID);
 		Tag tag = tagDAO.find(tagID);
 		tagDAO.insertArticleOwnTag(article, tag);
 	}
