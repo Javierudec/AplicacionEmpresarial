@@ -7,12 +7,12 @@
 <body>
 
 <div>
-	Welcome to the Spring MVC examples.
+	Use of case 1: Last movies added.
 </div>
 
-<div>Try the each example:</div>
+<div>Try the example:</div>
 
-<a href="/mvc/main/emp/list">List of employees</a>
+<a href="/recomendar/main/movie/list">List of Movies</a>
 
 </body>
 
