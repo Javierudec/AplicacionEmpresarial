@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -40,7 +41,31 @@ public class JdbcMovieDAO implements MovieDAO {
 		}
 		return movie;
 	}
+	
+	public List<Movie> findLastMoviesAdded(int i) {
+		ArrayList<Movie> movie = new ArrayList<Movie>();
+	
+		try{
+			Connection connection = dataSource.getConnection();
+			PreparedStatement statement = connection.prepareStatement(
+					"SELECT title, synopsis, debut_date FROM movie ORDER BY debut_date");
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			while( resultSet.next() && 0 < i-- ){ // TODO: check if this works
+				String newMovieName = resultSet.getString(1);
+				String newMovieSynopsys = resultSet.getString(2);
+				java.sql.Date newMovieDebutDate = resultSet.getDate(3); // TODO: check if this works
+				
+				movie.add( new Movie(newMovieName, newMovieSynopsys, newMovieDebutDate) );
+			}
+		} catch ( SQLException e ){
+			throw new RuntimeException(e);
+		}
 
+		return movie;
+	}
+	
 	public ArrayList<Movie> findByPremiereDate(java.sql.Date date, int amount) {
 		ArrayList<Movie> movie = new ArrayList<Movie>();
 		
@@ -267,5 +292,4 @@ public class JdbcMovieDAO implements MovieDAO {
 			throw new RuntimeException(e);
 		}
 	}
-
 }

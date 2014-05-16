@@ -1,6 +1,7 @@
 package es.model.movie;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import es.model.util.exceptions.InstanceNotFoundException;
 
@@ -33,6 +34,6 @@ public interface MovieDAO {
 
 	public abstract void delete(String movieName)
 			throws InstanceNotFoundException;
-	
-	
+
+	public abstract List<Movie> findLastMoviesAdded(int i);
 }

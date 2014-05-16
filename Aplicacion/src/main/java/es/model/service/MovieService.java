@@ -15,6 +15,7 @@ import es.model.util.exceptions.InstanceNotFoundException;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MovieService implements MovieServiceInterface {
 	private ActorDAO actorDAO;
@@ -108,6 +109,11 @@ public class MovieService implements MovieServiceInterface {
 		}
 		return movie;
 	}
+	
+	public List<Movie> findLastMoviesAdded(int i) {
+		return movieDAO.findLastMoviesAdded(i);
+	}
+	
 	// Tested!
 	public ArrayList<Movie> findMoviesForGenre(Integer genreID) 
 	{
@@ -186,8 +192,5 @@ public class MovieService implements MovieServiceInterface {
 	public void setTransactionManager(PlatformTransactionManager transactionManager) 
 	{
 		this.transactionManager = transactionManager;
-	}
-
-
-	
+	}	
 }

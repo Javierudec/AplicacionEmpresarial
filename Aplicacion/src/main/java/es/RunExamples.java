@@ -2,6 +2,7 @@ package es;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -26,6 +27,15 @@ public class RunExamples {
     	MovieService movieService = (MovieService) context.getBean("movieServiceBean");
     	UserService userService = ( UserService ) context.getBean("userServiceBean");
     	ArticleService articleService = ( ArticleService ) context.getBean("articleServiceBean");
+    	
+    	
+    	List<Movie> list = movieService.findLastMoviesAdded(10);
+		System.out.println("asdasd");
+		for(int i = 0; i < list.size(); i++)
+		{
+			System.out.println(list.get(i).getName());
+		}
+    	
     	/*
     	Actor actor001 = null;
 		try {
