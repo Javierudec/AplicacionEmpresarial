@@ -21,6 +21,13 @@
         <scope>runtime</scope>
 	</dependency>
 	
+	<!-- ================ Tapestry         ================= -->
+	<dependency>
+		<groupId>org.apache.tapestry</groupId>
+		<artifactId>tapestry-core</artifactId>
+		<version>5.3.7</version>
+	</dependency>
+	
     <!-- ================ Spring framework ================= -->
 	<dependency>
 		<groupId>org.springframework</groupId>
@@ -106,6 +113,5 @@
     	</plugin>
     	
 	</plugins>
-  </build>
-  
+  </build>  
 </project>
