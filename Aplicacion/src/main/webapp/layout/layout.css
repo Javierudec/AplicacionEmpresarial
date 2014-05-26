@@ -73,13 +73,8 @@ a:hover {
     height: 42px;
 }
 
-#logo h1, #logo p {
-    float: left;
-    text-transform: lowercase;
-}
-
 #logo h1 {
-    padding: 0px 0 0 40px;
+    padding: 0px 0 0 60px;
 }
 
 #logo p {
@@ -93,6 +88,10 @@ a:hover {
 #logo a {
     text-decoration: none;
     color: #D0C7A6;
+}
+
+#searchBar {
+	width: 800px;
 }
 
 #menu {
@@ -366,4 +365,34 @@ a:hover {
 
 #footer .legal a {
     padding: 0;
+}
+
+#menu ul
+{
+	float:left;
+	width:100%;
+	padding:0;
+	margin:0;
+	list-style-type:none;
+}
+
+#menu a
+{
+	float:left;
+	width:6em;
+	text-decoration:none;
+	color:white;
+	background-color:purple;
+	padding:0.2em 0.6em;
+	border-right:1px solid white;
+}
+
+#menu a:hover
+{
+	background-color:#ff3300;
+}
+
+#menu li 
+{
+	display:inline;
 }

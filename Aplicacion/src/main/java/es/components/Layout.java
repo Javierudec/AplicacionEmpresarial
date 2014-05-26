@@ -8,6 +8,8 @@ import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.ioc.annotations.*;
 import org.apache.tapestry5.BindingConstants;
 
+import entities.WebPage;
+
 /**
  * Layout component for pages of application tutorial1.
  */
@@ -43,6 +45,6 @@ public class Layout
 
     public String[] getPageNames()
     {
-      return new String[] { "Index", "About", "Contact" };
+      return new String[] { "Index", "Movies", "Reviews", "AboutUs" };
     }
 }

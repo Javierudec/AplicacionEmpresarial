@@ -23,18 +23,25 @@ Description: A Web 2.0 design with fluid width suitable for blogs and small webs
         <div id="header">
             <div id="logo">
                 <h1>
-                    <t:pagelink page="index">com.example:tutorial1</t:pagelink>
+                    <t:pagelink page="index">MoviesDB</t:pagelink>
                 </h1>
+            </div>
+            <div id="searchBar">
+            	<form>
+            		<input type="textfield" width="450" value="Buscar..." />
+            		<input type="submit" value="Go!"/>
+            	</form>
             </div>
             <div id="menu">
                 <ul>
                     <li t:type="loop" source="pageNames" value="pageName" class="prop:classForPageName">
-                        <!--  <t:pagelink page="prop:pageName">${pageName}</t:pagelink> -->
+                         <t:pagelink page="prop:pageName">${pageName}</t:pagelink>
                     </li>
                 </ul>
             </div>
         </div>
         <!-- end header -->
+        
         <!-- start page -->
         <div id="page">
             <!-- start sidebar -->

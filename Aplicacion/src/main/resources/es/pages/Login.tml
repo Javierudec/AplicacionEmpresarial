@@ -4,8 +4,5 @@
   <p>
     I'm thinking of a number between one and ten ... </p>
  
-<ul>
-  <li><t:pagelink page="AccountCreation">Login</t:pagelink></li>
-</ul>
- 
+	<t:beaneditform object="loginInformation"/>
 </html>
