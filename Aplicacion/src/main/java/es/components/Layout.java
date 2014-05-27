@@ -9,6 +9,7 @@ import org.apache.tapestry5.ioc.annotations.*;
 import org.apache.tapestry5.BindingConstants;
 
 import entities.WebPage;
+import es.model.user.User;
 
 /**
  * Layout component for pages of application tutorial1.
@@ -17,6 +18,10 @@ import entities.WebPage;
 //@Import(stylesheet="context:layout/layout.css")
 public class Layout
 {
+	@SessionAttribute("loggedInUserName")
+	@Property
+	private String username; //Information about identified user. PERSISTENT to all page sites.
+	
     /** The page title, for the <title> element and the <h1> element. */
     @Property
     @Parameter(required = true, defaultPrefix = BindingConstants.LITERAL)
@@ -35,7 +40,12 @@ public class Layout
 
     @Inject
     private ComponentResources resources;
-
+    
+    public Layout()
+    {
+    	username = "Guest";
+    }
+    
     public String getClassForPageName()
     {
       return resources.getPageName().equalsIgnoreCase(pageName)

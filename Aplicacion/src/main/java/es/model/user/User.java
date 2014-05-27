@@ -9,6 +9,13 @@ public class User {
 	
 	private String email;
 	
+	public User()
+	{
+		name = "Guest";
+		password = "";
+		email = "nomail@nomail.com";
+	}
+	
 	public User( String _name, String _password, String _email ){
 		name = _name;
 		password = _password;
