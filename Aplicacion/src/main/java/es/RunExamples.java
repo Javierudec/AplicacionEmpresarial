@@ -113,7 +113,8 @@ public class RunExamples {
     	//System.out.println(movieService.userHasApprovedMovieRelation("My name is Khan", "Thor", "lcjury", "lcjury"));
     	//movieService.setApprovedStatus("My name is Khan", "Thor", "lcjury", "lcjury", true);
     	
-    	//userService.addUser(new User("Jury", "jurypass", "jurymail@mail.jury"));
+    	//userService.addUser(new User("Jury", "jurypass", "jurymail@mail.jury"));-
+		
     	/* try {
 			System.out.println(userService.findUserByName("lcjury"));
 		} catch (InstanceNotFoundException e) {

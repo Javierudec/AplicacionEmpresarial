@@ -2,9 +2,9 @@ package entities;
 
 import org.apache.tapestry5.beaneditor.Validate;
 
-public class AccountInformation {
+public class UserInformation {
 	@Validate("required")
-	public String username;
+	public String name;
 	
 	@Validate("required,minLength=6,maxLength=20")
 	public String password;

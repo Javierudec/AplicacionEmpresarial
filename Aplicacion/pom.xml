@@ -12,7 +12,6 @@
   </properties>
   
   <dependencies>
-  
   	<!-- ========== Driver JDBC para PostgreSQL ========== -->
 	<dependency>
 		<groupId>postgresql</groupId>

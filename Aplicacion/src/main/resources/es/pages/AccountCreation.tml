@@ -2,8 +2,8 @@
   xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
  
 <t:beaneditform submitlabel="Create account"
-				object="accountInformation" 
-                reorder="username,password,email"/>
+				object="userInformation" 
+                reorder="name,password,email"/>
                
 
 </html>
