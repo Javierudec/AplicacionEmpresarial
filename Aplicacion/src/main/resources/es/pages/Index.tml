@@ -13,6 +13,10 @@ Para ingresar como administrador, hacer Login con username: admin, password: adm
 <tr/>
 
 <h1>Movies</h1>
-
+<ul>
+	<t:Loop t:source="lastMovies" value="movieName">
+		<li><t:actionLink t:id="viewProfile" t:context="movieName.name">${movieName.name} (${movieScore} / 5)</t:actionLink></li>
+	</t:Loop>
+</ul>
  
 </html>

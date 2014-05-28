@@ -1,5 +1,7 @@
 package es.model.movie;
 
+import org.apache.tapestry5.annotations.Property;
+
 public class Movie {
 	private String name;
 	private String synopsys;

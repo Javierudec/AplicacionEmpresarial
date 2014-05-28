@@ -3,6 +3,7 @@ package util;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import es.model.service.MovieService;
 import es.model.service.UserService;
 
 public class SpringUtils {
@@ -44,5 +45,15 @@ public class SpringUtils {
 		}
 		
 		return (UserService)context.getBean("userServiceBean");
+	}
+
+	public static MovieService getMovieService() 
+	{
+		if(getSpring() == null)
+		{
+			return null;		
+		}
+		
+		return (MovieService)context.getBean("movieServiceBean");
 	}
 }
