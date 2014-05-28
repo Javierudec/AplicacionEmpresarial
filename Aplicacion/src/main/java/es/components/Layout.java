@@ -43,7 +43,7 @@ public class Layout
     
     public Layout()
     {
-    	username = "Guest";
+    	//username = "Guest";
     }
     
     public String getClassForPageName()

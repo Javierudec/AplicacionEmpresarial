@@ -1,11 +1,18 @@
 <html t:type="layout" title="Hi/Lo Guess"
   xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
- 
-  <p>
-    I'm thinking of a number between one and ten ... </p>
- 
+     
+
+Para ingresar como administrador, hacer Login con username: admin, password: admin01
+
 <ul>
-  <li><t:pagelink page="AccountCreation">Login</t:pagelink></li>
+  <li><t:pagelink page="AccountCreation">Create account</t:pagelink></li>
+  <li><t:pagelink page="Login">Login</t:pagelink></li>
+  <li><t:pagelink page="AddMovie">Add Movie</t:pagelink></li>
 </ul>
+
+<tr/>
+
+<h1>Movies</h1>
+
  
 </html>

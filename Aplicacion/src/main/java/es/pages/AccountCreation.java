@@ -8,6 +8,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import util.SpringUtils;
 import entities.UserInformation;
 import es.model.service.UserService;
 import es.model.user.User;
@@ -29,9 +30,7 @@ public class AccountCreation {
 	
 	public AccountCreation()
 	{
-		ApplicationContext context = new ClassPathXmlApplicationContext("spring-module.xml");
-    	
-    	userService = (UserService)context.getBean("userServiceBean");
+		userService = SpringUtils.getUserService();
 	}
 	
 	//This method is executed when the form inside AccountCreation Page is submitted.
