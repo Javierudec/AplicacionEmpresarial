@@ -1,13 +1,18 @@
 <html t:type="layout" title="Hi/Lo Guess"
-  xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+  xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+  xmlns:p="tapestry:parameter">
      
 
 Para ingresar como administrador, hacer Login con username: admin, password: admin01
 
 <ul>
-  <li><t:pagelink page="AccountCreation">Create account</t:pagelink></li>
-  <li><t:pagelink page="Login">Login</t:pagelink></li>
-  <li><t:pagelink page="AddMovie">Add Movie</t:pagelink></li>
+	<t:if test="username">
+		<li><t:pagelink page="AddMovie">Add Movie</t:pagelink></li>
+		<p:else>
+	    	<li><t:pagelink page="AccountCreation">Create account</t:pagelink></li>
+	    	<li><t:pagelink page="Login">Login</t:pagelink></li>
+		</p:else>
+	</t:if>
 </ul>
 
 <tr/>
@@ -15,7 +20,7 @@ Para ingresar como administrador, hacer Login con username: admin, password: adm
 <h1>Movies</h1>
 <ul>
 	<t:Loop t:source="lastMovies" value="movieName">
-		<li><t:actionLink t:id="viewProfile" t:context="movieName.name">${movieName.name} (${movieScore} / 5)</t:actionLink></li>
+		<li><t:actionLink t:id="viewProfile" t:context="movieName.name">${movieName.name}</t:actionLink></li>
 	</t:Loop>
 </ul>
  

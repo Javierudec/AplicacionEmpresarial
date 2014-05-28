@@ -44,7 +44,7 @@ public class JdbcMovieDAO implements MovieDAO {
 	
 	public List<Movie> findLastMoviesAdded(int i) {
 		ArrayList<Movie> movie = new ArrayList<Movie>();
-	
+
 		try{
 			Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
@@ -56,13 +56,14 @@ public class JdbcMovieDAO implements MovieDAO {
 				String newMovieName = resultSet.getString(1);
 				String newMovieSynopsys = resultSet.getString(2);
 				java.sql.Date newMovieDebutDate = resultSet.getDate(3); // TODO: check if this works
-				
+				//System.out.println("asdf");
 				movie.add( new Movie(newMovieName, newMovieSynopsys, newMovieDebutDate) );
 			}
 		} catch ( SQLException e ){
+			//System.out.println("Exception");
 			throw new RuntimeException(e);
 		}
-
+	
 		return movie;
 	}
 	
@@ -157,29 +158,50 @@ public class JdbcMovieDAO implements MovieDAO {
 				
 			
 		} catch ( SQLException e ){
+			
 			throw new RuntimeException(e);
 		}
+		
 		throw new InstanceNotFoundException();
 	} 
 	// Tested!
 	public int findCalificationAverage(String movieName){
 		int average = 0; // si no hay ningun resultado, regresara 0
+		System.out.println("findCalificationAverage Start. " + movieName);
 		try{
+			System.out.println("Connection...");
+			
 			Connection connection = dataSource.getConnection();
+			
+			if(connection == null) System.out.println("connection is null.");
+			
+			System.out.println("statement...");
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT AVG(rank) FROM rank_movie WHERE rankedmovie = ?;");
+			System.out.println("End statement...");
+			
+			
+			
+			if(statement == null) System.out.println("statement is null.");
+			System.out.println(movieName);
 			
 			statement.setString( 1, movieName ); 
+			
+			
 			
 			ResultSet resultSet = statement.executeQuery();
 			
 			if( resultSet.next() )
 				average = resultSet.getInt(1);
+			
+			System.out.println(movieName + " " + average);
 				
 			
 		} catch ( SQLException e ){
+			System.out.println("Exception");
 			throw new RuntimeException(e);
 		}
+		System.out.println("findCalification method ended.");
 		return average;
 	}
 

@@ -2,4 +2,9 @@
   xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
  
 Movie Profile: ${movieName}
+
+<t:if test="username">
+	<t:beaneditform object="movieEvaluation"/>
+</t:if>
+
 </html>

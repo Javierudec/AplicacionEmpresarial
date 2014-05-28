@@ -18,6 +18,10 @@ import es.model.service.MovieService;
 
 public class Index
 {
+	@SessionAttribute("loggedInUserName")
+	@Property
+	private String username; //Information about identified user. PERSISTENT to all page sites.
+	
 	private MovieService movieService;
 	
 	@InjectPage
@@ -43,8 +47,9 @@ public class Index
 		return movieService.findCalificationAverage(movieName.getName());
 	}
 	
+	
 	Object onActionFromViewProfile(String movieName)
-	{		
+	{				
 		movieProfile.setMovieByName(movieName);
 		
 		return movieProfile;

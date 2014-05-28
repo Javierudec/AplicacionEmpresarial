@@ -1,8 +1,5 @@
 <html t:type="layout" title="Hi/Lo Guess"
   xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
- 
-  <p>
-    I'm thinking of a number between one and ten ... </p>
- 
+
 	<t:beaneditform object="loginInformation"/>
 </html>

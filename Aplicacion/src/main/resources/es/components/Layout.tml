@@ -25,7 +25,12 @@ Description: A Web 2.0 design with fluid width suitable for blogs and small webs
             <div id="logo">
                 <h1>
                     <t:pagelink page="index">MoviesDB</t:pagelink>
-					(Welcome, ${username})
+                    <t:if test="username">
+						(Welcome, ${username})
+						<p:else>
+							(Welcome, Guest)
+						</p:else>
+					</t:if>
                 </h1>
             </div>
             <div id="searchBar">

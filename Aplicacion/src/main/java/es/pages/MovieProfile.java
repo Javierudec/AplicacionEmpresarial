@@ -3,8 +3,17 @@
  */
 package es.pages;
 
+import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionAttribute;
+
+import util.SpringUtils;
+import entities.MovieEvaluation;
+import es.model.service.MovieService;
+import es.model.service.UserService;
+import es.model.user.User;
+import es.model.util.exceptions.InstanceNotFoundException;
 
 /**
  * @author Javier
@@ -15,8 +24,33 @@ public class MovieProfile {
 	@Property
 	private String movieName;
 	
+	@SessionAttribute("loggedInUserName")
+	@Property
+	private String username; //Information about identified user. PERSISTENT to all page sites.
+	
+	@InjectPage
+	private Index index;
+	
+	private MovieService movieService;
+	
+	@Property
+	private MovieEvaluation movieEvaluation;
+	
 	public void setMovieByName(String movieName)
 	{
 		this.movieName = movieName;
+	}
+	
+	public MovieProfile()
+	{
+		movieService = SpringUtils.getMovieService();
+	}
+	
+	//This method is executed when the form inside AccountCreation Page is submitted.
+	Object onSuccess()
+	{		
+		movieService.setMovieCalificationForUser(username, movieName, movieEvaluation.toInt());
+		
+		return index; //Redirect to Index page.
 	}
 }

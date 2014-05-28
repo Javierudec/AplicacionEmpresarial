@@ -45,6 +45,7 @@ public class Login {
 			if(user != null && user.getPassword().equals(loginInformation.password))
 			{
 				username = user.getName();
+				System.out.println(username);
 			}
 
 		} catch (InstanceNotFoundException e) {

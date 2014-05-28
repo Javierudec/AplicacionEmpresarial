@@ -51,12 +51,17 @@ public class MovieService implements MovieServiceInterface {
 	{
 		Movie movie = movieDAO.insert(new Movie(name, synopsis, premierDate));
 		
+		if(actorsID != null)
+		{
+			for( int i = 0; i < actorsID.size(); ++i ) 
+				movieDAO.addActorToMovie(name, actorsID.get(i));
+		}
 		
-		for( int i = 0; i < actorsID.size(); ++i ) 
-			movieDAO.addActorToMovie(name, actorsID.get(i));
-		
-		for( int i = 0; i < actorsID.size(); ++i ) 
-			movieDAO.addGenreToMovie(name, genresID.get(i));
+		if(genresID != null)
+		{
+			for( int i = 0; i < genresID.size(); ++i ) 
+				movieDAO.addGenreToMovie(name, genresID.get(i));
+		}
 		
 		return movie;
 	}

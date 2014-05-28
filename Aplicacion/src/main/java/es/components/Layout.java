@@ -7,8 +7,6 @@ import org.apache.tapestry5.*;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.ioc.annotations.*;
 import org.apache.tapestry5.BindingConstants;
-
-import entities.WebPage;
 import es.model.user.User;
 
 /**
