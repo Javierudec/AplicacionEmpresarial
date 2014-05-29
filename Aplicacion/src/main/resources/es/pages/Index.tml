@@ -10,6 +10,7 @@ Para ingresar como administrador, hacer Login con username: admin, password: adm
 		<t:if test="isAdmin">
 			<li><t:pagelink page="AddMovie">Add Movie</t:pagelink></li>
 		</t:if>
+		<li><t:actionLink t:id="logout">Logout</t:actionLink></li>
 		<p:else>
 	    	<li><t:pagelink page="AccountCreation">Create account</t:pagelink></li>
 	    	<li><t:pagelink page="Login">Login</t:pagelink></li>

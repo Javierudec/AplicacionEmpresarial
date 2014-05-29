@@ -12,6 +12,13 @@
   </properties>
   
   <dependencies>
+  	<!-- ========== Tapestry                    ========== -->
+    <dependency>
+        <groupId>org.apache.tapestry</groupId>
+        <artifactId>tapestry-hibernate</artifactId>
+        <version>5.3.7</version>
+    </dependency>
+  
   	<!-- ========== Driver JDBC para PostgreSQL ========== -->
 	<dependency>
 		<groupId>postgresql</groupId>

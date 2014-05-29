@@ -31,6 +31,8 @@ public class Index
 	
 	@InjectPage
 	private MovieProfile movieProfile;
+	@InjectPage
+	private Index index;
 	
 	@Property
 	private Movie movieName;
@@ -56,10 +58,7 @@ public class Index
 	
 	public int getMovieScore()
 	{
-		//if(movieName == null) return 0;
-		return 0;
-		//TODO: findCalificationAverage se queda pegado!
-		//return movieService.findCalificationAverage(movieName.getName());
+		return movieService.findCalificationAverage(movieName.getName());
 	}
 	
 	public boolean getIsAdmin()
@@ -82,5 +81,12 @@ public class Index
 		movieProfile.setMovieByName(movieName);
 		
 		return movieProfile;
+	}
+	
+	Object onActionFromLogout()
+	{
+		username = null;
+		
+		return index;
 	}
 }

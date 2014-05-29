@@ -167,41 +167,28 @@ public class JdbcMovieDAO implements MovieDAO {
 	// Tested!
 	public int findCalificationAverage(String movieName){
 		int average = 0; // si no hay ningun resultado, regresara 0
-		System.out.println("findCalificationAverage Start. " + movieName);
+		System.out.println("findCalificationAverage: " + movieName);
 		try{
 			System.out.println("Connection...");
 			
 			Connection connection = dataSource.getConnection();
-			
-			if(connection == null) System.out.println("connection is null.");
-			
-			System.out.println("statement...");
+
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT AVG(rank) FROM rank_movie WHERE rankedmovie = ?;");
 			System.out.println("End statement...");
-			
-			
-			
-			if(statement == null) System.out.println("statement is null.");
-			System.out.println(movieName);
-			
+
 			statement.setString( 1, movieName ); 
-			
-			
-			
+
 			ResultSet resultSet = statement.executeQuery();
 			
 			if( resultSet.next() )
 				average = resultSet.getInt(1);
-			
-			System.out.println(movieName + " " + average);
 				
-			
 		} catch ( SQLException e ){
 			System.out.println("Exception");
 			throw new RuntimeException(e);
 		}
-		System.out.println("findCalification method ended.");
+		
 		return average;
 	}
 
