@@ -1,5 +1,10 @@
 package util;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -9,10 +14,18 @@ import es.model.service.UserService;
 public class SpringUtils {
 	private static SpringUtils springUtils;
 	private static ApplicationContext context;
+	private static Connection connection;
 	
 	private SpringUtils()
 	{
 		context = new ClassPathXmlApplicationContext("spring-module.xml");
+		DataSource s = (DataSource)context.getBean("dataSourceBean");
+		try {
+			connection = s.getConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static SpringUtils getSpring()
@@ -55,5 +68,15 @@ public class SpringUtils {
 		}
 		
 		return (MovieService)context.getBean("movieServiceBean");
+	}
+	
+	public static Connection getConnection() 
+	{
+		if(getSpring() == null)
+		{
+			return null;		
+		}
+		
+		return connection;
 	}
 }

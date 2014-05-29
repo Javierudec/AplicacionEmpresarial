@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import util.SpringUtils;
 import es.model.util.exceptions.InstanceNotFoundException;
 
 public class JdbcUserDAO implements UserDAO {
@@ -18,7 +19,8 @@ public class JdbcUserDAO implements UserDAO {
 		User user = null;
 		
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
+			//Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT name, password, mail, rights FROM site_user WHERE name = ?");
 			statement.setString(1, userName);
@@ -54,7 +56,8 @@ public class JdbcUserDAO implements UserDAO {
 	public User insert(User user) {		
 		PreparedStatement statement;
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
+			//Connection connection = dataSource.getConnection();
 			statement = connection.prepareStatement(
 					"INSERT INTO site_user(name,password,mail,rights) VALUES (?,?,?,0);");
 			statement.setString(1, user.getName());
@@ -71,7 +74,8 @@ public class JdbcUserDAO implements UserDAO {
 
 	public User update(User user) throws InstanceNotFoundException {
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
+			//Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"UPDATE site_user SET password = '?', mail = '?'  WHERE name = '?';");
 			
@@ -89,7 +93,8 @@ public class JdbcUserDAO implements UserDAO {
 
 	public void delete(String userName) throws InstanceNotFoundException {
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
+			//Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"DELETE FROM site_user WHERE name = '?';");
 			

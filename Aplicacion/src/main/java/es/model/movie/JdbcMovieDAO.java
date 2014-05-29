@@ -1,5 +1,4 @@
 package es.model.movie;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +8,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import util.SpringUtils;
 import es.model.util.exceptions.InstanceNotFoundException;
 
 public class JdbcMovieDAO implements MovieDAO {
@@ -19,7 +19,8 @@ public class JdbcMovieDAO implements MovieDAO {
 		Movie movie = null;
 		
 		try{
-			Connection connection = dataSource.getConnection();
+			//Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT title, synopsis, debut_date FROM movie WHERE title = ?");
 			statement.setString(1, movieName);
@@ -46,7 +47,8 @@ public class JdbcMovieDAO implements MovieDAO {
 		ArrayList<Movie> movie = new ArrayList<Movie>();
 
 		try{
-			Connection connection = dataSource.getConnection();
+			//Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT title, synopsis, debut_date FROM movie ORDER BY debut_date");
 			
@@ -71,7 +73,8 @@ public class JdbcMovieDAO implements MovieDAO {
 		ArrayList<Movie> movie = new ArrayList<Movie>();
 		
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
+			//Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT title, synopsis, debut_date FROM movie WHERE title = ?");
 			statement.setDate(1, date);
@@ -99,7 +102,8 @@ public class JdbcMovieDAO implements MovieDAO {
 		ArrayList<Movie> movie = new ArrayList<Movie>();
 		
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
+			//Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT movie.* FROM movie, movie_has_genre WHERE movie_has_genre.idgenre = ? AND movie_has_genre.movietitle = movie.title");
 			
@@ -124,7 +128,8 @@ public class JdbcMovieDAO implements MovieDAO {
 		ArrayList<Movie> movie = new ArrayList<Movie>();
 		
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
+			//Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT movie.* FROM movie, movie_has_actor WHERE movie_has_actor.idactor = ? AND movie_has_actor.movietitle = movie.title");
 			
@@ -144,7 +149,8 @@ public class JdbcMovieDAO implements MovieDAO {
 	//Tested!
 	public int findCalification(String movieName, String userName) throws InstanceNotFoundException{
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
+			//Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT rank FROM rank_movie WHERE username = ? AND rankedmovie = ?;");
 			
@@ -167,15 +173,18 @@ public class JdbcMovieDAO implements MovieDAO {
 	// Tested!
 	public int findCalificationAverage(String movieName){
 		int average = 0; // si no hay ningun resultado, regresara 0
-		System.out.println("findCalificationAverage: " + movieName);
+		//System.out.println("findCalificationAverage: " + movieName);
 		try{
 			System.out.println("Connection...");
 			
-			Connection connection = dataSource.getConnection();
-
+			//Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
+			
+			System.out.println(connection);
+			
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT AVG(rank) FROM rank_movie WHERE rankedmovie = ?;");
-			System.out.println("End statement...");
+			//System.out.println("End statement...");
 
 			statement.setString( 1, movieName ); 
 
@@ -185,7 +194,7 @@ public class JdbcMovieDAO implements MovieDAO {
 				average = resultSet.getInt(1);
 				
 		} catch ( SQLException e ){
-			System.out.println("Exception");
+			//System.out.println("Exception");
 			throw new RuntimeException(e);
 		}
 		
@@ -197,7 +206,8 @@ public class JdbcMovieDAO implements MovieDAO {
 	// TODO: lanzar throw cuando el titulo de la pelicula ya exista.
 	public Movie insert(Movie movie) {
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
+			//Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"INSERT INTO movie(title,synopsis,debut_date) VALUES (?,?,?);");
 			statement.setString(1, movie.getName() );
@@ -215,7 +225,8 @@ public class JdbcMovieDAO implements MovieDAO {
 
 	public void update(Movie movie) throws InstanceNotFoundException {
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
+			//Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"UPDATE movie SET synopsis = '?', debut_date = '?'  WHERE title = '?';");
 			
@@ -232,7 +243,8 @@ public class JdbcMovieDAO implements MovieDAO {
 
 	public void delete(String movieName) throws InstanceNotFoundException {
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
+			//Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"DELETE FROM movie WHERE title = '?';");
 			
@@ -252,7 +264,8 @@ public class JdbcMovieDAO implements MovieDAO {
 	//Tested!
 	public void addActorToMovie(String movieTitle, int actorID) {
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
+			//Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"INSERT INTO movie_has_actor(movietitle,idactor) VALUES (?,?);");
 			
@@ -269,7 +282,8 @@ public class JdbcMovieDAO implements MovieDAO {
 	//Tested!
 	public void addGenreToMovie(String genreName, int genreID) {
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
+			//Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"INSERT INTO movie_has_genre(movietitle,idgenre) VALUES (?,?);");
 			
@@ -286,7 +300,8 @@ public class JdbcMovieDAO implements MovieDAO {
 	public void addCalificationToMovie( String userName, String movieTitle, int calification) {
 		//System.out.println(movieTitle);
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
+			//Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"INSERT INTO rank_movie ( username, rankedmovie , rank ) " +
 					"VALUES (?,?,?);");	
