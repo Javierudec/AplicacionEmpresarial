@@ -20,7 +20,7 @@ public class JdbcUserDAO implements UserDAO {
 		try{
 			Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
-					"SELECT name, password, mail FROM site_user WHERE name = ?");
+					"SELECT name, password, mail, rights FROM site_user WHERE name = ?");
 			statement.setString(1, userName);
 			
 			ResultSet resultSet = statement.executeQuery();
@@ -29,8 +29,18 @@ public class JdbcUserDAO implements UserDAO {
 				String newUserName = resultSet.getString(1);
 				String newUserPassword = resultSet.getString(2);
 				String newUserMail = resultSet.getString(3);
+				int rights = resultSet.getInt(4);
 				
 				user = new User(newUserName, newUserPassword, newUserMail);
+				if(rights == 1)
+				{
+					user.setIsAdmin(true);
+				}
+				else
+				{
+					user.setIsAdmin(false);
+				}
+				
 			} else {
 				throw new InstanceNotFoundException();
 			}

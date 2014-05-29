@@ -9,11 +9,14 @@ public class User {
 	
 	private String email;
 	
+	private boolean isAdmin;
+	
 	public User()
 	{
 		name = "Guest";
 		password = "";
 		email = "nomail@nomail.com";
+		isAdmin = false;
 	}
 	
 	public User( String _name, String _password, String _email ){
@@ -31,4 +34,14 @@ public class User {
 	public void setEmail( String _email ){ email = _email; }
 	
 	public String toString(){ return "[ "+name+" - "+email+" ] ";}
+
+	public boolean getIsAdmin() 
+	{
+		return isAdmin;
+	}
+	
+	public void setIsAdmin(boolean b)
+	{
+		isAdmin = b;
+	}
 }
