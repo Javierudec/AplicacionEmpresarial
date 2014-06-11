@@ -13,7 +13,7 @@ import es.model.user.User;
  * Layout component for pages of application tutorial1.
  */
 //@IncludeStylesheet("context:layout/layout.css")
-//@Import(stylesheet="context:layout/layout.css")
+//@Import(stylesheet="context:/layout/layout.css")
 public class Layout
 {
 	@SessionAttribute("loggedInUserName")

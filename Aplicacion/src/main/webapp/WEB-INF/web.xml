@@ -16,9 +16,11 @@
     </filter>
     <filter-mapping>
         <filter-name>app</filter-name>
-        <url-pattern>/webpage/*</url-pattern>
+        <url-pattern>/</url-pattern>
     </filter-mapping>	
-        <servlet>
+    
+     
+    <servlet>
         <servlet-name>Jersey Web Application</servlet-name>
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>
@@ -31,4 +33,5 @@
         <servlet-name>Jersey Web Application</servlet-name>
         <url-pattern>/webapi/*</url-pattern>
     </servlet-mapping>
+    
 </web-app>

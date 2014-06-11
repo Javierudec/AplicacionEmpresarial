@@ -1,0 +1,65 @@
+#newMoviesWidget {
+	background-color: #bfc4d0;
+	float:right;
+	border:2px solid;
+	width: 24%;
+}
+
+#recommenderWidget {
+	background-color: #b0d0de;
+	float:left;
+	border:2px solid;
+	width:75%;
+}
+
+#recommededTagForSearch {
+	background-color: #b0c4df;
+	float:left;
+	border:2px solid;
+	width:30%;
+}
+
+#randomNews {
+	background-color: #b0d0de;
+	float:right;
+	border:2px solid;
+	width:69%;
+}
+
+#menu {
+	width:99.68%;
+	float:left;
+	clear:left;
+	border:2px solid;
+	margin-bottom:2px;
+}
+
+#header {
+	border:2px solid;
+}
+
+#upperWidgetContainer {
+	width:100%;
+	float:left;
+	margin-bottom:2px;
+}
+
+#lowerWidgetContainer {
+	width:100%;
+	float:left;
+	clear:left;
+}
+
+#footer {
+	width:99.68%;
+	float:left;
+	clear:both;
+	border:2px solid;
+	margin-top:2px;
+}
+
+
+body {
+	width:60%;
+	margin: 0 auto;
+}
