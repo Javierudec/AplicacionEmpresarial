@@ -16,12 +16,13 @@
             </div>
             <div id="loginPannel">
             	<t:if test="username">
-            		
+            		<img src="images/silhouette.png" alt="Avatar"></img>
             		<t:actionLink t:id="viewUserProfile">Profile</t:actionLink>
             		<t:actionLink t:id="logout">Logout</t:actionLink>
             		<br/>
 					(Welcome, ${username})
 					<p:else>
+						<img src="images/silhouette.png" alt="Avatar"></img>
 						<t:pagelink page="Login">Login</t:pagelink>
 						<br/>
 						(Welcome, Guest)

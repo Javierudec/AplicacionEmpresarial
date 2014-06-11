@@ -1,26 +1,26 @@
 #newMoviesWidget {
-	background-color: #bfc4d0;
+	background-color:#ffffff;
 	float:right;
 	border:2px solid;
 	width: 24%;
 }
 
 #recommenderWidget {
-	background-color: #b0d0de;
+	background-color:#ffffff;
 	float:left;
 	border:2px solid;
 	width:75%;
 }
 
 #recommededTagForSearch {
-	background-color: #b0c4df;
+	background-color:#ffffff;
 	float:left;
 	border:2px solid;
 	width:30%;
 }
 
 #randomNews {
-	background-color: #b0d0de;
+	background-color:#ffffff;
 	float:right;
 	border:2px solid;
 	width:69%;
@@ -32,6 +32,7 @@
 	clear:left;
 	border:2px solid;
 	margin-bottom:2px;
+	background-color:#ffffff;
 }
 
 #menu li {
@@ -43,6 +44,7 @@
 #header {
 	border:2px solid;
 	height:100px;
+	background-color:#ffffff;
 }
 
 #upperWidgetContainer {
@@ -63,6 +65,7 @@
 	clear:both;
 	border:2px solid;
 	margin-top:2px;
+	background-color:#ffffff;
 }
 
 #logo {
@@ -81,9 +84,11 @@
 	float:right;
 	border:1px solid;
 	margin-right:1px;
+	width:20%;
 }
 
 body {
 	width:60%;
 	margin: 0 auto;
+	background-color:#6eabcf;
 }
