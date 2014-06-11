@@ -27,11 +27,17 @@
 }
 
 #menu {
-	width:99.68%;
+	width:100%;
 	float:left;
 	clear:left;
 	border:2px solid;
 	margin-bottom:2px;
+}
+
+#menu li {
+	display: inline;
+	list-style-type: none;
+	padding-right: 20px;
 }
 
 #header {

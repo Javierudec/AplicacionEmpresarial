@@ -75,7 +75,7 @@ public class Index
 		
 		return false;
 	}
-	
+	/*
 	Object onActionFromViewProfile(String movieName)
 	{				
 		movieProfile.setMovieByName(movieName);
@@ -89,4 +89,5 @@ public class Index
 		
 		return index;
 	}
+	*/
 }

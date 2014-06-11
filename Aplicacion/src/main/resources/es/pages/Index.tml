@@ -2,9 +2,8 @@
   xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
   xmlns:p="tapestry:parameter">
      
-
+<!-- 
 Para ingresar como administrador, hacer Login con username: admin, password: admin01
-
 <ul>
 	<t:if test="username">
 		<t:if test="isAdmin">
@@ -26,5 +25,30 @@ Para ingresar como administrador, hacer Login con username: admin, password: adm
 		<li><t:actionLink t:id="viewProfile" t:context="movieName.name">${movieName.name} (${movieScore}/5)</t:actionLink></li>
 	</t:Loop>
 </ul>
+-->
+<div id="widgetContainer">
+	<div id="upperWidgetContainer">			
+		<div id="recommenderWidget">
+			RecommenderWidget
+		</div>
+		<div id="newMoviesWidget">
+			<h1>Movies</h1>
+			<ul>
+				<t:Loop t:source="lastMovies" value="movieName">
+					<li><t:actionLink t:id="viewProfile" t:context="movieName.name">${movieName.name} (${movieScore}/5)</t:actionLink></li>
+				</t:Loop>
+			</ul>
+		</div>
+	</div>
+		
+	<div id="lowerWidgetContainer">
+		<div id="recommededTagForSearch">
+			RecommndedTagForSearch
+		</div>
+		<div id="randomNews">
+			RandomNews
+		</div>
+	</div>			
+</div>
  
 </html>
