@@ -8,17 +8,23 @@
   
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <jersey.version>2.9</jersey.version>
     <org.springframework-version>3.1.1.RELEASE</org.springframework-version>
   </properties>
   
-  <dependencies>
-  	<!-- ========== Tapestry                    ========== -->
-    <dependency>
-        <groupId>org.apache.tapestry</groupId>
-        <artifactId>tapestry-hibernate</artifactId>
-        <version>5.3.7</version>
-    </dependency>
+      <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.glassfish.jersey</groupId>
+                <artifactId>jersey-bom</artifactId>
+                <version>${jersey.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
   
+  <dependencies>
   	<!-- ========== Driver JDBC para PostgreSQL ========== -->
 	<dependency>
 		<groupId>postgresql</groupId>
@@ -96,6 +102,13 @@
       <artifactId>commons-dbcp</artifactId>
       <version>1.2.2</version>
     </dependency>
+    
+       <dependency>
+           <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet-core</artifactId>
+            <!-- use the following artifactId if you don't need servlet 2.x compatibility -->
+            <!-- artifactId>jersey-container-servlet</artifactId -->
+        </dependency>
     
   </dependencies>
   

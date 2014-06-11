@@ -14,7 +14,7 @@ Description: A Web 2.0 design with fluid width suitable for blogs and small webs
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
       xmlns:p="tapestry:parameter">
     <head>
-    	<link href="${context:layout/layout.css}" rel="stylesheet" type="text/css"/>
+    	<link href="${context:webpage/layout/layout.css}" rel="stylesheet" type="text/css"/>
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
         <!-- <title>${title}</title> -->
         <title>MoviesDB</title>

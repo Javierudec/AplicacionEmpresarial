@@ -1,9 +1,5 @@
 package es.model.movie;
 
-import org.apache.tapestry5.annotations.Property;
-import org.hibernate.annotations.Entity;
-
-@Entity
 public class Movie {
 	private String name;
 	private String synopsys;
