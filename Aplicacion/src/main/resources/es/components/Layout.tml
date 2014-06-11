@@ -12,13 +12,21 @@
             <div id="logo">
                 <h1>
                     <t:pagelink page="index">MoviesDB</t:pagelink>
-                    <t:if test="username">
-						(Welcome, ${username})
-						<p:else>
-							(Welcome, Guest)
-						</p:else>
-					</t:if>
                 </h1>
+            </div>
+            <div id="loginPannel">
+            	<t:if test="username">
+            		
+            		<t:actionLink t:id="viewUserProfile">Profile</t:actionLink>
+            		<t:actionLink t:id="logout">Logout</t:actionLink>
+            		<br/>
+					(Welcome, ${username})
+					<p:else>
+						<t:pagelink page="Login">Login</t:pagelink>
+						<br/>
+						(Welcome, Guest)
+					</p:else>
+				</t:if>
             </div>
             <div id="searchBar">
             	<form>
@@ -26,13 +34,13 @@
             		<input type="submit" value="Go!"/>
             	</form>
             </div>
-            <div id="menu">
-                <ul>
-                    <li t:type="loop" source="pageNames" value="pageName" class="prop:classForPageName">
-                         <t:pagelink page="prop:pageName">${pageName}</t:pagelink>
-                    </li>
-                </ul>
-            </div>
+        </div>
+        <div id="menu">
+        	<ul>
+                <li t:type="loop" source="pageNames" value="pageName" class="prop:classForPageName">
+            	    <t:pagelink page="prop:pageName">${pageName}</t:pagelink>
+        	    </li>
+        	</ul>
         </div>
         <!-- end header -->
         

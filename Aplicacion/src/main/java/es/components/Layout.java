@@ -55,4 +55,16 @@ public class Layout
     {
       return new String[] { "Index", "Movies", "Reviews", "AboutUs" };
     }
+    
+	Object onActionFromLogout()
+	{
+		username = null;
+		
+		return null;
+	}
+	
+	Object onActionFromViewUserProfile()
+	{	
+		return null;
+	}
 }

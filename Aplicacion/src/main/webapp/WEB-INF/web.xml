@@ -34,6 +34,11 @@
         <url-pattern>/aboutus</url-pattern>
     </filter-mapping>	
     
+    
+            <filter-mapping>
+        <filter-name>app</filter-name>
+        <url-pattern>/login</url-pattern>
+    </filter-mapping>	
      
     <servlet>
         <servlet-name>Jersey Web Application</servlet-name>

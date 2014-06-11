@@ -27,7 +27,7 @@
 }
 
 #menu {
-	width:100%;
+	width:99.68%;
 	float:left;
 	clear:left;
 	border:2px solid;
@@ -42,6 +42,7 @@
 
 #header {
 	border:2px solid;
+	height:100px;
 }
 
 #upperWidgetContainer {
@@ -64,6 +65,23 @@
 	margin-top:2px;
 }
 
+#logo {
+	float:left;
+	height:65%;
+	padding-left:10px;
+}
+
+#searchBar {
+	float:left;
+	clear:left;
+	padding-left:10px;
+}
+
+#loginPannel {
+	float:right;
+	border:1px solid;
+	margin-right:1px;
+}
 
 body {
 	width:60%;
