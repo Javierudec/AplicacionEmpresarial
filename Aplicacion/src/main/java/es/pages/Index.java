@@ -36,6 +36,8 @@ public class Index
 	
 	@Property
 	private Movie movieName;
+	@Property
+	private String tag;
 	
 	public Index()
 	{
@@ -75,7 +77,26 @@ public class Index
 		
 		return false;
 	}
-	/*
+	
+	public List<String> getTags()
+	{
+		List<String> listToRet = new ArrayList<String>();
+		
+		//THIS IS JUST A TEST!!!
+		for(int i = 1; i < 7; i++)
+		{
+			try {
+				listToRet.add(movieService.findGenreByID(i).getName());
+			} catch (InstanceNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return listToRet;
+	}
+	
+	
 	Object onActionFromViewProfile(String movieName)
 	{				
 		movieProfile.setMovieByName(movieName);
@@ -83,11 +104,8 @@ public class Index
 		return movieProfile;
 	}
 	
-	Object onActionFromLogout()
+	Object onActionFromViewSearch(String movieName)
 	{
-		username = null;
-		
-		return index;
+		return null;
 	}
-	*/
 }

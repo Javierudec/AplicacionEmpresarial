@@ -43,7 +43,12 @@ Para ingresar como administrador, hacer Login con username: admin, password: adm
 		
 	<div id="lowerWidgetContainer">
 		<div id="recommededTagForSearch">
-			RecommndedTagForSearch
+			<h1>Tags</h1>
+			<ul>
+				<t:Loop t:source="tags" value="tag">
+					<li><t:actionLink t:id="viewSearch" t:context="tag">${tag}</t:actionLink></li>
+				</t:Loop>
+			</ul>
 		</div>
 		<div id="randomNews">
 			RandomNews
