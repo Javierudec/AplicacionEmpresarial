@@ -175,23 +175,34 @@ public class JdbcMovieDAO implements MovieDAO {
 		int average = 0; // si no hay ningun resultado, regresara 0
 		//System.out.println("findCalificationAverage: " + movieName);
 		try{
-			System.out.println("Connection...");
 			
 			//Connection connection = dataSource.getConnection();
 			Connection connection = SpringUtils.getConnection();
 			
 			System.out.println(connection);
 			
-			PreparedStatement statement = connection.prepareStatement(
-					"SELECT AVG(rank) FROM rank_movie WHERE rankedmovie = ?;");
-			//System.out.println("End statement...");
-
-			statement.setString( 1, movieName ); 
-
+			PreparedStatement statement = connection.prepareStatement("SELECT id FROM movie WHERE title = ?;");
+			statement.setString(1, movieName); 
 			ResultSet resultSet = statement.executeQuery();
 			
-			if( resultSet.next() )
-				average = resultSet.getInt(1);
+			int movieID = -1;
+			
+			if(resultSet.next())
+			{
+				movieID = resultSet.getInt(1);
+			}
+			
+			if(movieID != -1)
+			{
+				statement = connection.prepareStatement("SELECT AVG(rank) FROM rank_movie WHERE rankedmovie = ?;");
+				
+				statement.setInt( 1, movieID ); 
+	
+				resultSet = statement.executeQuery();
+				
+				if( resultSet.next() )
+					average = resultSet.getInt(1);
+			}
 				
 		} catch ( SQLException e ){
 			//System.out.println("Exception");
