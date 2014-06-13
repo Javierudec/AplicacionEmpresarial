@@ -3,13 +3,31 @@
 	float:right;
 	border:2px solid;
 	width: 24%;
+	margin-top:5px;
+}
+
+#debutMoviesWidget {
+	background-color:#ffffff;
+	float:right;
+	border:2px solid;
+	width: 24%;
+}
+
+#debutMoviesWidget h1 {
+	text-align:center;
+}
+
+#newMoviesWidget h1 {
+	text-align:center;
 }
 
 #recommenderWidget {
+	padding-top:5px;
+	padding-left:7px;
 	background-color:#ffffff;
 	float:left;
 	border:2px solid;
-	width:75%;
+	width:74%;
 }
 
 #recommededTagForSearch {
@@ -85,6 +103,40 @@
 	border:1px solid;
 	margin-right:1px;
 	width:23%;
+}
+
+#recommendedMovie {
+	float:left;
+	border:1px solid;
+	width:32.5%;
+	min-height:480px;
+	max-height:480px;
+	margin-right:5px;
+	margin-bottom:5px;
+}
+
+#moviePoster {
+	display:block;
+	margin:auto;
+	top:20px;
+	position:relative;
+	max-width:90%;
+	max-height:80%;
+}
+
+#stars {
+	display:block;
+	margin:auto;
+	position:relative;
+	bottom:-25px;
+	max-width:90%;
+	max-height:20%;
+}
+
+#recommendedMovie h3 {
+	text-align:center;
+	min-height:20px;
+	max-height:20px;
 }
 
 body {

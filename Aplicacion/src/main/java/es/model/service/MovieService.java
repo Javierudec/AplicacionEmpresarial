@@ -203,5 +203,9 @@ public class MovieService implements MovieServiceInterface {
 	public void executeMoviesSimilarityAlgorithm() {
 		movieDAO.executeMoviesSimilarityAlgorithm();
 		
+	}
+
+	public List<Movie> findLastMoviesByDebut(int i) {
+		return movieDAO.findLastMoviesByDebut(i);
 	}	
 }

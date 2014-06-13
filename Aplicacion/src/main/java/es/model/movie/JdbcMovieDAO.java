@@ -52,7 +52,7 @@ public class JdbcMovieDAO implements MovieDAO {
 			//Connection connection = dataSource.getConnection();
 			Connection connection = SpringUtils.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
-					"SELECT title, synopsis, debut_date FROM movie ORDER BY debut_date");
+					"SELECT title, synopsis, debut_date, image FROM movie ORDER BY date_added");
 			
 			ResultSet resultSet = statement.executeQuery();
 			
@@ -60,8 +60,9 @@ public class JdbcMovieDAO implements MovieDAO {
 				String newMovieName = resultSet.getString(1);
 				String newMovieSynopsys = resultSet.getString(2);
 				java.sql.Date newMovieDebutDate = resultSet.getDate(3); // TODO: check if this works
+				String newMovieImage = resultSet.getString(4);
 				//System.out.println("asdf");
-				movie.add( new Movie(newMovieName, newMovieSynopsys, newMovieDebutDate) );
+				movie.add( new Movie(newMovieName, newMovieSynopsys, newMovieDebutDate, newMovieImage) );
 			}
 		} catch ( SQLException e ){
 			//System.out.println("Exception");
@@ -435,12 +436,36 @@ public class JdbcMovieDAO implements MovieDAO {
 					statement.setDouble(3, correlationAB);
 				}
 			}
-			
-			
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
+	}
+
+	public List<Movie> findLastMoviesByDebut(int i) {
+		ArrayList<Movie> movie = new ArrayList<Movie>();
+
+		try{
+			//Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
+			PreparedStatement statement = connection.prepareStatement(
+					"SELECT title, synopsis, debut_date, image FROM movie ORDER BY debut_date");
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			while( resultSet.next() && 0 < i-- ){ // TODO: check if this works
+				String newMovieName = resultSet.getString(1);
+				String newMovieSynopsys = resultSet.getString(2);
+				java.sql.Date newMovieDebutDate = resultSet.getDate(3); // TODO: check if this works
+				String newMovieImage = resultSet.getString(4);
+				//System.out.println("asdf");
+				movie.add( new Movie(newMovieName, newMovieSynopsys, newMovieDebutDate, newMovieImage) );
+			}
+		} catch ( SQLException e ){
+			//System.out.println("Exception");
+			throw new RuntimeException(e);
+		}
+	
+		return movie;
 	}
 }

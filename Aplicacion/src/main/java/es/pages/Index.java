@@ -38,6 +38,8 @@ public class Index
 	private Movie movieName;
 	@Property
 	private String tag;
+	@Property
+	private Movie recoMovie;
 	
 	public Index()
 	{
@@ -61,6 +63,12 @@ public class Index
 	public int getMovieScore()
 	{
 		return movieService.findCalificationAverage(movieName.getName());
+	}
+	
+	public List<Movie> getDebutMovies()
+	{
+		List<Movie> movieList = SpringUtils.getMovieService().findLastMoviesByDebut(10);
+		return movieList;
 	}
 	
 	public boolean getIsAdmin()
@@ -105,8 +113,45 @@ public class Index
 		return movieProfile;
 	}
 	
+	Object onActionFromViewProfileRecoList(String movieName)
+	{		
+		//movieService.executeMoviesSimilarityAlgorithm();
+		movieProfile.setMovieByName(movieName);
+		
+		return movieProfile;
+	}
+	
+	Object onActionFromViewProfileLastAdded(String movieName)
+	{		
+		//movieService.executeMoviesSimilarityAlgorithm();
+		movieProfile.setMovieByName(movieName);
+		
+		return movieProfile;
+	}
+	
 	Object onActionFromViewSearch(String movieName)
 	{
 		return null;
+	}
+	
+	public List<Movie> getRecommendedMovies()
+	{
+		List<Movie> movieList = new ArrayList<Movie>();
+			
+		movieList = SpringUtils.getMovieService().findLastMoviesAdded(6);
+		
+		return movieList;
+	}
+	
+	public String getRecoMovieImage()
+	{
+		return "images/" + recoMovie.getImage();
+	}
+	
+	public String getImageMovieScore()
+	{
+		Integer currAvgScore = movieService.findCalificationAverage(recoMovie.getName());
+		
+		return "images/" + currAvgScore + "_star.png";
 	}
 }
