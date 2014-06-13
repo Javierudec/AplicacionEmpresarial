@@ -26,6 +26,9 @@ public class Layout
 	@Property
 	private String username; //Information about identified user. PERSISTENT to all page sites.
 	
+	@Inject 
+	private ComponentResources res; 
+	
     /** The page title, for the <title> element and the <h1> element. */
     @Property
     @Parameter(required = true, defaultPrefix = BindingConstants.LITERAL)
@@ -71,8 +74,30 @@ public class Layout
 
     public String[] getPageNames()
     {
-      return new String[] { "Index", "Movies", "Reviews", "AboutUs" };
+      return new String[] { "Home", "Movies", "Reviews", "About Us" };
     }
+    
+    public String getPageURL()
+    {
+    	if(pageName == "Home") return "Index";
+    	if(pageName == "Movies") return "Movies";
+    	if(pageName == "Reviews") return "Reviews";
+    	if(pageName == "About Us") return "AboutUs";
+    	
+    	return "";
+    }
+    
+    
+    public String getClassPage()
+    {
+    	if(getPageURL().compareToIgnoreCase(res.getPageName()) == 0) 
+    	{
+    		return "active";
+    	}
+    	
+    	return "";
+    }
+    
     
 	Object onActionFromLogout()
 	{

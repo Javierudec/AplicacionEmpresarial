@@ -38,7 +38,7 @@ Para ingresar como administrador, hacer Login con username: admin, password: adm
 				</div>
 			</t:Loop>
 		</div>
-		<div id="debutMoviesWidget">
+		<div class="menu_simple" id="debutMoviesWidget">
 			<h1>Estrenos recientes</h1>
 			<ul>
 				<t:Loop t:source="debutMovies" value="movieName">
@@ -46,7 +46,7 @@ Para ingresar como administrador, hacer Login con username: admin, password: adm
 				</t:Loop>
 			</ul>
 		</div>
-		<div id="newMoviesWidget">
+		<div class="menu_simple" id="newMoviesWidget">
 
 			<h1>Recien agregados</h1>
 			<ul>
@@ -58,7 +58,7 @@ Para ingresar como administrador, hacer Login con username: admin, password: adm
 	</div>
 		
 	<div id="lowerWidgetContainer">
-		<div id="recommededTagForSearch">
+		<div class="menu_simple" id="recommededTagForSearch">
 			<h1>Tags</h1>
 			<ul>
 				<t:Loop t:source="tags" value="tag">
@@ -67,7 +67,13 @@ Para ingresar como administrador, hacer Login con username: admin, password: adm
 			</ul>
 		</div>
 		<div id="randomNews">
-			RandomNews
+				<h3>Movie of the month</h3>
+				<div id="movieOfMonth">
+					<t:actionLink t:id="viewMovieOfTheMonth"><h3>${momName}</h3></t:actionLink>
+					<img class="momPoster" src="${momImage}"/>
+					<span class="description">${momDescription}</span>
+					<img class="starsClass" src="${momScore}"/>
+				</div>
 		</div>
 	</div>			
 </div>

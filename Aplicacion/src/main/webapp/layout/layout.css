@@ -100,7 +100,6 @@
 
 #loginPannel {
 	float:right;
-	border:1px solid;
 	margin-right:1px;
 	width:23%;
 }
@@ -139,8 +138,132 @@
 	max-height:20px;
 }
 
+#movieOfMonth h3 {
+	text-align:center;
+	min-height:20px;
+	max-height:20px;
+}
+
+#movieOfMonth {
+	float:left;
+	width:100%;
+	min-height:480px;
+	max-height:480px;
+	margin-right:5px;
+	margin-bottom:5px;
+}
+
+#movieOfMonth .description {
+	float:right;
+	min-width:450px;
+	text-alighn:center;
+	padding-top:20px;
+	font-size:24px;
+}
+
+#movieOfMonth .starsClass {
+    float:right;
+	max-width:50%;
+	max-height:20%;
+	position:relative;
+	display:block;
+	bottom:-280px;
+	padding-right:60px;
+}
+
+#movieOfMonth .momPoster {
+	float:left;
+	display:block;
+	margin:auto;
+	top:20px;
+	position:relative;
+	max-width:90%;
+	max-height:80%;
+	margin-left:10px;
+}
+
 body {
 	width:60%;
 	margin: 0 auto;
 	background-color:#6eabcf;
 }
+
+#cssmenu {
+	margin-bottom:5px;
+}
+
+#cssmenu ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  width: auto;
+  position: relative;
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  background: #353535;
+  font-family: Arial, Helvetica, sans-serif;
+  border-bottom: 1px solid #353535;
+  zoom: 1;
+}
+#cssmenu ul:before {
+  content: '';
+  display: block;
+}
+#cssmenu ul:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+#cssmenu li {
+  display: block;
+  float: left;
+  margin: 0;
+  padding: 0 4px;
+}
+#cssmenu li a {
+  display: block;
+  float: left;
+  color: #999999;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 20px 7px 20px;
+  border-bottom: 3px solid transparent;
+}
+#cssmenu li a:hover {
+  color: #FFFFFF;
+  border-bottom: 3px solid #00b8fd;
+}
+#cssmenu li.active a {
+  display: inline;
+  border-bottom: 3px solid #00b8fd;
+  float: left;
+  margin: 0;
+}
+
+/* CSSTerm.com Simple CSS menu */
+
+.menu_simple ul {
+    margin: 0; 
+    padding: 0;
+    width:100%;
+    list-style-type: none;
+}
+
+.menu_simple ul li a {
+    text-decoration: none;
+    color: white; 
+    padding: 10.5px 11px;
+    background-color: #005555;
+    display:block;
+}
+ 
+.menu_simple ul li a:visited {
+    color: white;
+}
+ 
+.menu_simple ul li a:hover, .menu_simple ul li .current {
+    color: white;
+    background-color: #5FD367;
+}
+

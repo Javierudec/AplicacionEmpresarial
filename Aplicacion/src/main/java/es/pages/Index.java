@@ -40,6 +40,8 @@ public class Index
 	private String tag;
 	@Property
 	private Movie recoMovie;
+	@Property
+	private Movie momMovie;
 	
 	public Index()
 	{
@@ -153,5 +155,28 @@ public class Index
 		Integer currAvgScore = movieService.findCalificationAverage(recoMovie.getName());
 		
 		return "images/" + currAvgScore + "_star.png";
+	}
+	
+	public String getMomName()
+	{
+		momMovie = SpringUtils.getMovieService().findLastMoviesAdded(1).get(0);
+		return momMovie.getName();
+	}
+	
+	public String getMomScore()
+	{
+		Integer currAvgScore = movieService.findCalificationAverage(momMovie.getName());
+		
+		return "images/" + currAvgScore + "_star.png";
+	}
+	
+	public String getMomImage()
+	{
+		return "images/" + momMovie.getImage();
+	}
+	
+	public String getMomDescription()
+	{
+		return momMovie.getSynopsys();
 	}
 }

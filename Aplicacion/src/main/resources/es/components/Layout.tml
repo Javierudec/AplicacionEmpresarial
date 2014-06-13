@@ -46,6 +46,27 @@
             	</form>
             </div>
         </div>
+        
+		<div id='cssmenu'>
+			<ul>
+			    <t:Loop t:source="pageNames" value="pageName">
+			    	<li class='${classPage}'><t:pagelink page="${pageURL}"><span>${pageName}</span></t:pagelink></li>
+			    </t:Loop>
+			    <!--
+			    <li t:type="loop" source="pageNames" value="pageName" class="prop:classForPageName">
+            	    <t:pagelink page="${pageURL}"><span>${pageName}</span></t:pagelink>
+        	    </li>
+        	    -->
+			   <!-- 
+			   <li class='active'><a href='index.html'><span>Home</span></a></li>
+			   <li><a href='#'><span>Products</span></a></li>
+			   <li><a href='#'><span>About</span></a></li>
+			   <li class='last'><a href='#'><span>Contact</span></a></li>
+			   -->
+			</ul>
+		</div>
+
+        <!-- 
         <div id="menu">
         	<ul>
                 <li t:type="loop" source="pageNames" value="pageName" class="prop:classForPageName">
@@ -53,6 +74,7 @@
         	    </li>
         	</ul>
         </div>
+        -->
         <!-- end header -->
         
         <!-- start page -->
