@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -22,7 +23,7 @@ public class JdbcMovieDAO implements MovieDAO {
 			//Connection connection = dataSource.getConnection();
 			Connection connection = SpringUtils.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
-					"SELECT title, synopsis, debut_date FROM movie WHERE title = ?");
+					"SELECT title, synopsis, debut_date, image FROM movie WHERE title = ?");
 			statement.setString(1, movieName);
 			
 			ResultSet resultSet = statement.executeQuery();
@@ -30,9 +31,10 @@ public class JdbcMovieDAO implements MovieDAO {
 			if( resultSet.next() ){
 				String newMovieName = resultSet.getString(1);
 				String newMovieSynopsys = resultSet.getString(2);
+				String newMovieImage = resultSet.getString(4);
 				java.sql.Date newMovieDebutDate = resultSet.getDate(3); // TODO: check if this works
 				
-				movie = new Movie( newMovieName, newMovieSynopsys, newMovieDebutDate );
+				movie = new Movie( newMovieName, newMovieSynopsys, newMovieDebutDate, newMovieImage);
 				
 			} else {
 				throw new InstanceNotFoundException();
@@ -170,6 +172,33 @@ public class JdbcMovieDAO implements MovieDAO {
 		
 		throw new InstanceNotFoundException();
 	} 
+	
+	private double findCalificationAverage(int int1) {
+		int average = 0; // si no hay ningun resultado, regresara 0
+		//System.out.println("findCalificationAverage: " + movieName);
+		try{
+			Connection connection = SpringUtils.getConnection();
+			
+			if(int1 != -1)
+			{
+				PreparedStatement statement = connection.prepareStatement("SELECT AVG(rank) FROM rank_movie WHERE rankedmovie = ?;");
+				
+				statement.setInt(1, int1); 
+	
+				ResultSet resultSet = statement.executeQuery();
+				
+				if( resultSet.next() )
+					average = resultSet.getInt(1);
+			}
+				
+		} catch ( SQLException e ){
+			//System.out.println("Exception");
+			throw new RuntimeException(e);
+		}
+		
+		return average;
+	}
+	
 	// Tested!
 	public int findCalificationAverage(String movieName){
 		int average = 0; // si no hay ningun resultado, regresara 0
@@ -179,7 +208,7 @@ public class JdbcMovieDAO implements MovieDAO {
 			//Connection connection = dataSource.getConnection();
 			Connection connection = SpringUtils.getConnection();
 			
-			System.out.println(connection);
+			//System.out.println(connection);
 			
 			PreparedStatement statement = connection.prepareStatement("SELECT id FROM movie WHERE title = ?;");
 			statement.setString(1, movieName); 
@@ -326,5 +355,92 @@ public class JdbcMovieDAO implements MovieDAO {
 		} catch ( SQLException e ){
 			throw new RuntimeException(e);
 		}
+	}
+
+	@Override
+	public void executeMoviesSimilarityAlgorithm() {
+		// TODO Auto-generated method stub
+		Connection connection = SpringUtils.getConnection();
+		try {
+			//get all movies.
+			PreparedStatement statement = connection.prepareStatement("SELECT id, title FROM movie");
+			ResultSet movieList = statement.executeQuery();
+		
+			statement = connection.prepareStatement("DELETE FROM similarity");
+			statement.executeUpdate();
+			
+			statement = connection.prepareStatement("SELECT COUNT(*) FROM movie");
+			ResultSet movieListSizeResult = (ResultSet) statement.executeQuery();
+			int movieListSize = 0;
+			if(movieListSizeResult.next())
+			{
+				movieListSize = movieListSizeResult.getInt(1);
+			}
+			
+			System.out.println("Starting algorithm...");
+			
+			//For each movie.
+			while(movieList.next())
+			{
+				//System.out.println("CURRENT MOVIE: " + movieList.getInt(1));
+				
+				double movieA_avg = findCalificationAverage(movieList.getString(2));
+				
+				List<Double> XY = Arrays.asList(new Double[movieListSize]);
+				List<Double> X2 = Arrays.asList(new Double[movieListSize]);
+				List<Double> Y2 = Arrays.asList(new Double[movieListSize]);
+				
+				for(int i = 0; i < XY.size(); i++)
+				{
+					XY.set((Integer)i, (double) 0.0f);
+					X2.set((Integer)i, (double) 0.0f);
+					Y2.set((Integer)i, (double) 0.0f);
+				}
+				
+				statement = connection.prepareStatement("SELECT username, rank FROM rank_movie WHERE rankedmovie = ?");
+				statement.setInt(1, movieList.getInt(1));
+				ResultSet userEvalMovieList = (ResultSet) statement.executeQuery();
+				
+				
+				while(userEvalMovieList.next())
+				{
+					double RA = (userEvalMovieList.getInt(2) - movieA_avg);
+					statement = connection.prepareStatement("SELECT rankedmovie, rank FROM rank_movie WHERE username = ?");
+					statement.setInt(1, userEvalMovieList.getInt(1));
+					ResultSet moviesEvalByUserList = (ResultSet) statement.executeQuery();
+					
+					System.out.println("USER: " + userEvalMovieList.getInt(1));
+					
+					while(moviesEvalByUserList.next())
+					{
+						double movieB_avg = findCalificationAverage(moviesEvalByUserList.getInt(1));
+						double RB = (moviesEvalByUserList.getInt(2) - movieB_avg);
+						
+						Integer movie_index = moviesEvalByUserList.getInt(1);
+						
+						System.out.println("User: " + userEvalMovieList.getInt(1) + ", A: " + movieList.getInt(1) + ", B: " + movie_index);
+						
+						XY.set(movie_index, XY.get(movie_index) + RA * RB);
+						X2.set(movie_index, XY.get(movie_index) + RA * RA);// += RA * RA;
+						Y2.set(movie_index, XY.get(movie_index) + RB * RB);// += RB * RB;
+					}
+				}
+				
+				for(int i = 0; i < XY.size(); i++)
+				{
+					double correlationAB = XY.get(i) / Math.sqrt(X2.get(i) * Y2.get(i));  
+					statement = connection.prepareStatement("INSERTO INTO similarity VALUES (?, ?, ?)");
+					statement.setInt(1, movieList.getInt(1));
+					statement.setInt(2, i);
+					statement.setDouble(3, correlationAB);
+				}
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 }

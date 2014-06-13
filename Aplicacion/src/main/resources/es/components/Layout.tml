@@ -23,16 +23,25 @@
 					(Welcome, ${username})
 					<p:else>
 						<img src="images/silhouette.png" alt="Avatar"></img>
-						<t:pagelink page="Login">Login</t:pagelink>|
-						<t:pagelink page="AccountCreation">Create Account</t:pagelink>
+						
+						<div style="float:right;padding-right:5px;">
+							<form t:type="form" t:id="loginForm">
+								<t:errors/>
+								<t:Label t:for="loginUsername">Username</t:Label><input t:type="Textfield" t:id="loginUsername" t:validate="required" size="12"/><br/>
+								<t:Label t:for="loginPassword">Password</t:Label><input t:type="PasswordField" t:id="loginPassword" t:validate="required" size="12"/><br/>
+								<input type="submit" value="Login"/>
+							</form>
+						</div>
+						<div style="float:right;clear:right;padding-right:5px;">
+							<t:pagelink page="AccountCreation">Create Account</t:pagelink>
+						</div>
 						<br/>
-						(Welcome, Guest)
 					</p:else>
 				</t:if>
             </div>
             <div id="searchBar">
             	<form>
-            		<input type="textfield" width="450" value="Buscar..." />
+            		<input type="textfield" size="130" value="Buscar..." />
             		<input type="submit" value="Go!"/>
             	</form>
             </div>

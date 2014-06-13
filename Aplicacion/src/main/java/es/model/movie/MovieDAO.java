@@ -36,4 +36,6 @@ public interface MovieDAO {
 			throws InstanceNotFoundException;
 
 	public abstract List<Movie> findLastMoviesAdded(int i);
+
+	public abstract void executeMoviesSimilarityAlgorithm();
 }

@@ -98,7 +98,8 @@ public class Index
 	
 	
 	Object onActionFromViewProfile(String movieName)
-	{				
+	{		
+		//movieService.executeMoviesSimilarityAlgorithm();
 		movieProfile.setMovieByName(movieName);
 		
 		return movieProfile;

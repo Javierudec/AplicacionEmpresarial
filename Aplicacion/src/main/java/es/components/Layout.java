@@ -7,7 +7,13 @@ import org.apache.tapestry5.*;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.ioc.annotations.*;
 import org.apache.tapestry5.BindingConstants;
+
+import util.SpringUtils;
+import es.model.service.*;
 import es.model.user.User;
+import es.model.util.exceptions.InstanceNotFoundException;
+import es.pages.ErrorPage;
+import es.pages.Index;
 
 /**
  * Layout component for pages of application tutorial1.
@@ -24,6 +30,12 @@ public class Layout
     @Property
     @Parameter(required = true, defaultPrefix = BindingConstants.LITERAL)
     private String title;
+    
+    @Property
+    private String loginUsername;
+    
+    @Property
+    private String loginPassword;
 
     @Property
     private String pageName;
@@ -38,6 +50,12 @@ public class Layout
 
     @Inject
     private ComponentResources resources;
+    
+    @InjectPage
+    private Index index;
+    
+    @InjectPage
+    private ErrorPage errorHandler;
     
     public Layout()
     {
@@ -66,5 +84,29 @@ public class Layout
 	Object onActionFromViewUserProfile()
 	{	
 		return null;
+	}
+	
+	Object onSuccess()
+	{
+		try {
+			User user = SpringUtils.getUserService().findUserByName(loginUsername);
+			
+			if(user != null && user.getPassword().equals(loginPassword))
+			{
+				username = user.getName();
+			}
+			else
+			{
+				errorHandler.setErrorMsg("Usuario o contraseña no validos.");
+				return errorHandler;
+			}
+			
+		} catch (InstanceNotFoundException e) {
+			errorHandler.setErrorMsg("Usuario o contraseña no validos.");
+			return errorHandler;
+		}
+		
+		
+		return index;
 	}
 }

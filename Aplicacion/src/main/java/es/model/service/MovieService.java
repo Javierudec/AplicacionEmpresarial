@@ -197,5 +197,11 @@ public class MovieService implements MovieServiceInterface {
 	public void setTransactionManager(PlatformTransactionManager transactionManager) 
 	{
 		this.transactionManager = transactionManager;
+	}
+
+	@Override
+	public void executeMoviesSimilarityAlgorithm() {
+		movieDAO.executeMoviesSimilarityAlgorithm();
+		
 	}	
 }

@@ -7,4 +7,6 @@ Movie Profile: ${movieName}
 	<t:beaneditform object="movieEvaluation"/>
 </t:if>
 
+<img alt="MoviePoster" src="${movieImage}" width="240" height="300" />
+
 </html>

@@ -47,4 +47,6 @@ public interface MovieServiceInterface {
 	public abstract Boolean userHasApprovedMovieRelation(String sourceName, String destinyName, String authorName, String userName);
 	
 	public abstract void setApprovedStatus(String sourceName, String destinyName, String authorName, String userName, Boolean approvalStatus);
+	
+	public abstract void executeMoviesSimilarityAlgorithm();
 }
