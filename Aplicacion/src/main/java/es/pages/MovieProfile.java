@@ -71,4 +71,56 @@ public class MovieProfile {
 		
 		return "images/" + movieData.getImage();
 	}
+	
+	public String getMovieDescription()
+	{
+		if(movieData == null) return "No description found.";
+		
+		return movieData.getSynopsys();
+	}
+	
+	public String getAverageScore()
+	{
+		Integer currAvgScore = 0;
+		
+		//System.out.println("Movie name: " + movieName);
+		
+		if(movieName != null)
+		{
+			currAvgScore = movieService.findCalificationAverage(movieName);
+		}
+		
+		return "images/" + currAvgScore + "_star.png";
+	}
+	
+	public String getUserScore()
+	{
+		Integer currUserScore = 0;
+		
+		if(movieName != null && username != null)
+		{
+			System.out.println("Username: " + username + " MovieName: " + movieName);
+			
+			try {
+				currUserScore = movieService.findCalification(movieName, username);
+			} catch (InstanceNotFoundException e) {
+				// TODO Auto-generated catch block
+				return "images/0_star.png";
+			}
+		}
+		
+		return "images/" + currUserScore + "_star.png";
+	}
+	
+	public int getNumUsersAvgScore()
+	{
+		int numUsers = 0;
+		
+		if(movieName != null)
+		{
+			numUsers = movieService.findNumCalifications(movieName);
+		}
+		
+		return numUsers;
+	}
 }

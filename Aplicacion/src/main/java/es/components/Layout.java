@@ -113,6 +113,8 @@ public class Layout
 	
 	Object onSuccess()
 	{
+		System.out.println("Username: " + loginUsername);
+		
 		try {
 			User user = SpringUtils.getUserService().findUserByName(loginUsername);
 			

@@ -286,3 +286,51 @@ body {
 	float:left;
 }
 
+#movieProfile {
+	background-color:#ffffff;
+	border:2px solid;
+	width: 98.78%;
+	height: 1280px;
+	padding-left:10px;
+}
+
+#movieProfile h3 {
+	float:left;
+	padding-left:20px;
+}
+
+#movieProfile .averageScore {
+	float:left;
+	clear:left;
+	max-width:352px;
+}
+
+#movieProfile .yourScore {
+	float:left;
+	clear:left;
+	max-width:352px;
+}
+
+#movieProfile .moviePoster {
+	float:left;
+	margin-bottom:5px;
+}
+
+#movieProfie .description {
+	float:left;
+}
+
+#movieProfile .video {
+	float:left;
+	clear:left;
+	width:98.78%;
+	height:500px;
+	padding-top:20px;
+}
+
+#similarMoviesMenu {
+	background-color:#ffffff;
+	border:2px solid;
+	width:99.68%;
+	margin-top:5px;
+}

@@ -1,44 +1,7 @@
 <html t:type="layout" title="Hi/Lo Guess"
   xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
- 
-<!-- 
-<script>
-$(document).ready(function(){
-	var starArray = [];
-	starArray.push("#star_0_5 img");
-	starArray.push("#star_1_0 img");
-	starArray.push("#star_1_5 img");
-	starArray.push("#star_2_0 img");
-	starArray.push("#star_2_5 img");
-	starArray.push("#star_3_0 img");
-	starArray.push("#star_3_5 img");
-	starArray.push("#star_4_0 img");
-	starArray.push("#star_4_5 img");
-	starArray.push("#star_5_0 img");
-	
-	var starReference = [];
-	starReference.push("star_0_5");
-	starReference.push("star_1_0");
-	starReference.push("star_1_5");
-	starReference.push("star_2_0");
-	starReference.push("star_2_5");
-	starReference.push("star_3_0");
-	starReference.push("star_3_5");
-	starReference.push("star_4_0");
-	starReference.push("star_4_5");
-	starReference.push("star_5_0");
 
-	$("#starScoreDiv div").mouseover(function(){
-		for ( var i = 0; i < 5; i++ ) {
-		    // Logs "try 0", "try 1", ..., "try 4".
-		    console.log( "try " + i );
-		}
-	});
-});
-</script>
--->
 
-Movie Profile: ${movieName}
 
 <!-- 
 <t:if test="username">
@@ -46,8 +9,7 @@ Movie Profile: ${movieName}
 </t:if>
 -->
 
-<img alt="MoviePoster" src="${movieImage}" width="240" height="300" />
-
+<!-- 
 <div id="starScoreDiv">
 	<div id="star_0_5" class="scoreStar"><img src="images/yellow_star_left.png"/></div>
 	<div id="star_1_0" class="scoreStar"><img src="images/black_star_right.png"/></div>
@@ -59,6 +21,22 @@ Movie Profile: ${movieName}
 	<div id="star_4_0" class="scoreStar"><img src="images/black_star_right.png"/></div>
 	<div id="star_4_5" class="scoreStar"><img src="images/black_star_left.png"/></div>
 	<div id="star_5_0" class="scoreStar"><img src="images/black_star_right.png"/></div>
+</div>
+-->
+
+
+	<div id="movieProfile">
+		<h1>Movie Profile: ${movieName}</h1>
+		<img class="moviePoster" alt="MoviePoster" src="${movieImage}" width="362" height="512" />
+		<span class="description">${movieDescription}</span>
+		<img class="averageScore" src="${averageScore}"/><h3>User average (${numUsersAvgScore} users)</h3>
+		<img class="yourScore" src="${userScore}"/><h3>Your Score</h3>
+		<center><embed class="video" src="http://www.youtube.com/v/XGSy3_Czz8k" type="application/x-shockwave-flash"></embed></center>
+	</div>
+
+
+<div id="similarMoviesMenu">
+	Recommendations...
 </div>
 
 </html>

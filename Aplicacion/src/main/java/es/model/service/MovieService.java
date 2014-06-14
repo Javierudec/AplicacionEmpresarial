@@ -207,5 +207,10 @@ public class MovieService implements MovieServiceInterface {
 
 	public List<Movie> findLastMoviesByDebut(int i) {
 		return movieDAO.findLastMoviesByDebut(i);
+	}
+
+	public int findNumCalifications(String movieName) {
+		// TODO Auto-generated method stub
+		return movieDAO.findNumCalifications(movieName);
 	}	
 }

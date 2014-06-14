@@ -40,4 +40,6 @@ public interface MovieDAO {
 	public abstract void executeMoviesSimilarityAlgorithm();
 
 	public abstract List<Movie> findLastMoviesByDebut(int i);
+
+	public abstract int findNumCalifications(String movieName);
 }

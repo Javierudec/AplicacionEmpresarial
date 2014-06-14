@@ -153,19 +153,44 @@ public class JdbcMovieDAO implements MovieDAO {
 	public int findCalification(String movieName, String userName) throws InstanceNotFoundException{
 		try{
 			Connection connection = SpringUtils.getConnection();
-			//Connection connection = dataSource.getConnection();
-			PreparedStatement statement = connection.prepareStatement(
-					"SELECT rank FROM rank_movie WHERE username = ? AND rankedmovie = ?;");
 			
-			statement.setString( 1, userName );
-			statement.setString( 2, movieName ); 
+			int movieID = -1;
+			int userID = -1;
 			
+			PreparedStatement statement = connection.prepareStatement("SELECT id FROM movie WHERE title = ?");
+			statement.setString(1, movieName);
 			ResultSet resultSet = statement.executeQuery();
 			
-			if( resultSet.next() )
-				return resultSet.getInt(1);
-				
+			if(resultSet.next())
+			{
+				movieID = resultSet.getInt(1);
+			}
 			
+			statement = connection.prepareStatement("SELECT id FROM movie WHERE title = ?");
+			statement.setString(1, userName);
+			resultSet = statement.executeQuery();
+			
+			if(resultSet.next())
+			{
+				userID = resultSet.getInt(1);
+			}
+
+			
+			if(movieID != -1 && userID != -1)
+			{
+				statement = connection.prepareStatement("SELECT rank FROM rank_movie WHERE username = ? AND rankedmovie = ?;");
+				statement.setString( 1, userName );
+				statement.setString( 2, movieName ); 
+				
+				resultSet = statement.executeQuery();
+				
+				if( resultSet.next() )
+					return resultSet.getInt(1);
+			}
+			else
+			{
+				return 0;
+			}
 		} catch ( SQLException e ){
 			
 			throw new RuntimeException(e);
@@ -467,5 +492,46 @@ public class JdbcMovieDAO implements MovieDAO {
 		}
 	
 		return movie;
+	}
+
+	public int findNumCalifications(String movieName) {
+		int average = 0; // si no hay ningun resultado, regresara 0
+		//System.out.println("findCalificationAverage: " + movieName);
+		try{
+			
+			//Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
+			
+			//System.out.println(connection);
+			
+			PreparedStatement statement = connection.prepareStatement("SELECT id FROM movie WHERE title = ?");
+			statement.setString(1, movieName); 
+			ResultSet resultSet = statement.executeQuery();
+			
+			int movieID = -1;
+			
+			if(resultSet.next())
+			{
+				movieID = resultSet.getInt(1);
+			}
+			
+			if(movieID != -1)
+			{
+				statement = connection.prepareStatement("SELECT COUNT(*) FROM rank_movie WHERE rankedmovie = ?");
+				
+				statement.setInt( 1, movieID ); 
+	
+				resultSet = statement.executeQuery();
+				
+				if( resultSet.next() )
+					average = resultSet.getInt(1);
+			}
+				
+		} catch ( SQLException e ){
+			//System.out.println("Exception");
+			throw new RuntimeException(e);
+		}
+		
+		return average;
 	}
 }
