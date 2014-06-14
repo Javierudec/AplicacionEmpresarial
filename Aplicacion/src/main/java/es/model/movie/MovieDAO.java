@@ -42,4 +42,6 @@ public interface MovieDAO {
 	public abstract List<Movie> findLastMoviesByDebut(int i);
 
 	public abstract int findNumCalifications(String movieName);
+	
+	public abstract List<Movie> findMoviesOrderByRank();
 }

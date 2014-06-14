@@ -210,7 +210,10 @@ public class MovieService implements MovieServiceInterface {
 	}
 
 	public int findNumCalifications(String movieName) {
-		// TODO Auto-generated method stub
 		return movieDAO.findNumCalifications(movieName);
+	}
+
+	public List<Movie> findMoviesOrderByRank() {
+		return movieDAO.findMoviesOrderByRank();
 	}	
 }

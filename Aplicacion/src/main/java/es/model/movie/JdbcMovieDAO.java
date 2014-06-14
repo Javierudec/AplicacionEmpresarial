@@ -5,10 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.sql.DataSource;
 
+import util.Comparators;
 import util.SpringUtils;
 import es.model.util.exceptions.InstanceNotFoundException;
 
@@ -399,9 +401,17 @@ public class JdbcMovieDAO implements MovieDAO {
 						"INSERT INTO rank_movie ( username, rankedmovie , rank ) " +
 						"VALUES (?,?,?);");	
 				
-				statement.setInt(1, userID  );
-				statement.setInt(2, movieID );
-				statement.setInt(3, calification );
+				statement.setInt(1, userID);
+				statement.setInt(2, movieID);
+				statement.setInt(3, calification);
+				
+				statement.executeUpdate();
+				
+				statement = connection.prepareStatement(
+						"UPDATE movie SET avg_rank=? WHERE id=?");	
+				
+				statement.setInt(1, findCalificationAverage(movieTitle));
+				statement.setInt(2, movieID);
 				
 				statement.executeUpdate();
 			}
@@ -562,4 +572,40 @@ public class JdbcMovieDAO implements MovieDAO {
 		
 		return average;
 	}
+
+	public List<Movie> findMoviesOrderByRank() {
+		List<Movie> movieList = new ArrayList<Movie>();
+		
+		Connection connection = SpringUtils.getConnection();
+		try {			
+			
+			
+			PreparedStatement statement = connection.prepareStatement("SELECT title, synopsis, image FROM movie ORDER BY avg_rank DESC");
+			ResultSet resultSet = statement.executeQuery();
+			
+			while(resultSet.next())
+			{
+				movieList.add(new Movie(resultSet.getString(1), resultSet.getString(2), null, resultSet.getString(3)));
+				/*
+				int avg_rank = findCalificationAverage(resultSet.getString(1));
+				statement = connection.prepareStatement("UPDATE movie SET avg_rank=? WHERE title=?");
+				statement.setInt(1, avg_rank);
+				statement.setString(2,resultSet.getString(1));
+				statement.executeUpdate();
+				
+				System.out.println("Movie: " + resultSet.getString(1) + ", RANK: " + avg_rank);
+				*/
+			}
+			
+			//Collections.sort(movieList, Comparators.RANK);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return movieList;
+	}
+	
+	
 }

@@ -1,5 +1,25 @@
 <html t:type="layout" title="Hi/Lo Guess"
   xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+
+<div id="advancedSearch">
+Advanced Search
+</div>
  
-Movies...
+<div id="movieList">
+	<div class="ABCList">
+		<t:Loop t:source="ABC" value="currentLetter">
+			<t:actionlink t:id="letter" context="currentLetter">${currentLetter}</t:actionlink>|
+		</t:Loop>
+	</div>
+	
+	<t:Loop t:source="movieList" value="currentMovie">
+		<div id="movieListItem">
+			<span class="movieTitle"><t:actionlink t:id="viewProfile" context="currentMovie">${currentMovie.name}</t:actionlink></span>
+			<img class="moviePoster" alt="MoviePoster" src="${movieImage}" width="362" height="512" />
+			<span class="description">${movieDescription}</span>
+			<img class="averageScore" src="${averageScore}"/>
+		</div>
+	</t:Loop>
+</div>
+
 </html>

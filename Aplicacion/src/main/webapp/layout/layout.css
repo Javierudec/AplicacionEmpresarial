@@ -340,3 +340,48 @@ body {
 	width:99.68%;
 	margin-top:5px;
 }
+
+
+#movieList {
+	background-color:#ffffff;
+	border:2px solid;
+	width: 98.78%;
+	padding-left:10px;
+	overflow:auto;
+}
+
+#movieListItem {
+	border:2px solid;
+	float:left;
+	clear:left;
+	width:98%;
+	margin-bottom:5px;
+}
+
+#movieListItem .movieTitle {
+	float:left;
+	clear:left;
+}
+
+#movieListItem .moviePoster {
+	max-width:128px;
+	max-height:128px;
+	float:left;
+	clear:left;
+}
+
+#movieListItem .description {
+	float:left;
+}
+
+#movieListItem .averageScore {
+	float:left;
+	clear:left;
+	max-width:128px;
+}
+
+#advancedSearch {
+	background-color:#ffffff;
+	border:2px solid;
+	width: 99.68%;
+}
