@@ -320,6 +320,12 @@ body {
 	float:left;
 }
 
+#movieProfile .modifyScore {
+	float:left;
+	padding-top:18px;
+	padding-left:5px;
+}
+
 #movieProfile .video {
 	float:left;
 	clear:left;

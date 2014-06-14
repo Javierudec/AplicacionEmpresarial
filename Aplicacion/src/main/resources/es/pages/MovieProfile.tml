@@ -30,8 +30,19 @@
 		<img class="moviePoster" alt="MoviePoster" src="${movieImage}" width="362" height="512" />
 		<span class="description">${movieDescription}</span>
 		<img class="averageScore" src="${averageScore}"/><h3>User average (${numUsersAvgScore} users)</h3>
-		<img class="yourScore" src="${userScore}"/><h3>Your Score</h3>
-		<center><embed class="video" src="http://www.youtube.com/v/XGSy3_Czz8k" type="application/x-shockwave-flash"></embed></center>
+		
+		
+		<t:if test="username">
+			<t:Zone t:id="userScoreZone" id="userScoreZone">
+				<img class="yourScore" src="${userScore}"/><h3>Your Score</h3>
+			</t:Zone>
+			<t:form class="modifyScore">
+				<t:select t:id="scoreSelected" model="literal:0,1,2,3,4,5" zone="userScoreZone"/>
+			</t:form>
+		</t:if>
+		
+		
+		<embed class="video" src="http://www.youtube.com/v/XGSy3_Czz8k" type="application/x-shockwave-flash"></embed>
 	</div>
 
 

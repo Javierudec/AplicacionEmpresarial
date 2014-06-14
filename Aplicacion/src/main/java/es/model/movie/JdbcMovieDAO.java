@@ -166,7 +166,7 @@ public class JdbcMovieDAO implements MovieDAO {
 				movieID = resultSet.getInt(1);
 			}
 			
-			statement = connection.prepareStatement("SELECT id FROM movie WHERE title = ?");
+			statement = connection.prepareStatement("SELECT id FROM site_user WHERE name = ?");
 			statement.setString(1, userName);
 			resultSet = statement.executeQuery();
 			
@@ -179,8 +179,8 @@ public class JdbcMovieDAO implements MovieDAO {
 			if(movieID != -1 && userID != -1)
 			{
 				statement = connection.prepareStatement("SELECT rank FROM rank_movie WHERE username = ? AND rankedmovie = ?;");
-				statement.setString( 1, userName );
-				statement.setString( 2, movieName ); 
+				statement.setInt( 1, userID );
+				statement.setInt( 2, movieID ); 
 				
 				resultSet = statement.executeQuery();
 				
@@ -367,16 +367,44 @@ public class JdbcMovieDAO implements MovieDAO {
 		//System.out.println(movieTitle);
 		try{
 			Connection connection = SpringUtils.getConnection();
-			//Connection connection = dataSource.getConnection();
-			PreparedStatement statement = connection.prepareStatement(
-					"INSERT INTO rank_movie ( username, rankedmovie , rank ) " +
-					"VALUES (?,?,?);");	
 			
-			statement.setString(1, userName  );
-			statement.setString(2, movieTitle );
-			statement.setInt(3, calification );
+			PreparedStatement statement = connection.prepareStatement("SELECT id FROM site_user WHERE name = ?");
+			statement.setString(1, userName);
+			ResultSet resultSet = statement.executeQuery();
+	
+			int userID = -1;
+			if(resultSet.next())
+			{
+				userID = resultSet.getInt(1);
+			}
 			
-			statement.executeUpdate();
+			statement = connection.prepareStatement("SELECT id FROM movie WHERE title = ?");
+			statement.setString(1, movieTitle);
+			resultSet = statement.executeQuery();
+	
+			int movieID = -1;
+			if(resultSet.next())
+			{
+				movieID = resultSet.getInt(1);
+			}
+			
+			if(userID != -1 & movieID != -1)
+			{
+				statement = connection.prepareStatement("DELETE FROM rank_movie WHERE username = ? AND rankedmovie = ?");
+				statement.setInt(1, userID);
+				statement.setInt(2, movieID);
+				statement.executeUpdate();
+				
+				statement = connection.prepareStatement(
+						"INSERT INTO rank_movie ( username, rankedmovie , rank ) " +
+						"VALUES (?,?,?);");	
+				
+				statement.setInt(1, userID  );
+				statement.setInt(2, movieID );
+				statement.setInt(3, calification );
+				
+				statement.executeUpdate();
+			}
 			
 		} catch ( SQLException e ){
 			throw new RuntimeException(e);

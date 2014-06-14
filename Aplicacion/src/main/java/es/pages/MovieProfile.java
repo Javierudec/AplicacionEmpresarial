@@ -3,10 +3,12 @@
  */
 package es.pages;
 
+import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionAttribute;
+import org.apache.tapestry5.corelib.components.Zone;
 
 import util.SpringUtils;
 import entities.MovieEvaluation;
@@ -25,6 +27,10 @@ public class MovieProfile {
 	@Property
 	private String movieName;
 	
+	@Property
+	@Persist
+	private String scoreSelected;
+	
 	@Persist
 	@Property
 	private Movie movieData;
@@ -36,16 +42,41 @@ public class MovieProfile {
 	@InjectPage
 	private Index index;
 	
+	@InjectComponent
+	private Zone userScoreZone;
+	
 	private MovieService movieService;
 	
 	@Property
 	private MovieEvaluation movieEvaluation;
+	
+	public Object onValueChanged(String score)
+	{
+		System.out.println("Zone score: " + score);
+		
+		if(movieName != null && username != null)
+		{
+			SpringUtils.getMovieService().setMovieCalificationForUser(username, movieName, Integer.parseInt(score));
+		}
+		
+		return userScoreZone.getBody();
+	}
 	
 	public void setMovieByName(String movieName)
 	{
 		this.movieName = movieName;
 		try {
 			movieData = SpringUtils.getMovieService().findMovieByName(movieName);
+			
+			scoreSelected = "0";
+			
+			if(username != null)
+			{
+				scoreSelected = SpringUtils.getMovieService().findCalification(movieName, username).toString();
+				
+				System.out.println("Score selected: " + scoreSelected);
+			}
+			
 		} catch (InstanceNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -99,8 +130,6 @@ public class MovieProfile {
 		
 		if(movieName != null && username != null)
 		{
-			System.out.println("Username: " + username + " MovieName: " + movieName);
-			
 			try {
 				currUserScore = movieService.findCalification(movieName, username);
 			} catch (InstanceNotFoundException e) {
