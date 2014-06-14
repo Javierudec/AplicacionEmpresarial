@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"  xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"  xmlns:p="tapestry:parameter">
     <head>
     	<link href="layout/layout.css" rel="stylesheet" type="text/css"/>
+    	<script src="layout/jquery.js"></script>
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
         <title>MoviesDB</title>
     </head>
@@ -26,7 +27,6 @@
 						
 						<div style="float:right;padding-right:5px;">
 							<form t:type="form" t:id="loginForm">
-								<t:errors/>
 								<t:Label t:for="loginUsername">Username</t:Label><input t:type="Textfield" t:id="loginUsername" t:validate="required" size="12"/><br/>
 								<t:Label t:for="loginPassword">Password</t:Label><input t:type="PasswordField" t:id="loginPassword" t:validate="required" size="12"/><br/>
 								<input type="submit" value="Login"/>

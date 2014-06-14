@@ -57,14 +57,26 @@ public class JdbcUserDAO implements UserDAO {
 		PreparedStatement statement;
 		try{
 			Connection connection = SpringUtils.getConnection();
-			//Connection connection = dataSource.getConnection();
-			statement = connection.prepareStatement(
-					"INSERT INTO site_user(name,password,mail,rights) VALUES (?,?,?,0);");
-			statement.setString(1, user.getName());
-			statement.setString(2, user.getPassword());
-			statement.setString(3, user.getEmail());
 			
-			statement.executeUpdate();
+			statement = connection.prepareStatement("SELECT name, password, mail, rights FROM site_user WHERE name = ?");
+			statement.setString(1, user.getName());
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			if(resultSet.next())
+			{
+				return null;
+			}
+			else
+			{
+				statement = connection.prepareStatement(
+						"INSERT INTO site_user(name,password,mail,rights) VALUES (?,?,?,0);");
+				statement.setString(1, user.getName());
+				statement.setString(2, user.getPassword());
+				statement.setString(3, user.getEmail());
+				
+				statement.executeUpdate();
+			}
 			
 		} catch ( SQLException e ){
 			throw new RuntimeException(e);

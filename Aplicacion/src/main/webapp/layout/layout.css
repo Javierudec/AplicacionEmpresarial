@@ -4,6 +4,7 @@
 	border:2px solid;
 	width: 24%;
 	margin-top:5px;
+	clear:right;
 }
 
 #debutMoviesWidget {
@@ -11,6 +12,16 @@
 	float:right;
 	border:2px solid;
 	width: 24%;
+}
+
+#defaultMenu {
+	background-color:#ffffff;
+	border:2px solid;
+	width: 99.68%;
+}
+
+#defaultMenu .message {
+	text-align:center;
 }
 
 #debutMoviesWidget h1 {
@@ -265,5 +276,13 @@ body {
 .menu_simple ul li a:hover, .menu_simple ul li .current {
     color: white;
     background-color: #5FD367;
+}
+
+#starScoreDiv {
+	position:relative;
+}
+
+#starScoreDiv img {
+	float:left;
 }
 

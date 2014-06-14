@@ -24,7 +24,16 @@ public class AccountCreation {
 	//private AccountInformation accountInformation;
 
 	@InjectPage
-	private Index index;
+	private ErrorPage errorPage;
+	
+	@Property
+	private String newUsername;
+	
+	@Property
+	private String newPassword;
+	
+	@Property
+	private String newEmail;
 	
 	private UserService userService;
 	
@@ -36,8 +45,15 @@ public class AccountCreation {
 	//This method is executed when the form inside AccountCreation Page is submitted.
 	Object onSuccess()
 	{
-		userService.addUser(new User(userInformation.name, userInformation.password, userInformation.email));
+		if(userService.addUser(new User(newUsername, newPassword, newEmail)) == null)
+		{
+			errorPage.setErrorMsg("Username is already used.");
+		}
+		else
+		{
+			errorPage.setErrorMsg("Account created. Now you can log in with your username and password.");
+		}
 		
-		return index;
+		return errorPage;
 	}
 }

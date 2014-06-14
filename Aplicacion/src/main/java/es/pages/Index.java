@@ -73,6 +73,11 @@ public class Index
 		return movieList;
 	}
 	
+	public boolean getIsLoggedIn()
+	{
+		return username != null;
+	}
+	
 	public boolean getIsAdmin()
 	{
 		try {

@@ -1,5 +1,7 @@
 <html t:type="layout" title="Hi/Lo Guess"
   xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
- 
-${errorMessage}
+
+<div id="defaultMenu">
+	<span class="message">${errorMessage}</span>
+</div>
 </html>

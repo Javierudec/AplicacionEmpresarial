@@ -29,14 +29,16 @@ Para ingresar como administrador, hacer Login con username: admin, password: adm
 <div id="widgetContainer">
 	<div id="upperWidgetContainer">			
 		<div id="recommenderWidget">
-			<h3>Recomendaciones</h3>
-			<t:Loop t:source="recommendedMovies" value="recoMovie">
-				<div id="recommendedMovie">
-					<t:actionLink t:id="viewProfileRecoList" t:context="recoMovie.name"><h3>${recoMovie.name}</h3></t:actionLink>
-					<img id="moviePoster" src="${recoMovieImage}"/>
-					<img id="stars" src="${imageMovieScore}"/>
-				</div>
-			</t:Loop>
+			<t:If t:test="isLoggedIn">
+				<h3>Recomendaciones</h3>
+				<t:Loop t:source="recommendedMovies" value="recoMovie">
+					<div id="recommendedMovie">
+						<t:actionLink t:id="viewProfileRecoList" t:context="recoMovie.name"><h3>${recoMovie.name}</h3></t:actionLink>
+						<img id="moviePoster" src="${recoMovieImage}"/>
+						<img id="stars" src="${imageMovieScore}"/>
+					</div>
+				</t:Loop>
+			</t:If>
 		</div>
 		<div class="menu_simple" id="debutMoviesWidget">
 			<h1>Estrenos recientes</h1>
