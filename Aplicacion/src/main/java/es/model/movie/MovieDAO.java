@@ -44,4 +44,6 @@ public interface MovieDAO {
 	public abstract int findNumCalifications(String movieName);
 	
 	public abstract List<Movie> findMoviesOrderByRank();
+
+	public abstract void executeMoviesSimilarityAlgorithm(String name);
 }

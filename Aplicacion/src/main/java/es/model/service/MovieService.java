@@ -202,7 +202,6 @@ public class MovieService implements MovieServiceInterface {
 	@Override
 	public void executeMoviesSimilarityAlgorithm() {
 		movieDAO.executeMoviesSimilarityAlgorithm();
-		
 	}
 
 	public List<Movie> findLastMoviesByDebut(int i) {
@@ -215,5 +214,10 @@ public class MovieService implements MovieServiceInterface {
 
 	public List<Movie> findMoviesOrderByRank() {
 		return movieDAO.findMoviesOrderByRank();
+	}
+
+	public void executeMoviesSimilarityAlgorithm(String name) {
+		movieDAO.executeMoviesSimilarityAlgorithm(name);
+		
 	}	
 }

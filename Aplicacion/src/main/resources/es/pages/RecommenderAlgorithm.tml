@@ -1,0 +1,16 @@
+<html t:type="layout" title="Hi/Lo Guess"
+  xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+  xmlns:p="tapestry:parameter">
+
+<div id="defaultMenu">
+	<t:form t:zone="currentStateZone">
+		<t:select t:id="colorMenu" value="selectedColor" model="ColorSelectModel" encoder="movieEncoder"/>
+		<input type="submit" value="Calculate Similarity"/>
+	</t:form>
+
+	<t:zone t:id="currentStateZone" id="currentStateZone">
+		<span class="message">${currentState}</span><br/> 
+		<!-- <t:ActionLink t:id="initAlgorithm" zone="currentStateZone">Execute algorithm</t:ActionLink> -->
+	</t:zone>
+</div>
+</html>
