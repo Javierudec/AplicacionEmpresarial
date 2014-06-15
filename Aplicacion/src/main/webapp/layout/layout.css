@@ -374,6 +374,18 @@ body {
 	float:left;
 }
 
+#movieList .prevPage {
+	float:left;
+	clear:left;
+}
+
+#movieList .nextPage {
+	float:right;
+	clear:right;
+	position:relative;
+	right:5px;
+}
+
 #movieListItem .averageScore {
 	float:left;
 	clear:left;

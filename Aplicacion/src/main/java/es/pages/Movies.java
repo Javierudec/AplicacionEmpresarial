@@ -6,9 +6,15 @@ package es.pages;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.tapestry5.annotations.InjectComponent;
+import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.PageLoaded;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.corelib.components.Zone;
 
+import util.FilterByLetter;
+import util.MovieList;
 import util.SpringUtils;
 import es.model.movie.Movie;
 
@@ -23,40 +29,61 @@ public class Movies {
 	@Property
 	Movie currentMovie;
 	
-	List<Movie> completeList;
-	List<Movie> movieList;
+	@InjectPage
+	private MovieProfile movieProfile;
+	
+	@InjectComponent
+	private Zone movieListZone;
 	
 	public String[] getABC()
 	{
 		return new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "X", "Y", "Z" };
 	}
 	
-	@PageLoaded
-	void InitPage()
+	Movies()
 	{
-		completeList = SpringUtils.getMovieService().findMoviesOrderByRank();
-		
-		movieList = completeList.subList(0, Math.min(10, completeList.size()));
-		//movieList = new ArrayList<Movie>();
-		//movieList.add(new Movie("HOLA", "HOLA", null));
+		MovieList.setCompleteList(SpringUtils.getMovieService().findMoviesOrderByRank());
+		//System.out.println(MovieList.getCompleteList().size());
+		MovieList.setList(MovieList.getCompleteList());
+		MovieList.setPage(0);
 	}
 	
 	Object onActionFromLetter(String letter)
 	{
+		MovieList.setList(FilterByLetter.FilterList(letter, MovieList.getCompleteList()));
 		
-		
-		return null;
+		return movieListZone.getBody();
 	}
 	
-	Object onActionFromViewProfile(Movie movie)
+	Object onActionFromViewProfile(String movieName)
 	{
+		movieProfile.setMovieByName(movieName);
 		
-		return null;
+		return movieProfile;
+	}
+	
+	Object onActionFromNextPage()
+	{
+		MovieList.setPage(MovieList.getPage() + 1);
+		
+		return movieListZone.getBody();
+	}
+	
+	Object onActionFromPrevPage()
+	{
+		MovieList.setPage(MovieList.getPage() - 1);
+		
+		return movieListZone.getBody();
+	}
+	
+	public boolean getMovieListNotEmpty()
+	{
+		return MovieList.getList().size() != 0;
 	}
 	
 	public List<Movie> getMovieList()
 	{
-		return movieList;
+		return MovieList.getList();
 	}
 	
 	public String getAverageScore()
@@ -83,5 +110,15 @@ public class Movies {
 		if(currentMovie == null) return "No description found.";
 		
 		return currentMovie.getSynopsys();
+	}
+	
+	public boolean getNextPage()
+	{
+		return MovieList.existNextPage();
+	}
+	
+	public boolean getPrevPage()
+	{
+		return MovieList.existPrevPage();
 	}
 }

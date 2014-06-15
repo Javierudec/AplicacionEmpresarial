@@ -1,5 +1,6 @@
 <html t:type="layout" title="Hi/Lo Guess"
-  xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+  xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+  xmlns:p="tapestry:parameter">
 
 <div id="advancedSearch">
 Advanced Search
@@ -8,18 +9,29 @@ Advanced Search
 <div id="movieList">
 	<div class="ABCList">
 		<t:Loop t:source="ABC" value="currentLetter">
-			<t:actionlink t:id="letter" context="currentLetter">${currentLetter}</t:actionlink>|
+			<t:actionlink t:id="letter" context="currentLetter" zone="movieListZone">${currentLetter}</t:actionlink>|
 		</t:Loop>
 	</div>
 	
-	<t:Loop t:source="movieList" value="currentMovie">
-		<div id="movieListItem">
-			<span class="movieTitle"><t:actionlink t:id="viewProfile" context="currentMovie">${currentMovie.name}</t:actionlink></span>
-			<img class="moviePoster" alt="MoviePoster" src="${movieImage}" width="362" height="512" />
-			<span class="description">${movieDescription}</span>
-			<img class="averageScore" src="${averageScore}"/>
-		</div>
-	</t:Loop>
+	<t:zone t:id="movieListZone" id="movieListZone">
+		<t:if test="movieListNotEmpty">
+			<t:Loop t:source="movieList" value="currentMovie">
+				<div id="movieListItem">
+					<span class="movieTitle"><t:actionlink t:id="viewProfile" context="currentMovie.name">${currentMovie.name}</t:actionlink></span>
+					<img class="moviePoster" alt="MoviePoster" src="${movieImage}" width="362" height="512" />
+					<span class="description">${movieDescription}</span>
+					<img class="averageScore" src="${averageScore}"/>
+				</div>
+			</t:Loop>
+			<p:else>
+				No movies found.
+			</p:else>
+		</t:if>
+		
+		<t:if test="prevPage"><span class="prevPage"><t:actionLink t:id="prevPage" zone="movieListZone">Prev page</t:actionLink></span></t:if>
+		<t:if test="nextPage"><span class="nextPage"><t:ActionLink t:id="nextPage" zone="movieListZone">Next page</t:ActionLink></span></t:if>
+	</t:zone>
+
 </div>
 
 </html>
