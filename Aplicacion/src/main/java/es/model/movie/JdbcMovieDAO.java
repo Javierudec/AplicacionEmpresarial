@@ -56,7 +56,7 @@ public class JdbcMovieDAO implements MovieDAO {
 			//Connection connection = dataSource.getConnection();
 			Connection connection = SpringUtils.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
-					"SELECT title, synopsis, debut_date, image FROM movie ORDER BY date_added");
+					"SELECT title, synopsis, debut_date, image FROM movie ORDER BY date_added DESC");
 			
 			ResultSet resultSet = statement.executeQuery();
 			
@@ -348,11 +348,11 @@ public class JdbcMovieDAO implements MovieDAO {
 			Connection connection = SpringUtils.getConnection();
 			//Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
-					"DELETE FROM movie WHERE title = '?';");
+					"DELETE FROM movie WHERE title = ?");
 			
 			statement.setString(1, movieName);
 			
-			statement.executeQuery();
+			statement.executeUpdate();
 			
 		} catch ( SQLException e ){
 			throw new RuntimeException(e);
@@ -856,6 +856,25 @@ public class JdbcMovieDAO implements MovieDAO {
 		}
 		
 		return movie;
+	}
+
+	@Override
+	public void updateMovie(Movie movie) {
+		try{
+			Connection connection = SpringUtils.getConnection();
+			PreparedStatement statement = connection.prepareStatement(
+					"UPDATE movie SET title=?, synopsis=?, debut_date=?,image=? WHERE id=?");
+			
+			statement.setString(1, movie.getName());
+			statement.setString(2, movie.getSynopsys());
+			statement.setDate(3, movie.getPremiereDate());
+			statement.setString(4, movie.getImage());
+			statement.setInt(5, movie.getID());
+			
+			statement.executeUpdate();
+		} catch ( SQLException e ){
+			throw new RuntimeException(e);
+		}
 	}
 	
 	

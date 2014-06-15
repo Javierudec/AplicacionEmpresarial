@@ -48,6 +48,12 @@ public class MovieProfile {
 	@InjectPage
 	private Index index;
 	
+	@InjectPage
+	private EditMovie editMovie;
+	
+	@InjectPage
+	private ErrorPage errorPage;
+	
 	@InjectComponent
 	private Zone userScoreZone;
 	
@@ -69,6 +75,21 @@ public class MovieProfile {
 		}
 		
 		return userScoreZone.getBody();
+	}
+	
+	public boolean getIsAdmin()
+	{
+		if(username == null) return false;
+		
+		User user = null;
+		
+		try {
+			user = SpringUtils.getUserService().findUserByName(username);
+			return user.getIsAdmin();
+		} catch (InstanceNotFoundException e) {
+			// TODO Auto-generated catch block
+			return false;
+		}
 	}
 	
 	public void setMovieByName(String movieName)
@@ -197,5 +218,25 @@ public class MovieProfile {
 		movieProfile.setMovieByName(movieName);
 		
 		return movieProfile;
+	}
+	
+	Object onActionFromEditMovie()
+	{
+		editMovie.setMovieToEdit(movieName);
+		
+		return editMovie;
+	}
+	
+	Object onActionFromDeleteMovie()
+	{
+		try {
+			SpringUtils.getMovieService().deleteMovie(movieName);
+		} catch (InstanceNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		errorPage.setErrorMsg("Movie: " + movieName + " was removed successfully.");
+		return errorPage;
 	}
 }

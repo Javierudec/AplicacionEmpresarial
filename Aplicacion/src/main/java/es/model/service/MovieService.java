@@ -225,4 +225,12 @@ public class MovieService implements MovieServiceInterface {
 		movieDAO.insert(movie);
 		
 	}
+
+	public void updateMovie(Movie movieToEdit) {
+		movieDAO.updateMovie(movieToEdit);
+	}
+
+	public void deleteMovie(String movieName) throws InstanceNotFoundException{
+		movieDAO.delete(movieName);
+	}
 }

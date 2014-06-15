@@ -2,7 +2,12 @@
   xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 
 <div id="movieProfile">
-	<h1>Movie Profile: ${movieName}</h1>
+	<h1>Movie Profile: ${movieName}
+		<t:if test="isAdmin">
+			[<t:ActionLink t:id="EditMovie">Edit</t:ActionLink>|
+			 <t:ActionLink t:id="DeleteMovie">Delete</t:ActionLink>]
+		</t:if>
+	</h1>
 	<img class="moviePoster" alt="MoviePoster" src="${movieImage}" width="362" height="512" />
 	<span class="description">${movieDescription}</span>
 	<img class="averageScore" src="${averageScore}"/><h3>User average (${numUsersAvgScore} users)</h3>

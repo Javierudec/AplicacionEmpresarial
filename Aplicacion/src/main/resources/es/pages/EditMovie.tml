@@ -1,0 +1,29 @@
+<html t:type="layout" title="Hi/Lo Guess"
+  xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+ 
+<div id="defaultMenu">
+	 <t:if test="isAdmin">       
+		<table>
+			<t:Form>
+				<t:Errors/>
+				<tr>
+				<td><t:Label t:for="movieTitle">Title</t:Label></td><td><input t:type="Textfield" t:id="movieTitle" t:validate="required" size="24"/></td>
+				</tr>
+				<tr>
+				<td><t:Label t:for="description">Description</t:Label></td><td><t:textarea style="width:400px;height:400px;" t:id="description" t:validate="required" size="24"/></td>
+				</tr>
+				<tr>
+				<td><t:Label t:for="debutDate">Debut Date</t:Label></td><td><t:datefield t:id="debutDate" size="24"/></td>
+				</tr>
+				<tr>
+				<td><t:Label t:for="file">Image</t:Label></td><td><input t:type="upload" t:id="file" t:value="file"/></td>
+				</tr>
+				<tr>
+				<td></td><td><input type="submit" value="Edit"/></td>
+				</tr>
+			</t:Form>
+		</table>
+	  </t:if>
+	</div>
+
+</html>

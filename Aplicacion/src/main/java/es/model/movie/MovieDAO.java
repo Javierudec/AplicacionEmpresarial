@@ -56,4 +56,6 @@ public interface MovieDAO {
 	public abstract int findCalification(int movieRankedID, int userID);
 
 	public abstract List<Movie> findRecommendationsFor(int id, float f);
+	
+	public abstract void updateMovie(Movie movie);
 }
