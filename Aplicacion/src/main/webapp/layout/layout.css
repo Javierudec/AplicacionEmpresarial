@@ -165,21 +165,21 @@
 }
 
 #movieOfMonth .description {
-	float:right;
-	min-width:450px;
-	text-alighn:center;
+	float:left;
+	min-width:500px;
+	max-width:500px;
 	padding-top:20px;
 	font-size:24px;
+	padding-left:5px;
 }
 
 #movieOfMonth .starsClass {
-    float:right;
+    float:left;
+    clear:left;
 	max-width:50%;
 	max-height:20%;
-	position:relative;
-	display:block;
-	bottom:-280px;
-	padding-right:60px;
+	padding-left:5px;
+	padding-top:25px;
 }
 
 #movieOfMonth .momPoster {
@@ -196,7 +196,7 @@
 body {
 	width:60%;
 	margin: 0 auto;
-	background-color:#6eabcf;
+	background-color:#afb180;
 }
 
 #cssmenu {
