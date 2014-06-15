@@ -3,6 +3,8 @@
  */
 package es.pages;
 
+import java.util.List;
+
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
@@ -13,6 +15,7 @@ import org.apache.tapestry5.corelib.components.Zone;
 import util.SpringUtils;
 import entities.MovieEvaluation;
 import es.model.movie.Movie;
+import es.model.relation.Relation;
 import es.model.service.MovieService;
 import es.model.service.UserService;
 import es.model.user.User;
@@ -30,6 +33,9 @@ public class MovieProfile {
 	@Property
 	@Persist
 	private String scoreSelected;
+	
+	@Property
+	private Relation relation;
 	
 	@Persist
 	@Property
@@ -49,6 +55,9 @@ public class MovieProfile {
 	
 	@Property
 	private MovieEvaluation movieEvaluation;
+	
+	@InjectPage
+	private MovieProfile movieProfile;
 	
 	public Object onValueChanged(String score)
 	{
@@ -151,5 +160,42 @@ public class MovieProfile {
 		}
 		
 		return numUsers;
+	}
+	
+	public List<Relation> getRelations()
+	{
+		return SpringUtils.getMovieService().findRelationsForMovie(movieName, 5);
+	}
+	
+	public String getDestinyMovieImage()
+	{
+		try {
+			return "images/" + SpringUtils.getMovieService().findMovieByName(relation.getDestinyMovie()).getImage();
+		} catch (InstanceNotFoundException e) {
+			// TODO Auto-generated catch block
+			return "";
+		}
+	}
+	
+	public String getAverageScoreRelation()
+	{
+		Integer currAvgScore = 0;
+		
+		//System.out.println("Movie name: " + movieName);
+		
+		if(relation.getDestinyMovie() != null)
+		{
+			currAvgScore = movieService.findCalificationAverage(relation.getDestinyMovie());
+		}
+		
+		return "images/" + currAvgScore + "_star.png";
+	}
+	
+	Object onActionFromViewProfileRelation(String movieName)
+	{		
+		//movieService.executeMoviesSimilarityAlgorithm();
+		movieProfile.setMovieByName(movieName);
+		
+		return movieProfile;
 	}
 }

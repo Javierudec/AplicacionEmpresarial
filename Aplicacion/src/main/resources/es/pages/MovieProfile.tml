@@ -1,53 +1,39 @@
 <html t:type="layout" title="Hi/Lo Guess"
   xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 
-
-
-<!-- 
-<t:if test="username">
-	<t:beaneditform object="movieEvaluation"/>
-</t:if>
--->
-
-<!-- 
-<div id="starScoreDiv">
-	<div id="star_0_5" class="scoreStar"><img src="images/yellow_star_left.png"/></div>
-	<div id="star_1_0" class="scoreStar"><img src="images/black_star_right.png"/></div>
-	<div id="star_1_5" class="scoreStar"><img src="images/black_star_left.png"/></div>
-	<div id="star_2_0" class="scoreStar"><img src="images/black_star_right.png"/></div>
-	<div id="star_2_5" class="scoreStar"><img src="images/black_star_left.png"/></div>
-	<div id="star_3_0" class="scoreStar"><img src="images/black_star_right.png"/></div>
-	<div id="star_3_5" class="scoreStar"><img src="images/black_star_left.png"/></div>
-	<div id="star_4_0" class="scoreStar"><img src="images/black_star_right.png"/></div>
-	<div id="star_4_5" class="scoreStar"><img src="images/black_star_left.png"/></div>
-	<div id="star_5_0" class="scoreStar"><img src="images/black_star_right.png"/></div>
+<div id="movieProfile">
+	<h1>Movie Profile: ${movieName}</h1>
+	<img class="moviePoster" alt="MoviePoster" src="${movieImage}" width="362" height="512" />
+	<span class="description">${movieDescription}</span>
+	<img class="averageScore" src="${averageScore}"/><h3>User average (${numUsersAvgScore} users)</h3>
+		
+	<t:if test="username">
+		<t:Zone t:id="userScoreZone" id="userScoreZone">
+			<img class="yourScore" src="${userScore}"/><h3>Your Score</h3>
+		</t:Zone>
+		<t:form class="modifyScore">
+			<t:select t:id="scoreSelected" model="literal:0,1,2,3,4,5" zone="userScoreZone"/>
+		</t:form>
+	</t:if>
+				
+	<embed class="video" src="http://www.youtube.com/v/XGSy3_Czz8k" type="application/x-shockwave-flash"></embed>
 </div>
--->
 
 
-	<div id="movieProfile">
-		<h1>Movie Profile: ${movieName}</h1>
-		<img class="moviePoster" alt="MoviePoster" src="${movieImage}" width="362" height="512" />
-		<span class="description">${movieDescription}</span>
-		<img class="averageScore" src="${averageScore}"/><h3>User average (${numUsersAvgScore} users)</h3>
-		
-		
-		<t:if test="username">
-			<t:Zone t:id="userScoreZone" id="userScoreZone">
-				<img class="yourScore" src="${userScore}"/><h3>Your Score</h3>
-			</t:Zone>
-			<t:form class="modifyScore">
-				<t:select t:id="scoreSelected" model="literal:0,1,2,3,4,5" zone="userScoreZone"/>
-			</t:form>
-		</t:if>
-		
-		
-		<embed class="video" src="http://www.youtube.com/v/XGSy3_Czz8k" type="application/x-shockwave-flash"></embed>
-	</div>
-
-
-<div id="similarMoviesMenu">
-	Recommendations...
+<div id="relationsMenu">
+	Users who have seen this, they also recommend...<br/>
+	<t:Loop t:source="relations" value="relation">
+		<div id="relationContainer">
+			<t:actionLink t:id="viewProfileRelation" t:context="relation.destinyMovie"><h2>${relation.destinyMovie}</h2></t:actionLink>
+			<img class="moviePoster" alt="MoviePoster" src="${destinyMovieImage}" width="362" height="512" />
+			
+			
+			
+			<span class="description">${relation.comment}</span>
+			<span class="username">by ${relation.username}</span>
+			<img class="averageScore" src="${averageScoreRelation}"/>
+		</div>
+	</t:Loop>
 </div>
 
 </html>

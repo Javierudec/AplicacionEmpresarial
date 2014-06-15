@@ -397,3 +397,52 @@ body {
 	border:2px solid;
 	width: 99.68%;
 }
+
+#relationsMenu {
+	background-color:#ffffff;
+	border:2px solid;
+	width: 98.98%;
+	overflow:auto;	
+	margin-top:5px;
+	padding-left:5px;
+	padding-bottom:5px;
+}
+
+#relationsMenu .averageScore {
+	float:left;
+	clear:left;
+	max-width:128px;
+}
+
+#relationsMenu .movieTitle {
+	float:left;
+	clear:left;
+}
+
+#relationsMenu .username {
+	float:left;
+	font-style:italic;
+}
+
+#relationContainer
+{
+	border:2px solid;
+	width:98%;
+	overflow:auto;
+	padding-left:5px;
+	padding-bottom:5px;
+	margin-bottom:5px;
+}
+
+#relationsMenu .moviePoster {
+	max-width:128px;
+	max-height:182px;
+	float:left;
+	clear:left;
+	margin-right:10px;
+}
+
+#relationsMenu .description {
+	float:left;
+	font-size:24px;
+}
