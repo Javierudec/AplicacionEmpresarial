@@ -46,4 +46,14 @@ public interface MovieDAO {
 	public abstract List<Movie> findMoviesOrderByRank();
 
 	public abstract void executeMoviesSimilarityAlgorithm(String name);
+
+	public abstract List<Movie> getAllMovies();
+
+	public abstract List<Integer> findMoviesRankedBy(int userID);
+
+	public abstract double findSimilarity(int movieID, int movieRankedID);
+
+	public abstract int findCalification(int movieRankedID, int userID);
+
+	public abstract List<Movie> findRecommendationsFor(int id, float f);
 }

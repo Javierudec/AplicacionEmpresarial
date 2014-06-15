@@ -1,0 +1,13 @@
+<html t:type="layout" title="Hi/Lo Guess"
+  xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+  xmlns:p="tapestry:parameter">
+
+<div id="defaultMenu">
+	<t:if test="isAdmin">
+		<t:pagelink page="RecommenderAlgorithm">Recommender algorithm</t:pagelink>
+		<p:else>
+			You are not authorized to enter this section.
+		</p:else>
+	</t:if>
+</div>
+</html>

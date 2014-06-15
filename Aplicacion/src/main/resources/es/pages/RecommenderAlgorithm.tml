@@ -4,13 +4,18 @@
 
 <div id="defaultMenu">
 	<t:form t:zone="currentStateZone">
-		<t:select t:id="colorMenu" value="selectedColor" model="ColorSelectModel" encoder="movieEncoder"/>
-		<input type="submit" value="Calculate Similarity"/>
+		<t:select t:id="colorMenu" value="selectedUser" model="UserSelectModel" encoder="userEncoder"/>
+		<input type="submit" value="Calculate rank predictions"/>
 	</t:form>
+	
+	<hr/>
+
+	<t:ActionLink t:id="initAlgorithm" zone="currentStateZone">Execute similarity algorithm</t:ActionLink>
+	
+	<hr/>
 
 	<t:zone t:id="currentStateZone" id="currentStateZone">
-		<span class="message">${currentState}</span><br/> 
-		<!-- <t:ActionLink t:id="initAlgorithm" zone="currentStateZone">Execute algorithm</t:ActionLink> -->
+		<span class="message">${currentState}</span><br/>
 	</t:zone>
 </div>
 </html>

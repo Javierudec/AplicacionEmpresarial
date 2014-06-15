@@ -9,6 +9,8 @@ public class User {
 	
 	private String email;
 	
+	private int id;
+	
 	private boolean isAdmin;
 	
 	public User()
@@ -28,10 +30,12 @@ public class User {
 	public String getName(){ return name; }
 	public String getPassword(){ return password; }
 	public String getEmail(){ return email; }
+	public int getID() { return id; }
 	
 	public void setName( String _name ){ name = _name; }
 	public void setPassword( String _password ){ password = _password; }
 	public void setEmail( String _email ){ email = _email; }
+	public void setID(int _id) { id = _id; }
 	
 	public String toString(){ return "[ "+name+" - "+email+" ] ";}
 

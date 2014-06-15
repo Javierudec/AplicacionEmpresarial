@@ -12,7 +12,11 @@ public interface UserServiceInterface {
 	
 	public abstract User addUser( User user );
 	
-	public User findUserByName(String userName) 
+	public abstract User findUserByName(String userName) 
 			throws InstanceNotFoundException;
+	
+	public abstract void calculatePredictionRanks();
+	
+	public abstract void calculatePredictionRanks(int user_id);
 	
 }

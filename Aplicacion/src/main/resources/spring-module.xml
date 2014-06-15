@@ -76,6 +76,7 @@
 	<!-- UserService -->
 	<bean id="userServiceBean" class="es.model.service.UserService">
 		<property name="UserDAO" ref="userDAOBean" />
+		<property name="MovieDAO" ref="movieDAOBean" />
 		<property name="ArticleDAO" ref="articleDAOBean" />
 		<property name="transactionManager" ref="transactionManagerBean" />
 	</bean>

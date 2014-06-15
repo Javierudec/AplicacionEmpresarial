@@ -19,6 +19,9 @@
             		<img src="images/silhouette.png" alt="Avatar"></img>
             		<t:actionLink t:id="viewUserProfile">Profile</t:actionLink>|
             		<t:actionLink t:id="logout">Logout</t:actionLink>
+            		<t:if test="isAdmin">
+            			|<t:PageLink t:page="CPanel">CPanel</t:PageLink>
+            		</t:if>
             		<br/>
 					(Welcome, ${username})
 					<p:else>

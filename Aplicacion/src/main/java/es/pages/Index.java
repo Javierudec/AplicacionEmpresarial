@@ -143,11 +143,14 @@ public class Index
 	
 	public List<Movie> getRecommendedMovies()
 	{
-		List<Movie> movieList = new ArrayList<Movie>();
-			
-		movieList = SpringUtils.getMovieService().findLastMoviesAdded(6);
+		List<Movie> listToRet = null;
 		
-		return movieList;
+		if(username != null)
+		{
+			listToRet = SpringUtils.getUserService().findRecommendationsFor(username, 3.4f);
+		}
+		
+		return listToRet.subList(0, Math.min(6, listToRet.size()));
 	}
 	
 	public String getRecoMovieImage()

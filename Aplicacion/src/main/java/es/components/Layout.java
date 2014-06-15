@@ -65,6 +65,21 @@ public class Layout
     	//username = "Guest";
     }
     
+	public boolean getIsAdmin()
+	{
+		if(username == null) return false;
+		
+		User user = null;
+		
+		try {
+			user = SpringUtils.getUserService().findUserByName(username);
+			return user.getIsAdmin();
+		} catch (InstanceNotFoundException e) {
+			// TODO Auto-generated catch block
+			return false;
+		}
+	}
+    
     public String getClassForPageName()
     {
       return resources.getPageName().equalsIgnoreCase(pageName)

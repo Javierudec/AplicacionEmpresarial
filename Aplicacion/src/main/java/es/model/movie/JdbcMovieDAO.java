@@ -25,7 +25,7 @@ public class JdbcMovieDAO implements MovieDAO {
 			//Connection connection = dataSource.getConnection();
 			Connection connection = SpringUtils.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
-					"SELECT title, synopsis, debut_date, image FROM movie WHERE title = ?");
+					"SELECT title, synopsis, debut_date, image, id FROM movie WHERE title = ?");
 			statement.setString(1, movieName);
 			
 			ResultSet resultSet = statement.executeQuery();
@@ -35,8 +35,10 @@ public class JdbcMovieDAO implements MovieDAO {
 				String newMovieSynopsys = resultSet.getString(2);
 				String newMovieImage = resultSet.getString(4);
 				java.sql.Date newMovieDebutDate = resultSet.getDate(3); // TODO: check if this works
+				int id = resultSet.getInt(5);
 				
 				movie = new Movie( newMovieName, newMovieSynopsys, newMovieDebutDate, newMovieImage);
+				movie.setID(id);
 				
 			} else {
 				throw new InstanceNotFoundException();
@@ -153,7 +155,7 @@ public class JdbcMovieDAO implements MovieDAO {
 	} 
 	
 	//Tested!
-	public int findCalification(int movieID, int userID) throws InstanceNotFoundException{
+	public int findCalification(int movieID, int userID){
 		try{
 			Connection connection = SpringUtils.getConnection();			
 			if(movieID != -1 && userID != -1)
@@ -436,6 +438,8 @@ public class JdbcMovieDAO implements MovieDAO {
 				statement.setInt(2, movieID);
 				statement.setInt(3, calification);
 				
+				System.out.println("RANK: " + userID + " " + movieID);
+				
 				statement.executeUpdate();
 				
 				statement = connection.prepareStatement(
@@ -470,10 +474,11 @@ public class JdbcMovieDAO implements MovieDAO {
 			
 			for(int i = 0; i < movieIDArray.size(); i++)
 			{
+				System.out.println(i + "/" + movieIDArray.size());
+				
 				for(int j = i + 1; j < movieIDArray.size(); j++)
 				{
-					//System.out.println("(A = " + movieIDArray.get(i) + ",B = " + movieIDArray.get(j) + ")");
-					/*
+					
 					statement = connection.prepareStatement("SELECT username, COUNT(username) FROM (SELECT username FROM rank_movie WHERE rankedmovie = ? OR rankedmovie = ?) AS A GROUP BY username");
 					statement.setInt(1, movieIDArray.get(i));
 					statement.setInt(2, movieIDArray.get(j));
@@ -489,24 +494,24 @@ public class JdbcMovieDAO implements MovieDAO {
 					{
 						if(users.getInt(2) == 2)
 						{
-							try {
-								double RUA = (findCalification(movieIDArray.get(i), users.getInt(1)) - RA);
-								double RUB = (findCalification(movieIDArray.get(j), users.getInt(1)) - RB);
-								
-								RUAB += RUA * RUB;
-								RUA2 += RUA * RUA;
-								RUB2 += RUB * RUB;
-								
-							} catch (InstanceNotFoundException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+							double RUA = (findCalification(movieIDArray.get(i), users.getInt(1)) - RA);
+							double RUB = (findCalification(movieIDArray.get(j), users.getInt(1)) - RB);
+							
+							RUAB += RUA * RUB;
+							RUA2 += RUA * RUA;
+							RUB2 += RUB * RUB;
 							
 							//System.out.println(users.getInt(1));
 						}
 					}
 					
-					double corrAB = RUAB / Math.sqrt(RUA2 * RUB2);
+					double divisor = Math.sqrt(RUA2 * RUB2);
+					double corrAB = 0.0f;
+					
+					if(divisor > 0)
+					{
+						corrAB = RUAB / Math.sqrt(RUA2 * RUB2);
+					}
 					
 					statement = connection.prepareStatement("INSERT INTO similarity VALUES (?, ?, ?)");
 					statement.setInt(1, movieIDArray.get(i));
@@ -514,9 +519,6 @@ public class JdbcMovieDAO implements MovieDAO {
 					statement.setDouble(3, corrAB);
 					
 					statement.executeUpdate();
-					*/
-					
-					//System.out.println("READY");
 				}
 			}
 
@@ -525,7 +527,7 @@ public class JdbcMovieDAO implements MovieDAO {
 			e.printStackTrace();
 		}	
 	}
-
+	
 	public List<Movie> findLastMoviesByDebut(int i) {
 		ArrayList<Movie> movie = new ArrayList<Movie>();
 
@@ -683,23 +685,15 @@ public class JdbcMovieDAO implements MovieDAO {
 						
 						if(users.getInt(2) == 2)
 						{
-							try {
-								int calA = findCalification(movieID, currUserID);
-								int calB = findCalification(movieB_id, currUserID);
-								
-								double RUA = (calA - RA);
-								double RUB = (calB - RB);
-								
-								RUAB += RUA * RUB;
-								RUA2 += RUA * RUA;
-								RUB2 += RUB * RUB;
-								
-								//System.out.println(RUAB + " " + RUA2 + " " + RUB2);
-								
-							} catch (InstanceNotFoundException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+							int calA = findCalification(movieID, currUserID);
+							int calB = findCalification(movieB_id, currUserID);
+							
+							double RUA = (calA - RA);
+							double RUB = (calB - RB);
+							
+							RUAB += RUA * RUB;
+							RUA2 += RUA * RUA;
+							RUB2 += RUB * RUB;
 						}
 					}
 						
@@ -725,6 +719,142 @@ public class JdbcMovieDAO implements MovieDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
+	}
+
+	@Override
+	public List<Movie> getAllMovies() {
+		List<Movie> movieList = new ArrayList<Movie>();
+		
+		try{
+			Connection connection = SpringUtils.getConnection();
+			PreparedStatement statement = connection.prepareStatement(
+					"SELECT id FROM movie");
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			while(resultSet.next()){		
+				int id = resultSet.getInt(1);
+				
+				Movie newMovie = new Movie("NONAME", "NONAME", null);
+				newMovie.setID(id);
+				
+				movieList.add(newMovie);
+			} 
+			
+		} catch ( SQLException e ){
+			throw new RuntimeException(e);
+		}
+		
+		return movieList;
+	}
+
+	@Override
+	public List<Integer> findMoviesRankedBy(int userID) {
+		List<Integer> movieIDList = new ArrayList<Integer>();
+		
+		try{
+			Connection connection = SpringUtils.getConnection();
+			PreparedStatement statement = connection.prepareStatement(
+					"SELECT rankedmovie FROM rank_movie WHERE username = ?");
+			statement.setInt(1, userID);
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			while(resultSet.next()){		
+				movieIDList.add(resultSet.getInt(1));
+			} 
+			
+		} catch ( SQLException e ){
+			throw new RuntimeException(e);
+		}
+		
+		return movieIDList;
+	}
+
+	@Override
+	public double findSimilarity(int movieID, int movieRankedID) {
+		double similarity = 0.0f;
+		
+		try{
+			Connection connection = SpringUtils.getConnection();
+			PreparedStatement statement = connection.prepareStatement(
+					"SELECT similarity_value FROM similarity WHERE (movie_id_1 = ? AND movie_id_2 = ?) OR (movie_id_1 = ? AND movie_id_2 = ?)");
+			statement.setInt(1, movieID);
+			statement.setInt(2, movieRankedID);
+			statement.setInt(3, movieRankedID);
+			statement.setInt(4, movieID);
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			if(resultSet.next()){		
+				similarity = resultSet.getDouble(1);
+			} 
+			
+		} catch ( SQLException e ){
+			throw new RuntimeException(e);
+		}
+		
+		return similarity;
+	}
+
+	@Override
+	public List<Movie> findRecommendationsFor(int id, float f) {
+		List<Movie> movieList = new ArrayList<Movie>();
+		
+		Connection connection = SpringUtils.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement("SELECT movie_id FROM predicted_rank WHERE user_id = ? AND predicted_rank >= ?");
+			statement.setInt(1, id);
+			statement.setDouble(2, f);
+			
+			ResultSet resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				try {
+					movieList.add(find(resultSet.getInt(1)));
+				} catch (InstanceNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return movieList;
+	}
+
+	private Movie find(int int1) throws InstanceNotFoundException {
+		Movie movie = null;
+		
+		try{
+			Connection connection = SpringUtils.getConnection();
+			PreparedStatement statement = connection.prepareStatement(
+					"SELECT title, synopsis, debut_date, image, id FROM movie WHERE id = ?");
+			statement.setInt(1, int1);
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			if( resultSet.next() ){
+				String newMovieName = resultSet.getString(1);
+				String newMovieSynopsys = resultSet.getString(2);
+				String newMovieImage = resultSet.getString(4);
+				java.sql.Date newMovieDebutDate = resultSet.getDate(3); // TODO: check if this works
+				int id = resultSet.getInt(5);
+				
+				movie = new Movie( newMovieName, newMovieSynopsys, newMovieDebutDate, newMovieImage);
+				movie.setID(id);
+				
+			} else {
+				throw new InstanceNotFoundException();
+			}
+		} catch ( SQLException e ){
+			throw new RuntimeException(e);
+		}
+		
+		return movie;
 	}
 	
 	

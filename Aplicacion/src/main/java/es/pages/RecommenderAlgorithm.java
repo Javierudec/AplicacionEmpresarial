@@ -13,7 +13,9 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.SelectModelFactory;
 
 import encoders.MovieEncoder;
+import encoders.UserEncoder;
 import es.model.movie.Movie;
+import es.model.user.User;
 import util.SpringUtils;
 
 /**
@@ -25,16 +27,16 @@ public class RecommenderAlgorithm {
 	private Zone currentStateZone;
 	
 	@Property
-	private SelectModel colorSelectModel;
+	private SelectModel userSelectModel;
 	
 	@Property
-	private Movie selectedColor;
+	private User selectedUser;
 	
 	@Inject
 	SelectModelFactory selectModelFactory;
 	
 	@Property
-	MovieEncoder movieEncoder;
+	UserEncoder userEncoder;
 	
 	@Property
 	private String currentState;
@@ -45,18 +47,18 @@ public class RecommenderAlgorithm {
 	{
 		currentState = "Ready to start algorithm.";
 		
-		movieEncoder = new MovieEncoder();
+		userEncoder = new UserEncoder();
 		
-		List<Movie> movieList = SpringUtils.getMovieService().findMoviesOrderByRank();
-		colorSelectModel = selectModelFactory.create(movieList, "name");
+		List<User> userList = SpringUtils.getUserService().getAllUsers();
+		userSelectModel = selectModelFactory.create(userList, "name");
 		
 	}
 	
 	Object onSuccess()
 	{
-		currentState = "Similarity calculated for movie: ." + selectedColor.getName();
+		SpringUtils.getUserService().calculatePredictionRanks(selectedUser.getID());
 		
-		SpringUtils.getMovieService().executeMoviesSimilarityAlgorithm(selectedColor.getName());
+		currentState = "Rank predictions up to date for user with username: " + selectedUser.getName();
 		
 		return currentStateZone.getBody();
 	}
@@ -66,16 +68,15 @@ public class RecommenderAlgorithm {
 		return bInProgress;
 	}
 	
-	/*
+	
 	Object onActionFromInitAlgorithm()
 	{
-		//executeAlgorithm();
+		executeAlgorithm();
 		
 		currentState = "Recommendation System is up to date.";
 		
 		return currentStateZone.getBody();
 	}
-	*/
 	
 	void executeAlgorithm()
 	{
