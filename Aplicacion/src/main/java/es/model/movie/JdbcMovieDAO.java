@@ -310,10 +310,11 @@ public class JdbcMovieDAO implements MovieDAO {
 			Connection connection = SpringUtils.getConnection();
 			//Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
-					"INSERT INTO movie(title,synopsis,debut_date) VALUES (?,?,?);");
-			statement.setString(1, movie.getName() );
-			statement.setString(2, movie.getSynopsys() );
-			statement.setDate(3, movie.getPremiereDate() );
+					"INSERT INTO movie(title,synopsis,debut_date,image) VALUES (?,?,?,?);");
+			statement.setString(1, movie.getName());
+			statement.setString(2, movie.getSynopsys());
+			statement.setDate(3, movie.getPremiereDate());
+			statement.setString(4, movie.getImage());
 			
 			statement.executeUpdate();
 			

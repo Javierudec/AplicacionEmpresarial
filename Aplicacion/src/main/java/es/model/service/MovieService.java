@@ -220,4 +220,9 @@ public class MovieService implements MovieServiceInterface {
 		movieDAO.executeMoviesSimilarityAlgorithm(name);
 		
 	}
+
+	public void addMovie(Movie movie) {
+		movieDAO.insert(movie);
+		
+	}
 }
