@@ -33,7 +33,7 @@ Para ingresar como administrador, hacer Login con username: admin, password: adm
 				<h3>Recomendaciones</h3>
 				<t:Loop t:source="recommendedMovies" value="recoMovie">
 					<div id="recommendedMovie">
-						<t:actionLink t:id="viewProfileRecoList" t:context="recoMovie.name"><h3>${recoMovie.name}</h3></t:actionLink>
+						<t:actionLink t:id="viewProfileRecoList" t:context="recoMovie.name"><h3>${recoMovie.name} (${recoMovieYear})</h3></t:actionLink>
 						<img id="moviePoster" src="${recoMovieImage}"/>
 						<img id="stars" src="${imageMovieScore}"/>
 					</div>
@@ -62,7 +62,7 @@ Para ingresar como administrador, hacer Login con username: admin, password: adm
 			</t:If>
 		</div>
 		<div class="menu_simple" id="debutMoviesWidget">
-			<h1>Estrenos recientes</h1>
+			<h1>Debut</h1>
 			<ul>
 				<t:Loop t:source="debutMovies" value="movieName">
 					<li><t:actionLink t:id="viewProfileLastAdded" t:context="movieName.name">${movieName.name}</t:actionLink></li>
@@ -71,10 +71,10 @@ Para ingresar como administrador, hacer Login con username: admin, password: adm
 		</div>
 		<div class="menu_simple" id="newMoviesWidget">
 
-			<h1>Recien agregados</h1>
+			<h1>Recent Added</h1>
 			<ul>
 				<t:Loop t:source="lastMovies" value="movieName">
-					<li><t:actionLink t:id="viewProfile" t:context="movieName.name">${movieName.name}</t:actionLink></li>
+					<li><t:actionLink t:id="viewProfile" t:context="movieName.name">${movieName.name} (${lastMovieAddedYear})</t:actionLink></li>
 				</t:Loop>
 			</ul>
 		</div>

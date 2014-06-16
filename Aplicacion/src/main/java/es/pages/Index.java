@@ -4,6 +4,7 @@
 package es.pages;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.tapestry5.ValueEncoder;
@@ -14,6 +15,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionAttribute;
 
 import util.SpringUtils;
+import util.Utils;
 import es.model.movie.Movie;
 import es.model.service.MovieService;
 import es.model.service.UserService;
@@ -85,6 +87,16 @@ public class Index
 		List<Movie> movieList = movieService.findLastMoviesAdded(10);
 		
 		return movieList;
+	}
+	
+	public String getLastMovieAddedYear()
+	{
+		if(movieName != null && movieName.getPremiereDate() != null)
+		{
+			return Utils.getYear(movieName.getPremiereDate());
+		}
+		
+		return "Unknown";
 	}
 	
 	public int getMovieScore()
@@ -211,5 +223,15 @@ public class Index
 	public String getMomDescription()
 	{
 		return momMovie.getSynopsys();
+	}
+	
+	public String getRecoMovieYear()
+	{
+		if(recoMovie != null && recoMovie.getPremiereDate() != null)
+		{
+			return Utils.getYear(recoMovie.getPremiereDate());
+		}
+		
+		return "Unknown";
 	}
 }
