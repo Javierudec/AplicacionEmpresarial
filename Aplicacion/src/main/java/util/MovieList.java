@@ -10,10 +10,12 @@ public class MovieList {
 	private static MovieList movieList;
 	private static int currPage;
 	private static int numMoviesPerPage;
+	private static boolean isCompleteListSetted;
 	
 	private MovieList()
 	{
 		numMoviesPerPage = 6;
+		isCompleteListSetted = false;
 	}
 	
 	public static MovieList getMovieList()
@@ -36,6 +38,8 @@ public class MovieList {
 	public static List<Movie> getCompleteList()
 	{
 		if(getMovieList() == null) return null;
+		
+		isCompleteListSetted = true;
 		
 		return completeList;
 	}
@@ -76,5 +80,10 @@ public class MovieList {
 	public static boolean existNextPage()
 	{
 		return currPage < Math.ceil(list.size() / (double)numMoviesPerPage) - 1;
+	}
+
+	public static boolean isCompleteListSetted() {
+		// TODO Auto-generated method stub
+		return isCompleteListSetted;
 	}
 }

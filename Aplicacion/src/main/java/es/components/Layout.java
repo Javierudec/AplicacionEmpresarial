@@ -8,12 +8,15 @@ import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.ioc.annotations.*;
 import org.apache.tapestry5.BindingConstants;
 
+import util.FilterByTitle;
+import util.MovieList;
 import util.SpringUtils;
 import es.model.service.*;
 import es.model.user.User;
 import es.model.util.exceptions.InstanceNotFoundException;
 import es.pages.ErrorPage;
 import es.pages.Index;
+import es.pages.Movies;
 
 /**
  * Layout component for pages of application tutorial1.
@@ -60,9 +63,15 @@ public class Layout
     @InjectPage
     private ErrorPage errorHandler;
     
+    @InjectPage
+    private Movies moviesPage;
+    
+    @Property
+    private String searchByTitlePattern;
+    
     public Layout()
     {
-    	//username = "Guest";
+    	searchByTitlePattern = "Search by title...";
     }
     
 	public boolean getIsAdmin()
@@ -126,13 +135,11 @@ public class Layout
 		return null;
 	}
 	
-	Object onSuccess()
-	{
-		System.out.println("Username: " + loginUsername);
-		
+	Object onSuccessFromLoginForm()
+	{		
 		try {
 			User user = SpringUtils.getUserService().findUserByName(loginUsername);
-			
+				
 			if(user != null && user.getPassword().equals(loginPassword))
 			{
 				username = user.getName();
@@ -148,7 +155,13 @@ public class Layout
 			return errorHandler;
 		}
 		
-		
 		return index;
+	}
+	
+	Object onSuccessFromSearchByTitle()
+	{
+		MovieList.setCompleteList(SpringUtils.getMovieService().findMoviesOrderByRank());
+		MovieList.setList(FilterByTitle.FilterList(searchByTitlePattern, MovieList.getCompleteList()));
+		return moviesPage;
 	}
 }

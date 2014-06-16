@@ -85,6 +85,7 @@ public class EditMovie {
 		{
 			File copied = new File(file.getFileName());
 			file.write(copied);
+			movieToEdit.setImage(file.getFileName());
 		}
 		
 		SpringUtils.getMovieService().updateMovie(movieToEdit);

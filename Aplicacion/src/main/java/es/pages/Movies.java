@@ -46,9 +46,12 @@ public class Movies {
 	
 	Movies()
 	{
-		MovieList.setCompleteList(SpringUtils.getMovieService().findMoviesOrderByRank());
-		//System.out.println(MovieList.getCompleteList().size());
-		MovieList.setList(MovieList.getCompleteList());
+		if(!MovieList.isCompleteListSetted())
+		{
+			MovieList.setCompleteList(SpringUtils.getMovieService().findMoviesOrderByRank());
+			MovieList.setList(MovieList.getCompleteList());
+		}
+		
 		MovieList.setPage(0);
 	}
 	
