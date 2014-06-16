@@ -195,7 +195,7 @@
 }
 
 body {
-	width:60%;
+	width:1152px;
 	margin: 0 auto;
 	background-color:#afb180;
 }
@@ -291,8 +291,9 @@ body {
 	background-color:#ffffff;
 	border:2px solid;
 	width: 98.78%;
-	height: 1280px;
+	overflow:auto;
 	padding-left:10px;
+	padding-bottom:5px;
 }
 
 #movieProfile h3 {

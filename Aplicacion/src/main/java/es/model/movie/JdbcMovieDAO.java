@@ -25,7 +25,7 @@ public class JdbcMovieDAO implements MovieDAO {
 			//Connection connection = dataSource.getConnection();
 			Connection connection = SpringUtils.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
-					"SELECT title, synopsis, debut_date, image, id FROM movie WHERE title = ?");
+					"SELECT title, synopsis, debut_date, image, id, video_url FROM movie WHERE title = ?");
 			statement.setString(1, movieName);
 			
 			ResultSet resultSet = statement.executeQuery();
@@ -36,9 +36,11 @@ public class JdbcMovieDAO implements MovieDAO {
 				String newMovieImage = resultSet.getString(4);
 				java.sql.Date newMovieDebutDate = resultSet.getDate(3); // TODO: check if this works
 				int id = resultSet.getInt(5);
+				String newVideoURL = resultSet.getString(6);
 				
 				movie = new Movie( newMovieName, newMovieSynopsys, newMovieDebutDate, newMovieImage);
 				movie.setID(id);
+				movie.setVideoURL(newVideoURL);
 				
 			} else {
 				throw new InstanceNotFoundException();

@@ -1,0 +1,20 @@
+<html t:type="layout" title="Hi/Lo Guess"
+  xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+ 
+<div id="defaultMenu">
+	<t:if test="isAdmin">      
+		<table>
+			<t:Form t:id="addActor">
+				<t:Errors/>
+				<tr>
+				<td><t:Label t:for="actorName">Name</t:Label></td><td><input t:type="Textfield" t:id="actorName" t:validate="required" size="24"/></td>
+				</tr>
+				<tr>
+				<td></td><td><input type="submit" value="Create"/></td>
+				</tr>
+			</t:Form>
+		</table>
+	</t:if>
+</div>
+
+</html>

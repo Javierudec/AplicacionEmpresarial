@@ -246,4 +246,18 @@ public class MovieService implements MovieServiceInterface {
 			e.printStackTrace();
 		}
 	}
+
+	public void addActorToMovie(String movieName, String name) {
+		try {
+			movieDAO.addActorToMovie(movieName, actorDAO.find(name).getID());
+		} catch (InstanceNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	public List<Actor> getAllActors() {
+		return actorDAO.getAll();
+	}
 }

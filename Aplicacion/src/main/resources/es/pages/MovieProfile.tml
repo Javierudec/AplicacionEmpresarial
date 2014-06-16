@@ -11,17 +11,34 @@
 	<img class="moviePoster" alt="MoviePoster" src="${movieImage}" width="362" height="512" />
 	<span class="description">${movieDescription}</span>
 	<hr/>
+	
 	<t:zone t:id="genreListZone" id="genreListZone">
 		<t:Loop t:source="movieGenres" value="currGenre">
-			${currGenre.name},
+			<t:ActionLink t:id="searchByGenre" t:context="currGenre.name">${currGenre.name}</t:ActionLink>,
 		</t:Loop>
 	</t:zone>
+	
 	<t:if test="isAdmin">
 		<t:form t:zone="genreListZone" t:id="addGenreForm">
 			<t:select value="selectedGenre" model="GenreSelectModel" encoder="genreEncoder"/>
-			<input type="submit" value="Add Genre"/>
+			<input type="submit" value="Add genre"/>
 		</t:form>
 	</t:if>
+	
+	<hr/>
+	<t:zone t:id="actorListZone" id="actorListZone">
+		<t:Loop t:source="movieActors" value="currActor">
+			<t:ActionLink t:id="searchByActor" t:context="currActor.name">${currActor.name}</t:ActionLink>,
+		</t:Loop>
+	</t:zone>
+	
+	<t:if test="isAdmin">
+		<t:form t:zone="actorListZone" t:id="addActorForm">
+			<t:select value="selectedActor" model="ActorSelectModel" encoder="actorEncoder"/>
+			<input type="submit" value="Add actor"/>
+		</t:form>
+	</t:if>
+	
 	<img class="averageScore" src="${averageScore}"/><h3>User average (${numUsersAvgScore} users)</h3>
 		
 	<t:if test="username">
@@ -32,8 +49,10 @@
 			<t:select t:id="scoreSelected" model="literal:0,1,2,3,4,5" zone="userScoreZone"/>
 		</t:form>
 	</t:if>
-				
-	<embed class="video" src="http://www.youtube.com/v/XGSy3_Czz8k" type="application/x-shockwave-flash"></embed>
+	
+	<t:if test="videoExists">			
+		<embed class="video" src="${movieData.videoURL}" type="application/x-shockwave-flash"></embed>
+	</t:if>
 </div>
 
 

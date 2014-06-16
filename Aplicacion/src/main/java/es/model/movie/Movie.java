@@ -10,6 +10,7 @@ public class Movie {
 	private java.sql.Date premiereDate;
 	private String image;
 	private Integer id;
+	private String videoURL;
 	
 	public Movie(String _name, String _synopsys, java.sql.Date _premiereDate){
 		name = _name;
@@ -30,12 +31,14 @@ public class Movie {
 	public java.sql.Date getPremiereDate(){ return premiereDate; }
 	public String getImage() { return image; }
 	public Integer getID() { return id; }
+	public String getVideoURL() { return videoURL; }
 	
 	public void setName( String _name ){ name = _name; }
 	public void setSynopsys( String _synopsys ){ synopsys = _synopsys; }
 	public void setPremiereDate( java.sql.Date _premiereDate ) { premiereDate = _premiereDate; }	
 	public void setImage(String _image) { image = _image; }
 	public void setID(Integer _id) { id = _id; }
+	public void setVideoURL(String _videoURL) { videoURL = _videoURL; }
 	
 	public String toString(){
 		return "[ "+name+" - "+premiereDate+" ]\n[ "+premiereDate+" ]"; 

@@ -39,7 +39,11 @@ public class MovieList {
 	{
 		if(getMovieList() == null) return null;
 		
-		isCompleteListSetted = true;
+		if(!isCompleteListSetted)
+		{
+			completeList = SpringUtils.getMovieService().findMoviesOrderByRank();
+			isCompleteListSetted = true;
+		}
 		
 		return completeList;
 	}
@@ -54,6 +58,8 @@ public class MovieList {
 	public static void setCompleteList(List<Movie> newList)
 	{
 		if(getMovieList() == null) return;
+		
+		isCompleteListSetted = true;
 		
 		completeList = newList;
 	}

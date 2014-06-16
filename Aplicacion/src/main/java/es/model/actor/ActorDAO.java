@@ -1,8 +1,10 @@
 package es.model.actor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import es.model.actor.Actor;
+import es.model.util.exceptions.InstanceNotFoundException;
 
 public interface ActorDAO {
 	
@@ -18,5 +20,9 @@ public interface ActorDAO {
 	
 	public void delete( int actorID )
 			throws es.model.util.exceptions.InstanceNotFoundException;
+
+	public Actor find(String name) throws InstanceNotFoundException;
+	
+	public List<Actor> getAll();
 }
 

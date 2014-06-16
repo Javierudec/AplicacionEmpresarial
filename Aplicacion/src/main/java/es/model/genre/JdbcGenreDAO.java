@@ -138,7 +138,7 @@ public class JdbcGenreDAO implements GenreDAO {
 		
 		try{
 			Connection connection = SpringUtils.getConnection();
-			PreparedStatement statement = connection.prepareStatement("SELECT id,  name FROM genre");
+			PreparedStatement statement = connection.prepareStatement("SELECT id,  name FROM genre WHERE name <> 'unknown' ORDER BY name");
 			
 			ResultSet resultSet = statement.executeQuery();
 			

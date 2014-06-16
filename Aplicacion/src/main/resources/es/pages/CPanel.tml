@@ -4,8 +4,10 @@
 
 <div id="defaultMenu">
 	<t:if test="isAdmin">
-		<t:pagelink page="RecommenderAlgorithm">Recommender algorithm</t:pagelink><br/>
-		<t:pagelink page="AddMovie">Add movie</t:pagelink>
+		<t:pagelink page="RecommenderAlgorithm">Recommender algorithm</t:pagelink><hr/>
+		<t:pagelink page="AddMovie">Add movie</t:pagelink><hr/>
+		<t:pagelink page="AddGenre">Add genre</t:pagelink><hr/>
+		<t:pagelink page="AddActor">Add actor</t:pagelink>
 		<p:else>
 			You are not authorized to enter this section.
 		</p:else>

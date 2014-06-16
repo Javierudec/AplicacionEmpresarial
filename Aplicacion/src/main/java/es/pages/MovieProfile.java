@@ -15,9 +15,14 @@ import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.SelectModelFactory;
 
+import util.FilterByActor;
+import util.FilterByGenre;
+import util.MovieList;
 import util.SpringUtils;
+import encoders.ActorEncoder;
 import encoders.GenreEncoder;
 import entities.MovieEvaluation;
+import es.model.actor.Actor;
 import es.model.genre.Genre;
 import es.model.movie.Movie;
 import es.model.relation.Relation;
@@ -39,7 +44,13 @@ public class MovieProfile {
 	private Genre selectedGenre;
 	
 	@Property
+	private Actor selectedActor;
+	
+	@Property
 	private SelectModel genreSelectModel;
+	
+	@Property
+	private SelectModel actorSelectModel;
 	
 	@Inject
 	SelectModelFactory selectModelFactory;
@@ -48,7 +59,13 @@ public class MovieProfile {
 	GenreEncoder genreEncoder;
 	
 	@Property
+	ActorEncoder actorEncoder;
+	
+	@Property
 	private Genre currGenre;
+	
+	@Property 
+	private Actor currActor;
 	
 	@Property
 	@Persist
@@ -80,6 +97,9 @@ public class MovieProfile {
 	@InjectComponent
 	private Zone genreListZone;
 	
+	@InjectComponent
+	private Zone actorListZone;
+	
 	private MovieService movieService;
 	
 	@Property
@@ -87,6 +107,22 @@ public class MovieProfile {
 	
 	@InjectPage
 	private MovieProfile movieProfile;
+	
+	@InjectPage
+	private Movies moviesPage;
+	
+	public MovieProfile()
+	{
+		movieService = SpringUtils.getMovieService();
+		
+		genreEncoder = new GenreEncoder();
+		List<Genre> genreList = SpringUtils.getMovieService().getAllGenres();
+		genreSelectModel = selectModelFactory.create(genreList, "name");
+		
+		actorEncoder = new ActorEncoder();
+		List<Actor> actorList = SpringUtils.getMovieService().getAllActors();
+		actorSelectModel = selectModelFactory.create(actorList, "name");
+	}
 	
 	public Object onValueChanged(String score)
 	{
@@ -115,13 +151,32 @@ public class MovieProfile {
 		}
 	}
 	
+	Object onActionFromSearchByGenre(String genre)
+	{
+		MovieList.setList(FilterByGenre.FilterList(genre, MovieList.getCompleteList()));
+		
+		return moviesPage;
+	}
+	
+	Object onActionFromSearchByActor(String actor)
+	{
+		MovieList.setList(FilterByActor.FilterList(actor, MovieList.getCompleteList()));
+		
+		return moviesPage;
+	}
+	
 	Object onSuccessFromAddGenreForm()
 	{
-		System.out.println("Movie: " + movieName + ", Genre: " + selectedGenre.getName());
-		
 		SpringUtils.getMovieService().addGenreToMovie(movieName, selectedGenre.getName());
 		
 		return genreListZone.getBody();
+	}
+	
+	Object onSuccessFromAddActorForm()
+	{
+		SpringUtils.getMovieService().addActorToMovie(movieName, selectedActor.getName());
+		
+		return actorListZone.getBody();
 	}
 	
 	public void setMovieByName(String movieName)
@@ -145,19 +200,14 @@ public class MovieProfile {
 		}
 	}
 	
-	public MovieProfile()
-	{
-		movieService = SpringUtils.getMovieService();
-		
-		genreEncoder = new GenreEncoder();
-		
-		List<Genre> genreList = SpringUtils.getMovieService().getAllGenres();
-		genreSelectModel = selectModelFactory.create(genreList, "name");
-	}
-	
 	public List<Genre> getMovieGenres()
 	{
 		return SpringUtils.getMovieService().findGenreForMovie(movieName);
+	}
+	
+	public List<Actor> getMovieActors()
+	{
+		return SpringUtils.getMovieService().findActorForMovie(movieName);
 	}
 	
 	//This method is executed when the form inside AccountCreation Page is submitted.
@@ -280,5 +330,10 @@ public class MovieProfile {
 		
 		errorPage.setErrorMsg("Movie: " + movieName + " was removed successfully.");
 		return errorPage;
+	}
+	
+	public boolean getVideoExists()
+	{		
+		return movieData != null && movieData.getVideoURL().compareTo("NOVIDEO") != 0;
 	}
 }
