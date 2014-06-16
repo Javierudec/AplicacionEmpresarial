@@ -47,9 +47,13 @@ public class AddMovie {
 	@Property
 	private UploadedFile file;
 	
+	@Property
+	private String videourl;
+	
 	public AddMovie()
 	{
 		movieService = SpringUtils.getMovieService();
+		videourl = "NOVIDEO";
 	}
 
 	public boolean getIsAdmin()
@@ -76,6 +80,7 @@ public class AddMovie {
 		file.write(copied);
 		
 		movie.setImage(file.getFileName());
+		movie.setVideoURL(videourl);
 		
 		movieService.addMovie(movie);
 		

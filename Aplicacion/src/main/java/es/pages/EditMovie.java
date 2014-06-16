@@ -46,6 +46,10 @@ public class EditMovie {
 	@Property 
 	private java.util.Date debutDate;
 	
+	@Property 
+	@Persist
+	private String videourl;
+	
 	@Property
 	private UploadedFile file;
 	
@@ -75,6 +79,7 @@ public class EditMovie {
 		
 		movieToEdit.setName(movieTitle);
 		movieToEdit.setSynopsys(description);
+		movieToEdit.setVideoURL(videourl);
 
 		if(debutDate != null)
 		{
@@ -103,6 +108,7 @@ public class EditMovie {
 			{
 				movieTitle = movieToEdit.getName();
 				description = movieToEdit.getSynopsys();
+				videourl = movieToEdit.getVideoURL();
 			}
 			
 		} catch (InstanceNotFoundException e) {
