@@ -118,7 +118,7 @@ public class Layout
 	{
 		username = null;
 		
-		return null;
+		return index;
 	}
 	
 	Object onActionFromViewUserProfile()

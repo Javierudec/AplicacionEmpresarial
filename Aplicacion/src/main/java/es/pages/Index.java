@@ -43,6 +43,17 @@ public class Index
 	@Property
 	private Movie momMovie;
 	
+	//Account Creation
+	@Property
+	private String newUsername;
+	@Property
+	private String newPassword;
+	@Property
+	private String newEmail;
+	
+	@InjectPage
+	private ErrorPage errorPage;
+	
 	public Index()
 	{
 		movieService = SpringUtils.getMovieService();
@@ -53,6 +64,20 @@ public class Index
 	public void Init()
 	{
 		movieName = null;
+	}
+	
+	Object onSuccess()
+	{
+		if(userService.addUser(new User(newUsername, newPassword, newEmail)) == null)
+		{
+			errorPage.setErrorMsg("Username is already used.");
+		}
+		else
+		{
+			errorPage.setErrorMsg("Account created. Now you can log in with your username and password.");
+		}
+		
+		return errorPage;
 	}
 	
 	public List<Movie> getLastMovies()
