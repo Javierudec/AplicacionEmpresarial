@@ -5,15 +5,20 @@ package es.pages;
 
 import java.util.List;
 
+import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionAttribute;
 import org.apache.tapestry5.corelib.components.Zone;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.SelectModelFactory;
 
 import util.SpringUtils;
+import encoders.GenreEncoder;
 import entities.MovieEvaluation;
+import es.model.genre.Genre;
 import es.model.movie.Movie;
 import es.model.relation.Relation;
 import es.model.service.MovieService;
@@ -29,6 +34,21 @@ public class MovieProfile {
 	@Persist
 	@Property
 	private String movieName;
+	
+	@Property
+	private Genre selectedGenre;
+	
+	@Property
+	private SelectModel genreSelectModel;
+	
+	@Inject
+	SelectModelFactory selectModelFactory;
+	
+	@Property
+	GenreEncoder genreEncoder;
+	
+	@Property
+	private Genre currGenre;
 	
 	@Property
 	@Persist
@@ -56,6 +76,9 @@ public class MovieProfile {
 	
 	@InjectComponent
 	private Zone userScoreZone;
+	
+	@InjectComponent
+	private Zone genreListZone;
 	
 	private MovieService movieService;
 	
@@ -92,6 +115,15 @@ public class MovieProfile {
 		}
 	}
 	
+	Object onSuccessFromAddGenreForm()
+	{
+		System.out.println("Movie: " + movieName + ", Genre: " + selectedGenre.getName());
+		
+		SpringUtils.getMovieService().addGenreToMovie(movieName, selectedGenre.getName());
+		
+		return genreListZone.getBody();
+	}
+	
 	public void setMovieByName(String movieName)
 	{
 		this.movieName = movieName;
@@ -116,10 +148,20 @@ public class MovieProfile {
 	public MovieProfile()
 	{
 		movieService = SpringUtils.getMovieService();
+		
+		genreEncoder = new GenreEncoder();
+		
+		List<Genre> genreList = SpringUtils.getMovieService().getAllGenres();
+		genreSelectModel = selectModelFactory.create(genreList, "name");
+	}
+	
+	public List<Genre> getMovieGenres()
+	{
+		return SpringUtils.getMovieService().findGenreForMovie(movieName);
 	}
 	
 	//This method is executed when the form inside AccountCreation Page is submitted.
-	Object onSuccess()
+	Object onSuccessFromSetRank()
 	{		
 		movieService.setMovieCalificationForUser(username, movieName, movieEvaluation.toInt());
 		

@@ -10,13 +10,25 @@
 	</h1>
 	<img class="moviePoster" alt="MoviePoster" src="${movieImage}" width="362" height="512" />
 	<span class="description">${movieDescription}</span>
+	<hr/>
+	<t:zone t:id="genreListZone" id="genreListZone">
+		<t:Loop t:source="movieGenres" value="currGenre">
+			${currGenre.name},
+		</t:Loop>
+	</t:zone>
+	<t:if test="isAdmin">
+		<t:form t:zone="genreListZone" t:id="addGenreForm">
+			<t:select value="selectedGenre" model="GenreSelectModel" encoder="genreEncoder"/>
+			<input type="submit" value="Add Genre"/>
+		</t:form>
+	</t:if>
 	<img class="averageScore" src="${averageScore}"/><h3>User average (${numUsersAvgScore} users)</h3>
 		
 	<t:if test="username">
 		<t:Zone t:id="userScoreZone" id="userScoreZone">
 			<img class="yourScore" src="${userScore}"/><h3>Your Score</h3>
 		</t:Zone>
-		<t:form class="modifyScore">
+		<t:form class="modifyScore" t:id="setRank">
 			<t:select t:id="scoreSelected" model="literal:0,1,2,3,4,5" zone="userScoreZone"/>
 		</t:form>
 	</t:if>

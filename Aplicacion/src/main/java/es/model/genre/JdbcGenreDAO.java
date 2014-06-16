@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -125,8 +126,62 @@ public class JdbcGenreDAO implements GenreDAO {
 		
 	}
 	
-	public void setDataSource( DataSource dataSource ){
+	public void setDataSource( DataSource dataSource )
+	{
 		this.dataSource = dataSource;
+	}
+	
+	@Override
+	public List<Genre> getAll() 
+	{
+		List<Genre> genreList = new ArrayList<Genre>();
+		
+		try{
+			Connection connection = SpringUtils.getConnection();
+			PreparedStatement statement = connection.prepareStatement("SELECT id,  name FROM genre");
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			while(resultSet.next())
+			{
+				int newGenreID = resultSet.getInt(1);
+				String newGenreName = resultSet.getString(2);
+				
+				genreList.add(new Genre(newGenreID, newGenreName));
+				
+			}
+			
+		} catch ( SQLException e ){
+			throw new RuntimeException(e);
+		}
+		
+		return genreList;
+	}
+	@Override
+	public Genre find(String genreName) throws InstanceNotFoundException {
+		Genre genre= null;
+		
+		try{
+			Connection connection = SpringUtils.getConnection();
+			PreparedStatement statement = connection.prepareStatement(
+					"SELECT id,  name FROM genre WHERE name = ?");
+			statement.setString(1, genreName);
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			if( resultSet.next() ){
+				int newGenreID = resultSet.getInt(1);
+				String newGenreName = resultSet.getString(2);
+				
+				genre = new Genre( newGenreID, newGenreName );
+				
+			} else {
+				throw new InstanceNotFoundException();
+			}
+		} catch ( SQLException e ){
+			throw new RuntimeException(e);
+		}
+		return genre;
 	}
 
 }

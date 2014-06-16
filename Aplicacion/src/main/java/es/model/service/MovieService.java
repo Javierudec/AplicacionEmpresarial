@@ -233,4 +233,17 @@ public class MovieService implements MovieServiceInterface {
 	public void deleteMovie(String movieName) throws InstanceNotFoundException{
 		movieDAO.delete(movieName);
 	}
+
+	public List<Genre> getAllGenres() {
+		return genreDAO.getAll();
+	}
+
+	public void addGenreToMovie(String movieName, String name) {
+		try {
+			movieDAO.addGenreToMovie(movieName, genreDAO.find(name).getID());
+		} catch (InstanceNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
