@@ -4,10 +4,22 @@
 
 <div id="advancedSearch">
 	Advanced Search
-	<br/>
+	<hr/>
 	<t:form t:zone="movieListZone">
-		<input t:type="textfield" t:id="byTitle" size="130" />
-		<input type="submit" value="Go!"/>
+		<table>
+			<tr>
+			<td>Title: </td><td><input t:type="textfield" t:id="byTitle" size="130" /></td>
+			</tr>
+			<tr>
+			<td>Actor: </td><td><t:select value="selectedActor" model="ActorSelectModel" encoder="actorEncoder"/></td>
+			</tr>
+			<tr>
+			<td>Genre: </td><td><t:select value="selectedGenre" model="GenreSelectModel" encoder="genreEncoder"/></td>
+			</tr>
+			<tr>
+			<td></td><td><input type="submit" value="Go!"/></td>
+			</tr>
+		</table>
 	</t:form>
 </div>
  

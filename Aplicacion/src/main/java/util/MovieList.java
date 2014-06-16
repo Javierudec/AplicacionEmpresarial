@@ -35,6 +35,13 @@ public class MovieList {
 		return list.subList(currPage * numMoviesPerPage, Math.min((currPage + 1) * numMoviesPerPage, list.size()));
 	}
 	
+	public static List<Movie> getCurrentList()
+	{
+		if(getMovieList() == null) return null;
+		
+		return list;
+	}
+	
 	public static List<Movie> getCompleteList()
 	{
 		if(getMovieList() == null) return null;

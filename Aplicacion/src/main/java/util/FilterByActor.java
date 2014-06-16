@@ -11,14 +11,20 @@ public class FilterByActor {
 	{
 		List<Movie> newList = new ArrayList<Movie>();
 		
+		System.out.println(list.size());
+		
 		for(int i = 0; i < list.size(); i++)
 		{
 			Movie currMovie = list.get(i);
 			
 			List<Actor> actorList = SpringUtils.getMovieService().findActorForMovie(currMovie.getName());
 			
+			System.out.println(currMovie.getName());
+			
 			for(int j = 0; j < actorList.size(); j++)
 			{
+				//System.out.println(actorList.get(j).getName() + " " + letter);
+				
 				if(actorList.get(j).getName().compareTo(letter) == 0)
 				{
 					newList.add(currMovie);
