@@ -14,6 +14,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Zone;
 
 import util.FilterByLetter;
+import util.FilterByTitle;
 import util.MovieList;
 import util.SpringUtils;
 import es.model.movie.Movie;
@@ -23,6 +24,9 @@ import es.model.movie.Movie;
  *
  */
 public class Movies {
+	@Property
+	String byTitle;
+	
 	@Property
 	String currentLetter;
 	
@@ -37,7 +41,7 @@ public class Movies {
 	
 	public String[] getABC()
 	{
-		return new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "X", "Y", "Z" };
+		return new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "X", "Y", "Z", "All" };
 	}
 	
 	Movies()
@@ -48,9 +52,25 @@ public class Movies {
 		MovieList.setPage(0);
 	}
 	
+	Object onSuccess()
+	{
+		MovieList.setList(MovieList.getCompleteList());
+		
+		if(byTitle != null)
+		{
+			MovieList.setList(FilterByTitle.FilterList(byTitle, MovieList.getList()));
+		}
+		
+		return movieListZone.getBody();
+	}
+	
 	Object onActionFromLetter(String letter)
 	{
-		MovieList.setList(FilterByLetter.FilterList(letter, MovieList.getCompleteList()));
+		if(letter.compareTo("All") == 0) MovieList.setList(MovieList.getCompleteList());
+		else
+		{
+			MovieList.setList(FilterByLetter.FilterList(letter, MovieList.getCompleteList()));
+		}
 		
 		return movieListZone.getBody();
 	}

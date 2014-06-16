@@ -3,7 +3,12 @@
   xmlns:p="tapestry:parameter">
 
 <div id="advancedSearch">
-Advanced Search
+	Advanced Search
+	<br/>
+	<t:form t:zone="movieListZone">
+		<input t:type="textfield" t:id="byTitle" size="130" />
+		<input type="submit" value="Go!"/>
+	</t:form>
 </div>
  
 <div id="movieList">
