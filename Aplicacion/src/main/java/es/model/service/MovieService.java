@@ -260,4 +260,8 @@ public class MovieService implements MovieServiceInterface {
 	public List<Actor> getAllActors() {
 		return actorDAO.getAll();
 	}
+
+	public List<Movie> getAllMovies() {
+		return movieDAO.getAll();
+	}
 }

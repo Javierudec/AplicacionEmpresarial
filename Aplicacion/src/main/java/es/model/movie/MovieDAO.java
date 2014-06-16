@@ -58,4 +58,6 @@ public interface MovieDAO {
 	public abstract List<Movie> findRecommendationsFor(int id, float f);
 	
 	public abstract void updateMovie(Movie movie);
+
+	public abstract List<Movie> getAll();
 }

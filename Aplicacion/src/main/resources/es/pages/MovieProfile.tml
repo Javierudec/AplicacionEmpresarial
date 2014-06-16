@@ -62,14 +62,13 @@
 		<div id="relationContainer">
 			<t:actionLink t:id="viewProfileRelation" t:context="relation.destinyMovie"><h2>${relation.destinyMovie}</h2></t:actionLink>
 			<img class="moviePoster" alt="MoviePoster" src="${destinyMovieImage}" width="362" height="512" />
-			
-			
-			
 			<span class="description">${relation.comment}</span>
 			<span class="username">by ${relation.username}</span>
 			<img class="averageScore" src="${averageScoreRelation}"/>
 		</div>
 	</t:Loop>
+	<hr/>
+	<t:ActionLink t:id="AddRelation">Write</t:ActionLink> your own recommendation for this movie.
 </div>
 
 </html>

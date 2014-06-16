@@ -111,6 +111,9 @@ public class MovieProfile {
 	@InjectPage
 	private Movies moviesPage;
 	
+	@InjectPage
+	private AddRelation addRelation;
+	
 	public MovieProfile()
 	{
 		movieService = SpringUtils.getMovieService();
@@ -163,6 +166,13 @@ public class MovieProfile {
 		MovieList.setList(FilterByActor.FilterList(actor, MovieList.getCompleteList()));
 		
 		return moviesPage;
+	}
+	
+	Object onActionFromAddRelation()
+	{
+		addRelation.setMovie(movieName);
+		
+		return addRelation;
 	}
 	
 	Object onSuccessFromAddGenreForm()

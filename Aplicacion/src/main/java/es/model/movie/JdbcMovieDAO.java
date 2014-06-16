@@ -880,6 +880,44 @@ public class JdbcMovieDAO implements MovieDAO {
 			throw new RuntimeException(e);
 		}
 	}
+
+	@Override
+	public List<Movie> getAll() 
+	{
+		List<Movie> movieList = new ArrayList<Movie>();
+		
+		try
+		{
+			Connection connection = SpringUtils.getConnection();
+			PreparedStatement statement = connection.prepareStatement(
+					"SELECT title, synopsis, debut_date, image, id, video_url FROM movie ORDER BY title");
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			while(resultSet.next())
+			{
+				String newMovieName = resultSet.getString(1);
+				String newMovieSynopsys = resultSet.getString(2);
+				String newMovieImage = resultSet.getString(4);
+				java.sql.Date newMovieDebutDate = resultSet.getDate(3); // TODO: check if this works
+				int id = resultSet.getInt(5);
+				String newVideoURL = resultSet.getString(6);
+				
+				Movie movie = new Movie( newMovieName, newMovieSynopsys, newMovieDebutDate, newMovieImage);
+				movie.setID(id);
+				movie.setVideoURL(newVideoURL);
+				
+				movieList.add(movie);				
+			} 
+			
+		} 
+		catch ( SQLException e )
+		{
+			throw new RuntimeException(e);
+		}
+		
+		return movieList;
+	}
 	
 	
 }

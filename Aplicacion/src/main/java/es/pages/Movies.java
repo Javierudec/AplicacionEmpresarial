@@ -6,17 +6,26 @@ package es.pages;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.PageLoaded;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Zone;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.SelectModelFactory;
 
+import util.FilterByActor;
+import util.FilterByGenre;
 import util.FilterByLetter;
 import util.FilterByTitle;
 import util.MovieList;
 import util.SpringUtils;
+import encoders.ActorEncoder;
+import encoders.GenreEncoder;
+import es.model.actor.Actor;
+import es.model.genre.Genre;
 import es.model.movie.Movie;
 
 /**
@@ -39,6 +48,24 @@ public class Movies {
 	@InjectComponent
 	private Zone movieListZone;
 	
+	@Property
+	private Actor selectedActor;
+	@Property
+	private Genre selectedGenre;
+	
+	@Property
+	private SelectModel actorSelectModel;
+	@Property
+	private SelectModel genreSelectModel;
+	
+	@Inject
+	SelectModelFactory selectModelFactory;
+	
+	@Property
+	private ActorEncoder actorEncoder;
+	@Property
+	private GenreEncoder genreEncoder;
+	
 	public String[] getABC()
 	{
 		return new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "X", "Y", "Z", "All" };
@@ -53,15 +80,35 @@ public class Movies {
 		}
 		
 		MovieList.setPage(0);
+		
+		actorEncoder = new ActorEncoder();
+		List<Actor> actorList = SpringUtils.getMovieService().getAllActors();
+		actorList.add(0, new Actor(-1, "All"));
+		actorSelectModel = selectModelFactory.create(actorList, "name");
+		
+		genreEncoder = new GenreEncoder();
+		List<Genre> genreList = SpringUtils.getMovieService().getAllGenres();
+		genreList.add(0, new Genre(-1, "All"));
+		genreSelectModel = selectModelFactory.create(genreList, "name");
 	}
 	
 	Object onSuccess()
 	{
 		MovieList.setList(MovieList.getCompleteList());
 		
-		if(byTitle != null)
+		if(byTitle != null && !byTitle.isEmpty())
 		{
 			MovieList.setList(FilterByTitle.FilterList(byTitle, MovieList.getList()));
+		}
+		
+		if(selectedActor != null && selectedActor.getName().compareTo("All") != 0)
+		{
+			MovieList.setList(FilterByActor.FilterList(selectedActor.getName(), MovieList.getCurrentList()));
+		}
+		
+		if(selectedGenre != null && selectedGenre.getName().compareTo("All") != 0)
+		{
+			MovieList.setList(FilterByGenre.FilterList(selectedGenre.getName(), MovieList.getCurrentList()));
 		}
 		
 		return movieListZone.getBody();
