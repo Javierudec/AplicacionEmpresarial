@@ -15,11 +15,11 @@
 			</tr>
 		</table>
 		
-			<img class="averageScore" src="${averageScore}"/><h3>User average (${numUsersAvgScore} users)</h3>
+		<img class="averageScore" src="${averageScore}"/><h3>User average (${numUsersAvgScore} users)</h3>
 		
 		<t:if test="username">
 			<t:Zone t:id="userScoreZone" id="userScoreZone">
-				<img class="yourScore" src="${userScore}"/><h3>Your Score</h3>
+				<!-- <img class="yourScore" src="${reviewScore}"/><h3>Your Score</h3> -->
 			</t:Zone>
 			<t:form class="modifyScore" t:id="setRank">
 				<t:select t:id="scoreSelected" model="literal:0,1,2,3,4,5" zone="userScoreZone"/>

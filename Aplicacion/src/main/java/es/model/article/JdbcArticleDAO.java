@@ -138,14 +138,19 @@ public class JdbcArticleDAO implements ArticleDAO {
 	public void addArticleCalification(int calification, String userName, int articleID) {
 		try{
 			Connection connection = SpringUtils.getConnection();
-			PreparedStatement statement = connection.prepareStatement(
-					"INSERT INTO rank_article (username, rankedarticle, rank) VALUES (?,?,?);");			
+			
+			PreparedStatement statement = connection.prepareStatement("DELETE FROM rank_article WHERE username=? AND rankedarticle=?");
+			statement.setString(1, userName );
+			statement.setInt(2, articleID );
+			statement.executeUpdate();
+			
+			statement = connection.prepareStatement("INSERT INTO rank_article (username, rankedarticle, rank) VALUES (?,?,?);");			
 			
 			statement.setString(1, userName );
-			statement.setInt(1, articleID);
-			statement.setInt(1, calification);
+			statement.setInt(2, articleID);
+			statement.setInt(3, calification);
 			
-			statement.executeQuery();
+			statement.executeUpdate();
 			
 		} catch ( SQLException e ){
 			throw new RuntimeException(e);
@@ -157,8 +162,8 @@ public class JdbcArticleDAO implements ArticleDAO {
 		int Calification = 0;
 		try{
 			Connection connection = SpringUtils.getConnection();
-			PreparedStatement statement = connection.prepareStatement(
-					"SELECT rank FROM rank_article WHERE username=? AND rankedarticle=?;");
+			
+			PreparedStatement statement = connection.prepareStatement("SELECT rank FROM rank_article WHERE username=? AND rankedarticle=?;");
 			
 			statement.setString(1, userName );
 			statement.setInt(2, articleID );

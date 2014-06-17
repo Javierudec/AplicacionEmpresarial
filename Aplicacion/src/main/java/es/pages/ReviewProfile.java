@@ -44,30 +44,27 @@ public class ReviewProfile {
 	
 	public String getAverageScore()
 	{
-		return "images/" + 1 + "_star.png";
-		/*
 		Integer currAvgScore = 0;
 		
 		//System.out.println("Movie name: " + movieName);
 		
-		if(movieName != null)
+		if(review != null)
 		{
-			currAvgScore = movieService.findCalificationAverage(movieName);
+			currAvgScore = SpringUtils.getArticleService().findCalificationAverage(review.getID());
+			//currAvgScore = movieService.findCalificationAverage(movieName);
 		}
 		
 		return "images/" + currAvgScore + "_star.png";
-		*/
 	}
 	
-	public String getUserScore()
+	public String getReviewScore()
 	{
-		/*
 		Integer currUserScore = 0;
 		
-		if(movieName != null && username != null)
+		if(review != null && username != null)
 		{
 			try {
-				currUserScore = movieService.findCalification(movieName, username);
+				currUserScore = SpringUtils.getArticleService().findCalification(username, review.getID());
 			} catch (InstanceNotFoundException e) {
 				// TODO Auto-generated catch block
 				return "images/0_star.png";
@@ -75,25 +72,30 @@ public class ReviewProfile {
 		}
 		
 		return "images/" + currUserScore + "_star.png";
-		*/
-		return "images/" + 1 + "_star.png";
 	}
 	
 	public int getNumUsersAvgScore()
 	{
-		return 0;
+		return 0;//return SpringUtils.getArticleService().find;
 	}
 	
 	public Object onValueChanged(String score)
 	{
-		/*
-		System.out.println("Zone score: " + score);
-		
-		if(movieName != null && username != null)
+		if(review != null && username != null)
 		{
-			SpringUtils.getMovieService().setMovieCalificationForUser(username, movieName, Integer.parseInt(score));
+			System.out.println("sdasdas");
+			
+			try {
+				SpringUtils.getArticleService().addArticleCalificationForUser(Integer.parseInt(score), username, review.getID());
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InstanceNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		*/
+	
 		return userScoreZone.getBody();
 	}
 }
