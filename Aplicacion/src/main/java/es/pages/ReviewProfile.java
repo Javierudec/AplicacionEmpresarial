@@ -71,7 +71,7 @@ public class ReviewProfile
 	
 	public int getNumUsersAvgScore()
 	{
-		return 0;//return SpringUtils.getArticleService().find;
+		return SpringUtils.getArticleService().findNumUsersCalification(review.getID());
 	}
 	
 	public Object onValueChanged(String score)

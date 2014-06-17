@@ -270,4 +270,28 @@ public class JdbcArticleDAO implements ArticleDAO {
 		
 		return articleList;
 	}
+
+	@Override
+	public int findNumUsersCalification(int id) {
+		int numUsers = 0;
+		
+		try
+		{
+			Connection connection = SpringUtils.getConnection();
+			PreparedStatement statement = connection.prepareStatement("SELECT COUNT(*) FROM rank_article WHERE rankedarticle = ?"); 
+			statement.setInt(1, id);
+			ResultSet resultSet = statement.executeQuery();
+			
+			if(resultSet.next())
+			{
+				numUsers = resultSet.getInt(1);
+			}
+		}
+		catch(SQLException e)
+		{
+			throw new RuntimeException(e);
+		}
+		
+		return numUsers;
+	}
 }

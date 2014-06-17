@@ -138,6 +138,10 @@ public Tag findTagByName(String name) {
 		e.printStackTrace();
 	}
 	return null;
+}
+
+public int findNumUsersCalification(int id) {
+	return articleDAO.findNumUsersCalification(id);
 }	
 
 }

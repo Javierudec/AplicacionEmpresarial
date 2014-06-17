@@ -28,4 +28,6 @@ public interface ArticleDAO {
 		throws es.model.util.exceptions.InstanceNotFoundException;
 
 	public abstract List<Article> findAllByPublishedDate();
+
+	public int findNumUsersCalification(int id);
 }
