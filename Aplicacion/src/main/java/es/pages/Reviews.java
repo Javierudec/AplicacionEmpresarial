@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.InjectComponent;
+import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionAttribute;
 import org.apache.tapestry5.corelib.components.Zone;
@@ -56,6 +57,9 @@ public class Reviews
 	@InjectComponent
 	private Zone reviewListZone;
 	
+	@InjectPage
+	private ReviewProfile reviewProfile;
+	
 	public boolean getReviewListNotEmpty()
 	{
 		return ReviewList.getList().size() > 0;
@@ -77,7 +81,9 @@ public class Reviews
 	
 	Object onActionFromViewReview(int id)
 	{
-		return null;
+		reviewProfile.setReview(id);
+		
+		return reviewProfile;
 	}
 	
 	Object onSuccessFromFilterArticle()
@@ -108,7 +114,7 @@ public class Reviews
 			ReviewList.setList(FilterByTag.FilterArticleList(selectedTag3.getName(), ReviewList.getCurrentList()));
 		}
 		
-		System.out.println("SIZE: " + ReviewList.getCurrentList().size());
+		//System.out.println("SIZE: " + ReviewList.getCurrentList().size());
 		
 		return reviewListZone.getBody();
 	}

@@ -1,0 +1,20 @@
+<html t:type="layout" title="Hi/Lo Guess"
+  xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+
+<div id="defaultMenu">
+	<t:if test="review">
+		<table>
+			<tr>
+				<td>Title</td><td>${review.title}</td>
+			</tr>
+			<tr>
+				 <td>Content</td><td>${review.content}</td>
+			</tr>
+			<tr>
+				 <td>Author</td><td>${review.author}</td>
+			</tr>
+		</table>
+	 </t:if>
+</div>
+
+</html>

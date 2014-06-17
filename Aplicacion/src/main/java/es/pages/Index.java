@@ -178,6 +178,11 @@ public class Index
 		return null;
 	}
 	
+	Object onActionFromviewMovieOfTheMonth()
+	{
+		return null;
+	}
+	
 	public List<Movie> getRecommendedMovies()
 	{
 		List<Movie> listToRet = null;
