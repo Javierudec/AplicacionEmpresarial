@@ -1,16 +1,10 @@
-/**
- * 
- */
 package es.pages;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.InjectPage;
-import org.apache.tapestry5.annotations.PageLoaded;
-import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -28,19 +22,26 @@ import es.model.actor.Actor;
 import es.model.genre.Genre;
 import es.model.movie.Movie;
 
-/**
- * @author Javier
- *
- */
-public class Movies {
+public class Movies 
+{
 	@Property
-	String byTitle;
-	
+	String byTitle;	
 	@Property
 	String currentLetter;
-	
 	@Property
 	Movie currentMovie;
+	@Property
+	private Actor selectedActor;
+	@Property
+	private Genre selectedGenre;
+	@Property
+	private SelectModel actorSelectModel;
+	@Property
+	private SelectModel genreSelectModel;
+	@Property
+	private ActorEncoder actorEncoder;
+	@Property
+	private GenreEncoder genreEncoder;
 	
 	@InjectPage
 	private MovieProfile movieProfile;
@@ -48,23 +49,8 @@ public class Movies {
 	@InjectComponent
 	private Zone movieListZone;
 	
-	@Property
-	private Actor selectedActor;
-	@Property
-	private Genre selectedGenre;
-	
-	@Property
-	private SelectModel actorSelectModel;
-	@Property
-	private SelectModel genreSelectModel;
-	
 	@Inject
 	SelectModelFactory selectModelFactory;
-	
-	@Property
-	private ActorEncoder actorEncoder;
-	@Property
-	private GenreEncoder genreEncoder;
 	
 	public String[] getABC()
 	{
@@ -72,6 +58,58 @@ public class Movies {
 	}
 	
 	Movies()
+	{
+		actorEncoder = new ActorEncoder();
+		genreEncoder = new GenreEncoder();
+	}
+	
+	public boolean getMovieListNotEmpty()
+	{
+		return MovieList.getList().size() != 0;
+	}
+	
+	public boolean getNextPage()
+	{
+		return MovieList.existNextPage();
+	}
+	
+	public boolean getPrevPage()
+	{
+		return MovieList.existPrevPage();
+	}
+	
+	public List<Movie> getMovieList()
+	{
+		return MovieList.getList();
+	}
+	
+	public String getAverageScore()
+	{
+		Integer currAvgScore = 0;
+		
+		if(currentMovie != null)
+		{
+			currAvgScore = SpringUtils.getMovieService().findCalificationAverage(currentMovie.getName());
+		}
+		
+		return "images/" + currAvgScore + "_star.png";
+	}
+	
+	public String getMovieImage()
+	{
+		if(currentMovie == null) return "NoImage";
+		
+		return "images/" + currentMovie.getImage();
+	}
+	
+	public String getMovieDescription()
+	{
+		if(currentMovie == null) return "No description found.";
+		
+		return currentMovie.getSynopsys();
+	}
+	
+	void onActivate()
 	{
 		if(!MovieList.isCompleteListSetted())
 		{
@@ -81,12 +119,10 @@ public class Movies {
 		
 		MovieList.setPage(0);
 		
-		actorEncoder = new ActorEncoder();
 		List<Actor> actorList = SpringUtils.getMovieService().getAllActors();
 		actorList.add(0, new Actor(-1, "All"));
 		actorSelectModel = selectModelFactory.create(actorList, "name");
 		
-		genreEncoder = new GenreEncoder();
 		List<Genre> genreList = SpringUtils.getMovieService().getAllGenres();
 		genreList.add(0, new Genre(-1, "All"));
 		genreSelectModel = selectModelFactory.create(genreList, "name");
@@ -144,51 +180,5 @@ public class Movies {
 		MovieList.setPage(MovieList.getPage() - 1);
 		
 		return movieListZone.getBody();
-	}
-	
-	public boolean getMovieListNotEmpty()
-	{
-		return MovieList.getList().size() != 0;
-	}
-	
-	public List<Movie> getMovieList()
-	{
-		return MovieList.getList();
-	}
-	
-	public String getAverageScore()
-	{
-		Integer currAvgScore = 0;
-		
-		if(currentMovie != null)
-		{
-			currAvgScore = SpringUtils.getMovieService().findCalificationAverage(currentMovie.getName());
-		}
-		
-		return "images/" + currAvgScore + "_star.png";
-	}
-	
-	public String getMovieImage()
-	{
-		if(currentMovie == null) return "NoImage";
-		
-		return "images/" + currentMovie.getImage();
-	}
-	
-	public String getMovieDescription()
-	{
-		if(currentMovie == null) return "No description found.";
-		
-		return currentMovie.getSynopsys();
-	}
-	
-	public boolean getNextPage()
-	{
-		return MovieList.existNextPage();
-	}
-	
-	public boolean getPrevPage()
-	{
-		return MovieList.existPrevPage();
 	}
 }

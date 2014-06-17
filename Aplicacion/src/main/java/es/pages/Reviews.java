@@ -1,6 +1,3 @@
-/**
- * 
- */
 package es.pages;
 
 import java.util.List;
@@ -22,10 +19,6 @@ import util.FilterByTitle;
 import util.ReviewList;
 import util.SpringUtils;
 
-/**
- * @author Javier
- *
- */
 public class Reviews 
 {
 	@SessionAttribute("loggedInUserName")
@@ -34,20 +27,16 @@ public class Reviews
 	
 	@Property
 	private Article currentReview;
-	
 	@Property
 	private String title;
-	
 	@Property
 	private Tag selectedTag1;
 	@Property
 	private Tag selectedTag2;
 	@Property
 	private Tag selectedTag3;
-	
 	@Property
 	private SelectModel tagSelectModel;
-	
 	@Property
 	private TagEncoder tagEncoder;
 	
@@ -60,6 +49,14 @@ public class Reviews
 	@InjectPage
 	private ReviewProfile reviewProfile;
 	
+	public Reviews()
+	{
+		ReviewList.setList(ReviewList.getCompleteList());
+		
+		tagEncoder = new TagEncoder();
+
+	}
+	
 	public boolean getReviewListNotEmpty()
 	{
 		return ReviewList.getList().size() > 0;
@@ -70,11 +67,8 @@ public class Reviews
 		return ReviewList.getList();
 	}
 	
-	public Reviews()
+	void onActivate()
 	{
-		ReviewList.setList(ReviewList.getCompleteList());
-		
-		tagEncoder = new TagEncoder();
 		List<Tag> tagList = SpringUtils.getArticleService().getAllTags();
 		tagSelectModel = selectModelFactory.create(tagList, "name");
 	}
@@ -95,11 +89,8 @@ public class Reviews
 			ReviewList.setList(FilterByTitle.FilterArticleList(title, ReviewList.getCurrentList()));
 		}
 		
-		//System.out.println("Tag1: " + selectedTag1.getName());
-		
 		if(selectedTag1 != null && selectedTag1.getName().compareTo("None") != 0)
 		{
-			//System.out.println("FilterByTag1");
 			
 			ReviewList.setList(FilterByTag.FilterArticleList(selectedTag1.getName(), ReviewList.getCurrentList()));
 		}
@@ -113,8 +104,6 @@ public class Reviews
 		{
 			ReviewList.setList(FilterByTag.FilterArticleList(selectedTag3.getName(), ReviewList.getCurrentList()));
 		}
-		
-		//System.out.println("SIZE: " + ReviewList.getCurrentList().size());
 		
 		return reviewListZone.getBody();
 	}

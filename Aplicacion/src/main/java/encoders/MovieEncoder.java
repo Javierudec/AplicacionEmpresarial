@@ -7,20 +7,25 @@ import util.SpringUtils;
 import es.model.movie.Movie;
 import es.model.util.exceptions.InstanceNotFoundException;
 
-public class MovieEncoder implements ValueEncoder<Movie>, ValueEncoderFactory<Movie> {
+public class MovieEncoder implements ValueEncoder<Movie>, ValueEncoderFactory<Movie> 
+{
     @Override
-    public String toClient(Movie value) {
+    public String toClient(Movie value) 
+    {
         // return the given object's ID
         return value.getName();
     }
  
     @Override
-    public Movie toValue(String name) { 
+    public Movie toValue(String name)
+    { 
         // find the color object of the given ID in the database
-        try {
+        try 
+        {
 			return SpringUtils.getMovieService().findMovieByName(name);
-		} catch (InstanceNotFoundException e) {
-			// TODO Auto-generated catch block
+		} 
+        catch(InstanceNotFoundException e)
+        {
 			e.printStackTrace();
 		} 
         
@@ -29,7 +34,8 @@ public class MovieEncoder implements ValueEncoder<Movie>, ValueEncoderFactory<Mo
  
     // let this ValueEncoder also serve as a ValueEncoderFactory
     @Override
-    public ValueEncoder<Movie> create(Class<Movie> type) {
+    public ValueEncoder<Movie> create(Class<Movie> type) 
+    {
         return this; 
     }
 } 

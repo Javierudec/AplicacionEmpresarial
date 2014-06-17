@@ -1,36 +1,18 @@
-/**
- * 
- */
 package es.pages;
 
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionAttribute;
 
-import es.model.user.User;
-import es.model.util.exceptions.InstanceNotFoundException;
-import util.SpringUtils;
+import util.Utils;
 
-/**
- * @author Javier
- *
- */
-public class CPanel {
+public class CPanel
+{
 	@SessionAttribute("loggedInUserName")
 	@Property
-	private String username; //Information about identified user. PERSISTENT to all page sites.
+	private String username;
 	
 	public boolean getIsAdmin()
 	{
-		if(username == null) return false;
-		
-		User user = null;
-		
-		try {
-			user = SpringUtils.getUserService().findUserByName(username);
-			return user.getIsAdmin();
-		} catch (InstanceNotFoundException e) {
-			// TODO Auto-generated catch block
-			return false;
-		}
+		return Utils.getIsAdmin(username);
 	}
 }

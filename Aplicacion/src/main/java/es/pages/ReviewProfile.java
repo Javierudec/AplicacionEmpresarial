@@ -1,6 +1,3 @@
-/**
- * 
- */
 package es.pages;
 
 import org.apache.tapestry5.annotations.InjectComponent;
@@ -13,31 +10,29 @@ import util.SpringUtils;
 import es.model.article.Article;
 import es.model.util.exceptions.InstanceNotFoundException;
 
-/**
- * @author Javier
- *
- */
-public class ReviewProfile {
+public class ReviewProfile 
+{
 	@SessionAttribute("loggedInUserName")
 	@Property
 	private String username; //Information about identified user. PERSISTENT to all page sites.
 	
-	@InjectComponent
-	private Zone userScoreZone;
-
-	@Property
-	private String scoreSelected;
-	
 	@Property
 	@Persist
 	private Article review;
+	@Property
+	private String scoreSelected;
+	
+	@InjectComponent
+	private Zone userScoreZone;
 	
 	public void setReview(int id)
 	{
-		try {
+		try 
+		{
 			review = SpringUtils.getArticleService().findArticleByID(id);
-		} catch (InstanceNotFoundException e) {
-			// TODO Auto-generated catch block
+		}
+		catch(InstanceNotFoundException e)
+		{
 			e.printStackTrace();
 		}
 	}
@@ -46,12 +41,9 @@ public class ReviewProfile {
 	{
 		Integer currAvgScore = 0;
 		
-		//System.out.println("Movie name: " + movieName);
-		
 		if(review != null)
 		{
 			currAvgScore = SpringUtils.getArticleService().findCalificationAverage(review.getID());
-			//currAvgScore = movieService.findCalificationAverage(movieName);
 		}
 		
 		return "images/" + currAvgScore + "_star.png";
@@ -61,12 +53,15 @@ public class ReviewProfile {
 	{
 		Integer currUserScore = 0;
 		
-		if(review != null && username != null)
+		if(review != null 
+		   && username != null)
 		{
-			try {
+			try 
+			{
 				currUserScore = SpringUtils.getArticleService().findCalification(username, review.getID());
-			} catch (InstanceNotFoundException e) {
-				// TODO Auto-generated catch block
+			}
+			catch(InstanceNotFoundException e) 
+			{
 				return "images/0_star.png";
 			}
 		}
@@ -81,17 +76,19 @@ public class ReviewProfile {
 	
 	public Object onValueChanged(String score)
 	{
-		if(review != null && username != null)
-		{
-			System.out.println("sdasdas");
-			
-			try {
+		if(review != null
+		   && username != null)
+		{			
+			try 
+			{
 				SpringUtils.getArticleService().addArticleCalificationForUser(Integer.parseInt(score), username, review.getID());
-			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
+			}
+			catch(NumberFormatException e)
+			{
 				e.printStackTrace();
-			} catch (InstanceNotFoundException e) {
-				// TODO Auto-generated catch block
+			} 
+			catch(InstanceNotFoundException e)
+			{
 				e.printStackTrace();
 			}
 		}

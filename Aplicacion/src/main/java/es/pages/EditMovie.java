@@ -1,6 +1,3 @@
-/**
- * 
- */
 package es.pages;
 
 import java.io.File;
@@ -13,63 +10,58 @@ import org.apache.tapestry5.annotations.SessionAttribute;
 import org.apache.tapestry5.upload.services.UploadedFile;
 
 import util.SpringUtils;
+import util.Utils;
 import es.model.movie.Movie;
-import es.model.user.User;
 import es.model.util.exceptions.InstanceNotFoundException;
 
-/**
- * @author Javier
- *
- */
-public class EditMovie {
+public class EditMovie 
+{
 	@SessionAttribute("loggedInUserName")
 	@Property
-	private String username; //Information about identified user. PERSISTENT to all page sites.
+	private String username; 
 	
 	@Persist
 	private Movie movieToEdit;
-	
-	@InjectPage
-	private Index index;
-	
-	@InjectPage
-	private ErrorPage errorPage;
-	
 	@Property
 	@Persist
 	private String movieTitle;
-	
 	@Property
 	@Persist
 	private String description;
-	
-	@Property 
-	private java.util.Date debutDate;
-	
 	@Property 
 	@Persist
 	private String videourl;
-	
+	@Property 
+	private java.util.Date debutDate;
 	@Property
 	private UploadedFile file;
 	
-	public EditMovie()
-	{
-
-	}
+	@InjectPage
+	private Index index;
+	@InjectPage
+	private ErrorPage errorPage;
 	
 	public boolean getIsAdmin()
 	{
-		if(username == null) return false;
-		
-		User user = null;
-		
-		try {
-			user = SpringUtils.getUserService().findUserByName(username);
-			return user.getIsAdmin();
-		} catch (InstanceNotFoundException e) {
-			// TODO Auto-generated catch block
-			return false;
+		return Utils.getIsAdmin(username);
+	}
+	
+	public void setMovieToEdit(String movieName)
+	{
+		try
+		{
+			movieToEdit = SpringUtils.getMovieService().findMovieByName(movieName);
+			
+			if(movieToEdit != null)
+			{
+				movieTitle  = movieToEdit.getName();
+				description = movieToEdit.getSynopsys();
+				videourl    = movieToEdit.getVideoURL();
+			}
+		}
+		catch (InstanceNotFoundException e) 
+		{
+			e.printStackTrace();
 		}
 	}
 	
@@ -94,26 +86,10 @@ public class EditMovie {
 		}
 		
 		SpringUtils.getMovieService().updateMovie(movieToEdit);
-		
 		errorPage.setErrorMsg("Movie: " + movieTitle + " was edited successfully.");
+		
 		return errorPage;
 	}
 	
-	public void setMovieToEdit(String movieName)
-	{
-		try {
-			movieToEdit = SpringUtils.getMovieService().findMovieByName(movieName);
-			
-			if(movieToEdit != null)
-			{
-				movieTitle = movieToEdit.getName();
-				description = movieToEdit.getSynopsys();
-				videourl = movieToEdit.getVideoURL();
-			}
-			
-		} catch (InstanceNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
 }

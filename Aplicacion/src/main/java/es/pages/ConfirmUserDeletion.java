@@ -1,6 +1,3 @@
-/**
- * 
- */
 package es.pages;
 
 import es.model.user.User;
@@ -10,11 +7,9 @@ import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 
 import util.SpringUtils;
-/**
- * @author Javier
- *
- */
-public class ConfirmUserDeletion {
+
+public class ConfirmUserDeletion
+{
 	@Property
 	@Persist
 	private User user;
@@ -22,14 +17,14 @@ public class ConfirmUserDeletion {
 	@InjectPage
 	private ErrorPage errorPage;
 	
-	public void setUserToDelete(User selectedUser) {
+	public void setUserToDelete(User selectedUser) 
+	{
 		user = selectedUser;
 	}
 	
 	Object onActionFromDeleteUser()
 	{
 		SpringUtils.getUserService().deleteUser(user);
-		
 		errorPage.setErrorMsg("Usuario fue eliminado.");
 		
 		return errorPage;
@@ -38,7 +33,7 @@ public class ConfirmUserDeletion {
 	Object onActionFromCancelAction()
 	{
 		errorPage.setErrorMsg("Usuario no fue eliminado.");
-		
+	
 		return errorPage;
 	}
 }

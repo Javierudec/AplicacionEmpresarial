@@ -1,6 +1,3 @@
-/**
- * 
- */
 package es.pages;
 
 import java.util.List;
@@ -18,11 +15,8 @@ import util.SpringUtils;
 import encoders.MovieEncoder;
 import es.model.movie.Movie;
 
-/**
- * @author Javier
- *
- */
-public class AddRelation {
+public class AddRelation 
+{
 	@SessionAttribute("loggedInUserName")
 	@Property
 	private String username; //Information about identified user. PERSISTENT to all page sites.	@SessionAttribute("loggedInUserName")
