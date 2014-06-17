@@ -1,7 +1,8 @@
 #newMoviesWidget {
 	background-color:#ffffff;
 	float:right;
-	border:2px solid;
+	box-shadow: 1px 1px 1px #888888;
+	/*border:2px solid;*/
 	width: 24%;
 	margin-top:5px;
 	clear:right;
@@ -10,13 +11,15 @@
 #debutMoviesWidget {
 	background-color:#ffffff;
 	float:right;
-	border:2px solid;
+	box-shadow: 1px 1px 1px #888888;
+	/*border:2px solid;*/
 	width: 24%;
 }
 
 #defaultMenu {
 	background-color:#ffffff;
-	border:2px solid;
+	box-shadow: 1px 1px 1px #888888;
+	/*border:2px solid;*/
 	width: 99.68%;
 }
 
@@ -37,21 +40,24 @@
 	padding-left:7px;
 	background-color:#ffffff;
 	float:left;
-	border:2px solid;
+	box-shadow: 1px 1px 1px #888888;
+	/*border:2px solid;*/
 	width:74%;
 }
 
 #recommededTagForSearch {
 	background-color:#ffffff;
 	float:left;
-	border:2px solid;
+	box-shadow: 1px 1px 1px #888888;
+	/*border:2px solid;*/
 	width:30%;
 }
 
 #randomNews {
 	background-color:#ffffff;
 	float:right;
-	border:2px solid;
+	box-shadow: 1px 1px 1px #888888;
+	/*border:2px solid;*/
 	width:69%;
 }
 
@@ -59,7 +65,8 @@
 	width:99.68%;
 	float:left;
 	clear:left;
-	border:2px solid;
+	box-shadow: 1px 1px 1px #888888;
+	/*border:2px solid;*/
 	margin-bottom:2px;
 	background-color:#ffffff;
 }
@@ -71,7 +78,8 @@
 }
 
 #header {
-	border:2px solid;
+	box-shadow: 1px 1px 1px #888888;
+	/*border:2px solid;*/
 	height:100px;
 	background-color:#ffffff;
 }
@@ -89,10 +97,11 @@
 }
 
 #footer {
-	width:99.68%;
+	width:100%;
 	float:left;
 	clear:both;
-	border:2px solid;
+	box-shadow: 1px 1px 1px #888888;
+	/*border:2px solid;*/
 	margin-top:2px;
 	background-color:#ffffff;
 }
@@ -117,7 +126,8 @@
 
 #recommendedMovie {
 	float:left;
-	border:1px solid;
+	box-shadow: 1px 1px 1px #888888;
+	/*border:1px solid;*/
 	width:32.5%;
 	min-height:480px;
 	max-height:480px;
@@ -289,7 +299,8 @@ body {
 
 #movieProfile {
 	background-color:#ffffff;
-	border:2px solid;
+	box-shadow: 1px 1px 1px #888888;
+	/*border:2px solid;*/
 	width: 98.78%;
 	overflow:auto;
 	padding-left:10px;
@@ -338,7 +349,8 @@ body {
 
 #similarMoviesMenu {
 	background-color:#ffffff;
-	border:2px solid;
+	box-shadow: 1px 1px 1px #888888;
+	/*border:2px solid;*/
 	width:99.68%;
 	margin-top:5px;
 }
@@ -346,18 +358,21 @@ body {
 
 #movieList {
 	background-color:#ffffff;
-	border:2px solid;
+	box-shadow: 1px 1px 1px #888888;
+	/*border:2px solid;*/
 	width: 98.78%;
 	padding-left:10px;
 	overflow:auto;
 }
 
 #movieListItem {
-	border:2px solid;
+	box-shadow: 1px 1px 1px #888888;
+	background-color:#ededed;
+	/*border:2px solid;*/
 	float:left;
 	clear:left;
 	width:98%;
-	margin-bottom:5px;
+	margin-bottom:10px;
 }
 
 #movieListItem .movieTitle {
@@ -396,13 +411,16 @@ body {
 
 #advancedSearch {
 	background-color:#ffffff;
-	border:2px solid;
+	box-shadow: 1px 1px 1px #888888;
+	/*border:2px solid;*/
 	width: 99.68%;
+	margin-bottom:10px;
 }
 
 #relationsMenu {
 	background-color:#ffffff;
-	border:2px solid;
+	box-shadow: 1px 1px 1px #888888;
+	/*border:2px solid;*/
 	width: 98.98%;
 	overflow:auto;	
 	margin-top:5px;
@@ -428,7 +446,8 @@ body {
 
 #relationContainer
 {
-	border:2px solid;
+	box-shadow: 1px 1px 1px #888888;
+	/*border:2px solid;*/
 	width:98%;
 	overflow:auto;
 	padding-left:5px;

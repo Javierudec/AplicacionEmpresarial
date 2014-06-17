@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import es.model.service.ArticleService;
 import es.model.service.MovieService;
 import es.model.service.UserService;
 
@@ -68,6 +69,13 @@ public class SpringUtils {
 		}
 		
 		return (MovieService)context.getBean("movieServiceBean");
+	}
+	
+	public static ArticleService getArticleService()
+	{
+		if(getSpring() == null) return null;
+		
+		return (ArticleService)context.getBean("articleServiceBean");
 	}
 	
 	public static Connection getConnection() 

@@ -1,0 +1,23 @@
+<html t:type="layout" title="Hi/Lo Guess"
+  xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+
+<div id="defaultMenu">    
+	<t:If t:test="username">  
+		<table>
+			<t:Form t:id="addArticleForm">
+				<t:Errors/>
+				<tr>
+				<td><t:Label t:for="title">Title</t:Label></td><td><input t:type="Textfield" t:id="title" t:validate="required" size="24"/></td>
+				</tr>
+				<tr>
+				<td><t:Label t:for="content">Password</t:Label></td><td><t:textarea style="width:400px;height:400px;" t:id="content" t:validate="required"/></td>
+				</tr>
+				<tr>
+				<td></td><td><input type="submit" value="Create"/></td>
+				</tr>
+			</t:Form>
+		</table>
+	</t:If>
+</div>
+
+</html>

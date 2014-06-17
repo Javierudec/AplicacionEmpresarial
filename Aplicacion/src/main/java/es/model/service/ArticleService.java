@@ -1,6 +1,7 @@
 package es.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,16 +25,17 @@ private PlatformTransactionManager transactionManager;
 @Transactional(rollbackFor={ InstanceNotFoundException.class })
 public Article addArticle( String articleTitle, String articleContent, String authorName, ArrayList<Integer> tagsID ) throws InstanceNotFoundException{
 	
-	Article article = articleDAO.insert(articleTitle, articleContent, authorName);
-	
+	articleDAO.insert(articleTitle, articleContent, authorName);
+	/*
 	for(int i = 0; i < tagsID.size(); i++)
 	{
 		int tagID = tagsID.get(i);
 		Tag tag = tagDAO.find(tagID);
 		tagDAO.insertArticleOwnTag(article, tag);
 	}
+	*/
 	
-	return article;
+	return null;
 }
 
 @Transactional(rollbackFor={InstanceNotFoundException.class})
@@ -113,6 +115,10 @@ public void setArticleDAO(ArticleDAO articleDAO) {
 }
 public void setTransactionManager(PlatformTransactionManager transactionManager) {
 	this.transactionManager = transactionManager;
+}
+
+public List<Article> findAllByPublishedDate() {
+	return articleDAO.findAllByPublishedDate();
 }	
 
 }

@@ -5,9 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
+import util.SpringUtils;
 import es.model.util.exceptions.InstanceNotFoundException;
 
 public class JdbcArticleDAO implements ArticleDAO {
@@ -17,7 +19,7 @@ public class JdbcArticleDAO implements ArticleDAO {
 	public int findLastID() {
 		int lastID = 0;
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT MAX(id) FROM article"); 
 			// TODO: el MAX(id) se puede cambiar por la secuencia utilizada, ¿mas eficiente?
@@ -37,7 +39,7 @@ public class JdbcArticleDAO implements ArticleDAO {
 	public Article find(int articleID) throws InstanceNotFoundException {
 		Article article = null;
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT id,  title, content, username FROM article WHERE id = ?");
 			statement.setInt( 1, articleID );
@@ -67,7 +69,7 @@ public class JdbcArticleDAO implements ArticleDAO {
 		ArrayList<Article> articleList = new ArrayList<Article>();
 		
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT id,  title, content, username FROM article WHERE username = ?");
 			statement.setString( 1, authorName );
@@ -92,16 +94,19 @@ public class JdbcArticleDAO implements ArticleDAO {
 	public Article insert(String articleTitle, String articleContent, String authorName) {
 		Article article = null;
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
 			
-			PreparedStatement statement = connection.prepareStatement("INSERT INTO article (title, content, username) VALUES (?, ?, ?);");
+			//System.out.println(articleTitle + " " + articleContent + " " + authorName);
+			
+			PreparedStatement statement = connection.prepareStatement("INSERT INTO article (title, content, username) VALUES (?, ?, ?)");
 			statement.setString(1, articleTitle );
 			statement.setString(2, articleContent );
 			statement.setString(3, authorName );
 			
 			statement.executeUpdate();
 			
-			statement = connection.prepareStatement("SELECT currval(pg_get_serial_sequence('article','id'));");
+			//statement = connection.prepareStatement("SELECT currval(pg_get_serial_sequence('article','id'));");
+			/*
 			ResultSet resultSet = statement.executeQuery();
 			
 			if( resultSet.next() ){
@@ -109,6 +114,8 @@ public class JdbcArticleDAO implements ArticleDAO {
 				article = new Article( newArticleID, articleTitle, articleContent, authorName );
 			} else
 				throw new RuntimeException();
+			*/
+			System.out.println("INSERT END.");
 		} catch ( SQLException e ){
 			throw new RuntimeException(e);
 		}
@@ -118,7 +125,7 @@ public class JdbcArticleDAO implements ArticleDAO {
 	// TODO: de momento se podran calificar los articulos una sola vez :P
 	public void addArticleCalification(int calification, String userName, int articleID) {
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"INSERT INTO rank_article (username, rankedarticle, rank) VALUES (?,?,?);");			
 			
@@ -137,7 +144,7 @@ public class JdbcArticleDAO implements ArticleDAO {
 			throws InstanceNotFoundException {
 		int Calification = 0;
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT rank FROM rank_article WHERE username=? AND rankedarticle=?;");
 			
@@ -160,7 +167,7 @@ public class JdbcArticleDAO implements ArticleDAO {
 	public int findCalificationAverage(int articleID) {
 			int Calification = 0;
 			try{
-				Connection connection = dataSource.getConnection();
+				Connection connection = SpringUtils.getConnection();
 				PreparedStatement statement = connection.prepareStatement(
 						"SELECT AVG(rank) FROM rank_article WHERE rankedarticle=?;");
 				
@@ -181,7 +188,7 @@ public class JdbcArticleDAO implements ArticleDAO {
 
 	public Article update(Article article) throws InstanceNotFoundException {
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"UPDATE article SET title = '?', content = '?', username = '?' WHERE id = '?' ;");
 			
@@ -200,7 +207,7 @@ public class JdbcArticleDAO implements ArticleDAO {
 
 	public void delete(int articleID) throws InstanceNotFoundException {
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = SpringUtils.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"DELETE FROM article WHERE id = '?';");
 			
@@ -215,6 +222,36 @@ public class JdbcArticleDAO implements ArticleDAO {
 	
 	public void setDataSource( DataSource dataSource ){
 		this.dataSource = dataSource;
+	}
+
+	@Override
+	public List<Article> findAllByPublishedDate() 
+	{
+		List<Article> articleList = new ArrayList<Article>();
+		
+		Connection connection = SpringUtils.getConnection();
+		PreparedStatement statement;
+		try 
+		{
+			statement = connection.prepareStatement("SELECT id, title, content, username, date_added FROM article ORDER BY id DESC");
+			ResultSet resultSet = statement.executeQuery();
+			
+			while(resultSet.next())
+			{
+				int id = resultSet.getInt(1);
+				String title = resultSet.getString(2);
+				String content = resultSet.getString(3);
+				String username = resultSet.getString(4);
+				
+				articleList.add(new Article(id, title, content, username));
+			}
+		}
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return articleList;
 	}
 
 }

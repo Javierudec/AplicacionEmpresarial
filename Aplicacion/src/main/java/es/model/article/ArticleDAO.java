@@ -1,6 +1,7 @@
 package es.model.article;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface ArticleDAO {
 
@@ -25,4 +26,6 @@ public interface ArticleDAO {
 	
 	public abstract void delete( int ID )
 		throws es.model.util.exceptions.InstanceNotFoundException;
+
+	public abstract List<Article> findAllByPublishedDate();
 }
