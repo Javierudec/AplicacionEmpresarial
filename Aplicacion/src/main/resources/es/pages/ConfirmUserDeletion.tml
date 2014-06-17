@@ -1,0 +1,11 @@
+<html t:type="layout" title="Hi/Lo Guess"
+  xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+  xmlns:p="tapestry:parameter">
+
+<div id="defaultMenu">
+	<t:if test="user">
+		Realmente quiere eliminar al usuario ${user.name}?
+		<t:ActionLink t:id="deleteUser">Si</t:ActionLink>/<t:ActionLink t:id="cancelAction">No</t:ActionLink>
+	</t:if>
+</div>
+</html>

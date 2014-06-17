@@ -1,0 +1,11 @@
+<html t:type="layout" title="Hi/Lo Guess"
+  xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+  xmlns:p="tapestry:parameter">
+
+<div id="defaultMenu">
+	<t:form t:id="deleteUserForm">
+		<t:select t:id="colorMenu" value="selectedUser" model="UserSelectModel" encoder="userEncoder"/>
+		<input type="submit" value="Delete"/>
+	</t:form>
+</div>
+</html>

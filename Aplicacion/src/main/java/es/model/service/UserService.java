@@ -156,4 +156,14 @@ public class UserService implements UserServiceInterface {
 		}
 		return null;
 	}
+
+	public void deleteUser(User userToDelete) {
+		try {
+			userDAO.delete(userToDelete.getName());
+		} catch (InstanceNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 }

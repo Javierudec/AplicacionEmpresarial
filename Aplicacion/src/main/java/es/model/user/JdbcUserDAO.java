@@ -111,13 +111,21 @@ public class JdbcUserDAO implements UserDAO {
 	public void delete(String userName) throws InstanceNotFoundException {
 		try{
 			Connection connection = SpringUtils.getConnection();
-			//Connection connection = dataSource.getConnection();
-			PreparedStatement statement = connection.prepareStatement(
-					"DELETE FROM site_user WHERE name = '?';");
 			
+			User u = find(userName);
+			
+			PreparedStatement statement = connection.prepareStatement("DELETE FROM rank_movie WHERE username = ?");
+			statement.setInt(1, u.getID());
+			statement.executeUpdate();
+			
+			statement = connection.prepareStatement("DELETE FROM predicted_rank WHERE user_id = ?");
+			statement.setInt(1, u.getID());
+			statement.executeUpdate();
+			
+			statement = connection.prepareStatement("DELETE FROM site_user WHERE name = ?");
 			statement.setString(1, userName);
 			
-			statement.executeQuery();
+			statement.executeUpdate();
 			
 		} catch ( SQLException e ){
 			throw new RuntimeException(e);

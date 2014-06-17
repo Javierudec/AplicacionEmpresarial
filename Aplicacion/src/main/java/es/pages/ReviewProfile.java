@@ -26,6 +26,9 @@ public class ReviewProfile {
 	private Zone userScoreZone;
 
 	@Property
+	private String scoreSelected;
+	
+	@Property
 	@Persist
 	private Article review;
 	

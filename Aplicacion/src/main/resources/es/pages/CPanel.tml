@@ -7,7 +7,8 @@
 		<t:pagelink page="RecommenderAlgorithm">Recommender algorithm</t:pagelink><hr/>
 		<t:pagelink page="AddMovie">Add movie</t:pagelink><hr/>
 		<t:pagelink page="AddGenre">Add genre</t:pagelink><hr/>
-		<t:pagelink page="AddActor">Add actor</t:pagelink>
+		<t:pagelink page="AddActor">Add actor</t:pagelink><hr/>
+		<t:pagelink page="DeleteUser">Delete user</t:pagelink>
 		<p:else>
 			You are not authorized to enter this section.
 		</p:else>
