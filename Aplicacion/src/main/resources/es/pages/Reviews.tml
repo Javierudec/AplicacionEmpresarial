@@ -2,31 +2,30 @@
   xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
   xmlns:p="tapestry:parameter">
 
-<!-- 
 <div id="advancedSearch">
 	Advanced Search
 	<hr/>
-	<t:form t:zone="movieListZone">
+	<t:form t:zone="reviewListZone" t:id="filterArticle">
 		<table>
+			<t:Errors/>
 			<tr>
-			<td>Title: </td><td><input t:type="textfield" t:id="byTitle" size="130" /></td>
+			<td><t:Label t:for="title">Title</t:Label></td><td><input t:type="Textfield" t:id="title" size="24"/></td>
 			</tr>
 			<tr>
-			<td>Actor: </td><td><t:select value="selectedActor" model="ActorSelectModel" encoder="actorEncoder"/></td>
+			<td>Tags:</td>
+				<td><t:select value="selectedTag1" model="tagSelectModel" encoder="tagEncoder"/></td>
+				<td><t:select value="selectedTag2" model="tagSelectModel" encoder="tagEncoder"/></td>
+				<td><t:select value="selectedTag3" model="tagSelectModel" encoder="tagEncoder"/></td>
 			</tr>
 			<tr>
-			<td>Genre: </td><td><t:select value="selectedGenre" model="GenreSelectModel" encoder="genreEncoder"/></td>
-			</tr>
-			<tr>
-			<td></td><td><input type="submit" value="Go!"/></td>
+			<td></td><td><input type="submit" value="Search"/></td>
 			</tr>
 		</table>
 	</t:form>
 </div>
--->
  
 <div id="movieList">	
-	<!-- <t:zone t:id="reviewListZone" id="reviewListZone"> -->
+	 <t:zone t:id="reviewListZone" id="reviewListZone"> 
 		What's a review? A review is a text talking about anything you want about something related to the website. A movie, actor, a specific genre...<br/>
 		<t:if test="username">
 			<t:PageLink t:page="AddArticle">Create</t:PageLink> your own review!
@@ -52,7 +51,7 @@
 			<t:if test="prevPage"><span class="prevPage"><t:actionLink t:id="prevPage" zone="movieListZone">Prev page</t:actionLink></span></t:if>
 			<t:if test="nextPage"><span class="nextPage"><t:ActionLink t:id="nextPage" zone="movieListZone">Next page</t:ActionLink></span></t:if>
 		 -->
-	<!-- </t:zone> -->
+	 </t:zone>
 
 </div>
 

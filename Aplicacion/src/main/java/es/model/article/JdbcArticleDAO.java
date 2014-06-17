@@ -104,9 +104,21 @@ public class JdbcArticleDAO implements ArticleDAO {
 			statement.setString(3, authorName );
 			
 			statement.executeUpdate();
-			
-			//statement = connection.prepareStatement("SELECT currval(pg_get_serial_sequence('article','id'));");
 			/*
+			ResultSet keys = statement.getGeneratedKeys();
+			
+			System.out.println("KEYS");
+			
+			if(keys.next())
+			{
+				System.out.println(keys.getInt(1));
+				
+				article = new Article(keys.getInt(1), articleTitle, articleContent, authorName);
+			}
+			*/
+			statement = connection.prepareStatement("SELECT id FROM article WHERE title=? ORDER BY id DESC");
+			statement.setString(1, articleTitle);
+			
 			ResultSet resultSet = statement.executeQuery();
 			
 			if( resultSet.next() ){
@@ -114,8 +126,8 @@ public class JdbcArticleDAO implements ArticleDAO {
 				article = new Article( newArticleID, articleTitle, articleContent, authorName );
 			} else
 				throw new RuntimeException();
-			*/
-			System.out.println("INSERT END.");
+			
+			//System.out.println("INSERT END.");
 		} catch ( SQLException e ){
 			throw new RuntimeException(e);
 		}
@@ -253,5 +265,4 @@ public class JdbcArticleDAO implements ArticleDAO {
 		
 		return articleList;
 	}
-
 }

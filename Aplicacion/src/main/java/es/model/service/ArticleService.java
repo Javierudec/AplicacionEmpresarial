@@ -25,7 +25,7 @@ private PlatformTransactionManager transactionManager;
 @Transactional(rollbackFor={ InstanceNotFoundException.class })
 public Article addArticle( String articleTitle, String articleContent, String authorName, ArrayList<Integer> tagsID ) throws InstanceNotFoundException{
 	
-	articleDAO.insert(articleTitle, articleContent, authorName);
+	
 	/*
 	for(int i = 0; i < tagsID.size(); i++)
 	{
@@ -35,7 +35,7 @@ public Article addArticle( String articleTitle, String articleContent, String au
 	}
 	*/
 	
-	return null;
+	return articleDAO.insert(articleTitle, articleContent, authorName);
 }
 
 @Transactional(rollbackFor={InstanceNotFoundException.class})
@@ -119,6 +119,25 @@ public void setTransactionManager(PlatformTransactionManager transactionManager)
 
 public List<Article> findAllByPublishedDate() {
 	return articleDAO.findAllByPublishedDate();
+}
+
+public List<Tag> getAllTags() {
+	return tagDAO.getAll();
+}
+
+public void addTagToArticle(Article article, Tag tag) {
+	tagDAO.insertArticleOwnTag(article, tag);
+	
+}
+
+public Tag findTagByName(String name) {
+	try {
+		return tagDAO.findByName(name);
+	} catch (InstanceNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return null;
 }	
 
 }

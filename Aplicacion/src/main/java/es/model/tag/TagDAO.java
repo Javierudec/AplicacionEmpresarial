@@ -1,6 +1,7 @@
 package es.model.tag;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import es.model.article.Article;
 
@@ -21,4 +22,6 @@ public interface TagDAO {
 	// tag id exist?
 	public Tag update( Tag tag );
 	public void delete( int ID );
+
+	public List<Tag> getAll();
 }

@@ -10,7 +10,13 @@
 				<td><t:Label t:for="title">Title</t:Label></td><td><input t:type="Textfield" t:id="title" t:validate="required" size="24"/></td>
 				</tr>
 				<tr>
-				<td><t:Label t:for="content">Password</t:Label></td><td><t:textarea style="width:400px;height:400px;" t:id="content" t:validate="required"/></td>
+				<td><t:Label t:for="content">Content</t:Label></td><td><t:textarea style="width:400px;height:400px;" t:id="content" t:validate="required"/></td>
+				</tr>
+				<tr>
+				<td>Tags:</td>
+					<td><t:select value="selectedTag1" model="tagSelectModel" encoder="tagEncoder"/></td>
+					<td><t:select value="selectedTag2" model="tagSelectModel" encoder="tagEncoder"/></td>
+					<td><t:select value="selectedTag3" model="tagSelectModel" encoder="tagEncoder"/></td>
 				</tr>
 				<tr>
 				<td></td><td><input type="submit" value="Create"/></td>
