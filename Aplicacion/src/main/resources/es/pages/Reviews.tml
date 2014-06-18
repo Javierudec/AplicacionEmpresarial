@@ -3,7 +3,7 @@
   xmlns:p="tapestry:parameter">
 
 <div id="advancedSearch">
-	Advanced Search
+	<span class="textSection">Advanced Search</span>
 	<hr/>
 	<t:form t:zone="reviewListZone" t:id="filterArticle">
 		<table>
@@ -33,14 +33,10 @@
 		<hr/>
 		<t:if test="reviewListNotEmpty">
 			<t:Loop t:source="reviewList" value="currentReview">
-				<div id="movieListItem">
-					<t:ActionLink t:id="viewReview" t:context="currentReview.id">${currentReview.title}</t:ActionLink>
-					<!-- 
-					<span class="movieTitle"><t:actionlink t:id="viewProfile" context="currentMovie.name">${currentMovie.name}</t:actionlink></span>
-					<img class="moviePoster" alt="MoviePoster" src="${movieImage}" width="362" height="512" />
-					<span class="description">${movieDescription}</span>
-					<img class="averageScore" src="${averageScore}"/>
-					-->
+				<div id="reviewListItem">
+					<t:ActionLink t:id="viewReview" t:context="currentReview.id">${currentReview.title}</t:ActionLink> 
+					created by ${currentReview.author}
+					<img class="reviewScore" src="${averageScore}"/>
 				</div>
 			</t:Loop>
 			<p:else>

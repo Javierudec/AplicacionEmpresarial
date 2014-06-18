@@ -66,6 +66,13 @@ public class Reviews
 		return ReviewList.getList();
 	}
 	
+	public String getAverageScore()
+	{
+		int score = SpringUtils.getArticleService().findCalificationAverage(currentReview.getID());
+		
+		return "images/" + score + "_star.png";
+	}
+	
 	void onActivate()
 	{
 		List<Tag> tagList = SpringUtils.getArticleService().getAllTags();

@@ -399,6 +399,21 @@ body {
 	
 }
 
+#reviewListItem {
+	box-shadow: 1px 1px 1px #888888;
+	background-color:#ededed;
+	/*border:2px solid;*/
+	float:left;
+	clear:left;
+	width:100%;
+	margin-bottom:10px;
+	padding-left:5px;
+}
+
+#reviewListItem .reviewScore {
+	width:128px;	
+}
+
 #movieListItem .movieTitle {
 	float:left;
 	clear:left;
