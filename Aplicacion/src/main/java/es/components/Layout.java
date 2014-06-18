@@ -19,7 +19,6 @@ import util.Utils;
 import es.pages.ErrorPage;
 import es.pages.Index;
 import es.pages.Movies;
-import es.model.service.*;
 import es.model.user.User;
 import es.model.util.exceptions.InstanceNotFoundException;
 

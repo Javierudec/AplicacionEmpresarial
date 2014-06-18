@@ -264,4 +264,16 @@ public class MovieService implements MovieServiceInterface {
 	public List<Movie> getAllMovies() {
 		return movieDAO.getAll();
 	}
+
+	public Movie findMovieByID(int id) 
+	{
+		try 
+		{
+			return movieDAO.findByID(id);
+		} 
+		catch(InstanceNotFoundException e)
+		{
+			return null;
+		}
+	}
 }

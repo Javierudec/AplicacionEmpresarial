@@ -60,4 +60,6 @@ public interface MovieDAO {
 	public abstract void updateMovie(Movie movie);
 
 	public abstract List<Movie> getAll();
+
+	public abstract Movie findByID(int id) throws InstanceNotFoundException;
 }

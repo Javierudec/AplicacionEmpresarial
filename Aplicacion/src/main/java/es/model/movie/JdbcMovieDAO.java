@@ -918,6 +918,43 @@ public class JdbcMovieDAO implements MovieDAO {
 		
 		return movieList;
 	}
+
+	@Override
+	public Movie findByID(int id) throws InstanceNotFoundException {
+		Movie movie = null;
+		
+		try
+		{
+			Connection connection = SpringUtils.getConnection();
+			PreparedStatement statement = connection.prepareStatement(
+					"SELECT title, synopsis, debut_date, image, id, video_url FROM movie WHERE id = ?");
+			statement.setInt(1, id);
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			if( resultSet.next() ){
+				String newMovieName = resultSet.getString(1);
+				String newMovieSynopsys = resultSet.getString(2);
+				String newMovieImage = resultSet.getString(4);
+				java.sql.Date newMovieDebutDate = resultSet.getDate(3); // TODO: check if this works
+				String newVideoURL = resultSet.getString(6);
+				
+				movie = new Movie( newMovieName, newMovieSynopsys, newMovieDebutDate, newMovieImage);
+				movie.setID(id);
+				movie.setVideoURL(newVideoURL);
+				movie.setAvgRank(findCalificationAverage(newMovieName));
+				
+			} else {
+				throw new InstanceNotFoundException();
+			}
+		} 
+		catch(SQLException e)
+		{
+			throw new RuntimeException(e);
+		}
+		
+		return movie;
+	}
 	
 	
 }
