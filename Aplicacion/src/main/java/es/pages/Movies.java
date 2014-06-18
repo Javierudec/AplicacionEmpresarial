@@ -123,7 +123,15 @@ public class Movies
 	{
 		if(currentMovie == null) return "No description found.";
 		
-		return currentMovie.getSynopsys();
+		String tempDesc = currentMovie.getSynopsys();
+		
+		if(tempDesc.length() > 256)
+		{
+			tempDesc = tempDesc.substring(0, 256);
+			tempDesc += "...";
+		}
+		
+		return tempDesc;
 	}
 	
 	public String getCurrentMovieYear()
@@ -137,9 +145,8 @@ public class Movies
 		{
 			MovieList.setCompleteList(SpringUtils.getMovieService().findMoviesOrderByRank());
 			MovieList.setList(MovieList.getCompleteList());
+			MovieList.setPage(0);
 		}
-		
-		MovieList.setPage(0);
 		
 		List<Actor> actorList = SpringUtils.getMovieService().getAllActors();
 		actorList.add(0, new Actor(-1, "All"));

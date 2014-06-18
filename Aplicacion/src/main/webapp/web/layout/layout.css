@@ -381,10 +381,11 @@ body {
 	background-color:#ffffff;
 	box-shadow: 1px 1px 1px #888888;
 	/*border:2px solid;*/
-	width: 1132px;
+	width: 1112px;
 	padding-left:20px;
 	padding-bottom:15px;
 	overflow:auto;
+	padding-right:20px;
 }
 
 #movieListItem {
@@ -393,7 +394,7 @@ body {
 	/*border:2px solid;*/
 	float:left;
 	clear:left;
-	width:98%;
+	width:100%;
 	margin-bottom:10px;
 	
 }
