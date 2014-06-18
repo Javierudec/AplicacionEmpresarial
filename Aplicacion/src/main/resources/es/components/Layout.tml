@@ -10,7 +10,7 @@
         <!-- start header -->
         <div id="header">
             <div id="logo">
-                <h1>
+                <h1 class="textSection">
                     <t:pagelink page="index">MoviesDB</t:pagelink>
                 </h1>
             </div>
@@ -25,18 +25,20 @@
             		<br/>
 					(Welcome, ${username})
 					<p:else>
-						<img src="images/silhouette.png" alt="Avatar"></img>
+						<img style="float:left; clear:left;" src="images/silhouette.png" alt="Avatar"></img>
 						
-						<div style="float:right;padding-right:5px;">
+						<div style="float:left;padding-left:5px;">
 							<form t:type="form" t:id="loginForm">
-								<t:Label t:for="loginUsername">Username</t:Label><input t:type="Textfield" t:id="loginUsername" t:validate="required" size="12"/><br/>
-								<t:Label t:for="loginPassword">Password</t:Label><input t:type="PasswordField" t:id="loginPassword" t:validate="required" size="12"/><br/>
-								<input type="submit" value="Login"/>
+								<t:Label t:for="loginUsername" style="margin-right:5px; font-weight:bold;">Username</t:Label><input t:type="Textfield" t:id="loginUsername" t:validate="required" size="12"/><br/>
+								<t:Label t:for="loginPassword" style="margin-right:9px; font-weight:bold;">Password</t:Label><input t:type="PasswordField" t:id="loginPassword" t:validate="required" size="12"/><br/>
+								<input type="submit" value="Login"/> or <t:pagelink page="AccountCreation">Create Account</t:pagelink>
 							</form>
 						</div>
+						<!-- 
 						<div style="float:right;clear:right;padding-right:5px;">
 							<t:pagelink page="AccountCreation">Create Account</t:pagelink>
 						</div>
+						-->
 						<br/>
 					</p:else>
 				</t:if>
@@ -114,9 +116,7 @@
         
         <!-- start footer -->
         <div id="footer">
-            <p class="legal">
-				Footer
-            </p>
+			<span class="footerText">MoviesDB - ${currentTime}</span>
         </div>
         <!-- end footer -->
     </body>

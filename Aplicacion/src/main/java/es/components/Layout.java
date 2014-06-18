@@ -3,6 +3,10 @@
  */
 package es.components;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.apache.tapestry5.*;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.ioc.annotations.*;
@@ -11,6 +15,7 @@ import org.apache.tapestry5.BindingConstants;
 import util.FilterByTitle;
 import util.MovieList;
 import util.SpringUtils;
+import util.Utils;
 import es.model.service.*;
 import es.model.user.User;
 import es.model.util.exceptions.InstanceNotFoundException;
@@ -28,46 +33,37 @@ public class Layout
 	@SessionAttribute("loggedInUserName")
 	@Property
 	private String username; //Information about identified user. PERSISTENT to all page sites.
-	
-	@Inject 
-	private ComponentResources res; 
-	
+		
     /** The page title, for the <title> element and the <h1> element. */
     @Property
     @Parameter(required = true, defaultPrefix = BindingConstants.LITERAL)
     private String title;
-    
     @Property
     private String loginUsername;
-    
     @Property
     private String loginPassword;
-
     @Property
     private String pageName;
-
+    @Property
+    private String searchByTitlePattern;
     @Property
     @Parameter(defaultPrefix = BindingConstants.LITERAL)
     private String sidebarTitle;
-
     @Property
     @Parameter(defaultPrefix = BindingConstants.LITERAL)
     private Block sidebar;
 
     @Inject
     private ComponentResources resources;
-    
+	@Inject 
+	private ComponentResources res; 
+	
     @InjectPage
     private Index index;
-    
     @InjectPage
     private ErrorPage errorHandler;
-    
     @InjectPage
     private Movies moviesPage;
-    
-    @Property
-    private String searchByTitlePattern;
     
     public Layout()
     {
@@ -76,17 +72,7 @@ public class Layout
     
 	public boolean getIsAdmin()
 	{
-		if(username == null) return false;
-		
-		User user = null;
-		
-		try {
-			user = SpringUtils.getUserService().findUserByName(username);
-			return user.getIsAdmin();
-		} catch (InstanceNotFoundException e) {
-			// TODO Auto-generated catch block
-			return false;
-		}
+		return Utils.getIsAdmin(username);
 	}
     
     public String getClassForPageName()
@@ -98,7 +84,7 @@ public class Layout
 
     public String[] getPageNames()
     {
-      return new String[] { "Home", "Movies", "Reviews", "About Us" };
+      return new String[] { "Home", "Movies", "Articles", "About Us" };
     }
     
     public String getPageURL()
@@ -122,6 +108,12 @@ public class Layout
     	return "";
     }
     
+    public String getCurrentTime()
+    {
+    	DateFormat dateFormat = new SimpleDateFormat("dd MMMMM yyyy");
+    	Date date = new Date();
+    	return dateFormat.format(date);
+    }
     
 	Object onActionFromLogout()
 	{
@@ -137,7 +129,8 @@ public class Layout
 	
 	Object onSuccessFromLoginForm()
 	{		
-		try {
+		try 
+		{
 			User user = SpringUtils.getUserService().findUserByName(loginUsername);
 				
 			if(user != null && user.getPassword().equals(loginPassword))
@@ -150,8 +143,11 @@ public class Layout
 				return errorHandler;
 			}
 			
-		} catch (InstanceNotFoundException e) {
+		} 
+		catch(InstanceNotFoundException e) 
+		{
 			errorHandler.setErrorMsg("Usuario o contraseña no validos.");
+			
 			return errorHandler;
 		}
 		
@@ -162,6 +158,7 @@ public class Layout
 	{
 		MovieList.setCompleteList(SpringUtils.getMovieService().findMoviesOrderByRank());
 		MovieList.setList(FilterByTitle.FilterList(searchByTitlePattern, MovieList.getCompleteList()));
+		
 		return moviesPage;
 	}
 }
