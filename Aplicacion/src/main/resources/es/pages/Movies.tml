@@ -3,7 +3,7 @@
   xmlns:p="tapestry:parameter">
 
 <div id="advancedSearch">
-	Advanced Search
+	<span class="textSection">Advanced Search</span>
 	<hr/>
 	<t:form t:zone="movieListZone">
 		<table>
@@ -24,19 +24,56 @@
 </div>
  
 <div id="movieList">
+	<!-- 
 	<div class="ABCList">
 		<t:Loop t:source="ABC" value="currentLetter">
 			<t:actionlink t:id="letter" context="currentLetter" zone="movieListZone">${currentLetter}</t:actionlink>|
 		</t:Loop>
+	</div>
+	-->
+	<div id="abcmenu">
+		<ul>
+			<t:Loop t:source="ABC" value="currentLetter">
+				<li><t:actionlink t:id="letter" context="currentLetter" zone="movieListZone"><span>${currentLetter}</span></t:actionlink></li>
+			</t:Loop>
+			
+		   <!-- 
+		   <li class='active'><a href='index.html'><span>Home</span></a></li>
+		   <li><a href='#'><span>Products</span></a></li>
+		   <li><a href='#'><span>About</span></a></li>
+		   <li class='last'><a href='#'><span>Contact</span></a></li>
+		    -->
+		</ul>
 	</div>
 	
 	<t:zone t:id="movieListZone" id="movieListZone">
 		<t:if test="movieListNotEmpty">
 			<t:Loop t:source="movieList" value="currentMovie">
 				<div id="movieListItem">
-					<span class="movieTitle"><t:actionlink t:id="viewProfile" context="currentMovie.name">${currentMovie.name}</t:actionlink></span>
-					<img class="moviePoster" alt="MoviePoster" src="${movieImage}" width="362" height="512" />
+					<span class="movieTitle"><t:actionlink t:id="viewProfile" context="currentMovie.name">${currentMovie.name} (${currentMovieYear})</t:actionlink></span>
+					<img class="moviePoster" alt="MoviePoster" src="${movieImage}"/>
 					<span class="description">${movieDescription}</span>
+					<table>
+					<tr>
+					<td>
+						<span style="float:left;font-size:20px;padding-left:15px;">
+							Genres:
+							<t:loop t:source="genreList" value="currentGenre">
+								<t:ActionLink t:id="viewByGenre" t:context="currentGenre.name">${currentGenre.name} </t:ActionLink>
+							</t:loop>
+						</span>
+					</td>
+					</tr>
+					<tr>
+					<td>
+					<span style="float:left;font-size:20px;padding-left:15px;clear:left;">
+						Stars:
+						<t:loop t:source="actorList" value="currentActor">
+							<t:ActionLink t:id="viewByActor" t:context="currentActor.name">[${currentActor.name}] </t:ActionLink>
+						</t:loop>
+					</span></td>
+					</tr>
+					</table>
 					<img class="averageScore" src="${averageScore}"/>
 				</div>
 			</t:Loop>

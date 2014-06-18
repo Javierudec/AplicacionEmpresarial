@@ -381,8 +381,9 @@ body {
 	background-color:#ffffff;
 	box-shadow: 1px 1px 1px #888888;
 	/*border:2px solid;*/
-	width: 98.78%;
-	padding-left:10px;
+	width: 1132px;
+	padding-left:20px;
+	padding-bottom:15px;
 	overflow:auto;
 }
 
@@ -394,22 +395,28 @@ body {
 	clear:left;
 	width:98%;
 	margin-bottom:10px;
+	
 }
 
 #movieListItem .movieTitle {
 	float:left;
 	clear:left;
+	padding-left:10px;
 }
 
 #movieListItem .moviePoster {
-	max-width:128px;
-	max-height:128px;
+	width:128px;
+	height:183px;
 	float:left;
 	clear:left;
+	padding-left:15px;
 }
 
 #movieListItem .description {
 	float:left;
+	width:888px;
+	font-size:24px;
+	padding-left:15px;
 }
 
 #movieList .prevPage {
@@ -428,14 +435,17 @@ body {
 	float:left;
 	clear:left;
 	max-width:128px;
+	padding:15px;
 }
 
 #advancedSearch {
 	background-color:#ffffff;
 	box-shadow: 1px 1px 1px #888888;
 	/*border:2px solid;*/
-	width: 99.68%;
+	width: 1137px;;
 	margin-bottom:10px;
+	padding-left:15px;
+	padding-top:15px;
 }
 
 #relationsMenu {
@@ -549,6 +559,43 @@ a:hover
 #faq {
 	font-size:16px;
 	padding: 15px;
+}
+
+#abcmenu ul {
+  margin: 0 auto;
+  margin-top:5px;
+  padding: 0;
+  list-style-type: none;
+  position: relative;
+  display: block;
+  height: 40px;
+  text-transform: uppercase;
+  font-size: 13px;
+  background: transparent url('blue.jpg') repeat-x top left;
+  font-family: Helvetica, Arial, Verdana, sans-serif;
+  width: 860px;
+}
+
+#abcmenu li {
+  display: block;
+  float: left;
+  margin: 0;
+  pading: 0;
+  border-right: 1px solid #ffffff;
+}
+
+#abcmenu li a {
+  display: block;
+  float: left;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 6px 17px 0 6px;
+  height: 24px;
+  height: 40px;
+}
+
+#abcmenu li a:hover {
+  background: transparent url('black.jpg') repeat-x top left;
 }
 
 

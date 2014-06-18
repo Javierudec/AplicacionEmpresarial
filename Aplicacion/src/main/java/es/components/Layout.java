@@ -121,10 +121,12 @@ public class Layout
 		return index;
 	}
 	
+	/*
 	Object onActionFromViewUserProfile()
 	{	
 		return null;
 	}
+	*/
 	
 	Object onSuccessFromLoginForm()
 	{		

@@ -16,6 +16,7 @@ import util.FilterByLetter;
 import util.FilterByTitle;
 import util.MovieList;
 import util.SpringUtils;
+import util.Utils;
 import encoders.ActorEncoder;
 import encoders.GenreEncoder;
 import es.model.actor.Actor;
@@ -35,6 +36,10 @@ public class Movies
 	@Property
 	private Genre selectedGenre;
 	@Property
+	private Genre currentGenre;
+	@Property
+	private Actor currentActor;
+	@Property
 	private SelectModel actorSelectModel;
 	@Property
 	private SelectModel genreSelectModel;
@@ -45,6 +50,8 @@ public class Movies
 	
 	@InjectPage
 	private MovieProfile movieProfile;
+	@InjectPage
+	private Movies movies;
 	
 	@InjectComponent
 	private Zone movieListZone;
@@ -83,6 +90,16 @@ public class Movies
 		return MovieList.getList();
 	}
 	
+	public List<Genre> getGenreList()
+	{
+		return SpringUtils.getMovieService().findGenreForMovie(currentMovie.getName());
+	}
+	
+	public List<Actor> getActorList()
+	{
+		return SpringUtils.getMovieService().findActorForMovie(currentMovie.getName());
+	}
+	
 	public String getAverageScore()
 	{
 		Integer currAvgScore = 0;
@@ -109,6 +126,11 @@ public class Movies
 		return currentMovie.getSynopsys();
 	}
 	
+	public String getCurrentMovieYear()
+	{
+		return Utils.getYear(currentMovie.getPremiereDate());
+	}
+	
 	void onActivate()
 	{
 		if(!MovieList.isCompleteListSetted())
@@ -126,6 +148,8 @@ public class Movies
 		List<Genre> genreList = SpringUtils.getMovieService().getAllGenres();
 		genreList.add(0, new Genre(-1, "All"));
 		genreSelectModel = selectModelFactory.create(genreList, "name");
+		
+		MovieList.UpdateListData();
 	}
 	
 	Object onSuccess()
@@ -159,6 +183,20 @@ public class Movies
 		}
 		
 		return movieListZone.getBody();
+	}
+	
+	Object onActionFromViewByGenre(String genreName)
+	{
+		MovieList.setList(FilterByGenre.FilterList(genreName, MovieList.getCompleteList()));
+		
+		return movies;
+	}
+	
+	Object onActionFromViewByActor(String actorName)
+	{
+		MovieList.setList(FilterByActor.FilterList(actorName, MovieList.getCompleteList()));
+		
+		return movies;
 	}
 	
 	Object onActionFromViewProfile(String movieName)

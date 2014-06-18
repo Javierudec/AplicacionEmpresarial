@@ -3,6 +3,7 @@ package util;
 import java.util.List;
 
 import es.model.movie.Movie;
+import es.model.util.exceptions.InstanceNotFoundException;
 
 public class MovieList {
 	private static List<Movie> list;
@@ -95,8 +96,25 @@ public class MovieList {
 		return currPage < Math.ceil(list.size() / (double)numMoviesPerPage) - 1;
 	}
 
-	public static boolean isCompleteListSetted() {
-		// TODO Auto-generated method stub
+	public static boolean isCompleteListSetted() 
+	{
 		return isCompleteListSetted;
+	}
+
+	public static void UpdateListData() 
+	{
+		if(getMovieList() == null) return;
+		
+		for(int i = 0; i < list.size(); i++)
+		{
+			try
+			{
+				list.set(i, SpringUtils.getMovieService().findMovieByName(list.get(i).getName()));
+			}
+			catch(InstanceNotFoundException e)
+			{
+				
+			}
+		}
 	}
 }
