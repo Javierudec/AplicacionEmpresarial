@@ -18,9 +18,9 @@ public class FilterByTag {
 			
 			List<Tag> tagList = SpringUtils.getArticleService().findTagsByArticleID(currArticle.getID());
 			
-			//System.out.println(currArticle.getTitle());
+			System.out.println(currArticle.getTitle());
 			
-			for(int j = 0; j < tagList.size(); i++)
+			for(int j = 0; j < tagList.size(); j++)
 			{
 				//System.out.println(tagList.get(j).getName());
 				

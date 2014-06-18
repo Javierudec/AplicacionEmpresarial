@@ -54,7 +54,6 @@ public class Reviews
 		ReviewList.setList(ReviewList.getCompleteList());
 		
 		tagEncoder = new TagEncoder();
-
 	}
 	
 	public boolean getReviewListNotEmpty()
@@ -87,11 +86,11 @@ public class Reviews
 		if(title != null && title.length() > 0)
 		{
 			ReviewList.setList(FilterByTitle.FilterArticleList(title, ReviewList.getCurrentList()));
+			System.out.println("TagList1");
 		}
 		
 		if(selectedTag1 != null && selectedTag1.getName().compareTo("None") != 0)
 		{
-			
 			ReviewList.setList(FilterByTag.FilterArticleList(selectedTag1.getName(), ReviewList.getCurrentList()));
 		}
 		
@@ -104,6 +103,8 @@ public class Reviews
 		{
 			ReviewList.setList(FilterByTag.FilterArticleList(selectedTag3.getName(), ReviewList.getCurrentList()));
 		}
+		
+		//System.out.println(ReviewList.getList());
 		
 		return reviewListZone.getBody();
 	}
