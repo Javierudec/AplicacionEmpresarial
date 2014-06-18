@@ -16,12 +16,12 @@ import util.FilterByTitle;
 import util.MovieList;
 import util.SpringUtils;
 import util.Utils;
-import es.model.service.*;
-import es.model.user.User;
-import es.model.util.exceptions.InstanceNotFoundException;
 import es.pages.ErrorPage;
 import es.pages.Index;
 import es.pages.Movies;
+import es.model.service.*;
+import es.model.user.User;
+import es.model.util.exceptions.InstanceNotFoundException;
 
 /**
  * Layout component for pages of application tutorial1.
@@ -88,11 +88,11 @@ public class Layout
     }
     
     public String getPageURL()
-    {
-    	if(pageName == "Home") return "Index";
-    	if(pageName == "Movies") return "Movies";
-    	if(pageName == "Reviews") return "Reviews";
-    	if(pageName == "About Us") return "AboutUs";
+    {   	
+    	if(pageName.compareTo("Home") == 0) return "Index";
+    	if(pageName.compareTo("Movies") == 0) return "Movies";
+    	if(pageName.compareTo("Articles") == 0) return "Reviews";
+    	if(pageName.compareTo("About Us") == 0) return "AboutUs";
     	
     	return "";
     }

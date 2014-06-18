@@ -2,35 +2,11 @@
   xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
   xmlns:p="tapestry:parameter">
      
-<!-- 
-Para ingresar como administrador, hacer Login con username: admin, password: admin01
-<ul>
-	<t:if test="username">
-		<t:if test="isAdmin">
-			<li><t:pagelink page="AddMovie">Add Movie</t:pagelink></li>
-		</t:if>
-		<li><t:actionLink t:id="logout">Logout</t:actionLink></li>
-		<p:else>
-	    	<li><t:pagelink page="AccountCreation">Create account</t:pagelink></li>
-	    	<li><t:pagelink page="Login">Login</t:pagelink></li>
-		</p:else>
-	</t:if>
-</ul>
-
-<tr/>
-
-<h1>Movies</h1>
-<ul>
-	<t:Loop t:source="lastMovies" value="movieName">
-		<li><t:actionLink t:id="viewProfile" t:context="movieName.name">${movieName.name} (${movieScore}/5)</t:actionLink></li>
-	</t:Loop>
-</ul>
--->
 <div id="widgetContainer">
 	<div id="upperWidgetContainer">			
 		<div id="recommenderWidget">
 			<t:If t:test="isLoggedIn">
-				<h3>Recomendaciones</h3>
+				<h3 class="textSection">Recomendaciones</h3>
 				<t:Loop t:source="recommendedMovies" value="recoMovie">
 					<div id="recommendedMovie">
 						<t:actionLink t:id="viewProfileRecoList" t:context="recoMovie.name"><h3>${recoMovie.name} (${recoMovieYear})</h3></t:actionLink>
@@ -45,13 +21,13 @@ Para ingresar como administrador, hacer Login con username: admin, password: adm
 						<t:Form>
 							<t:Errors/>
 							<tr>
-							<td><t:Label t:for="newUsername">Username</t:Label></td><td><input t:type="Textfield" t:id="newUsername" t:validate="required" size="24"/></td>
+							<td><t:Label style="font-weight:bold;" t:for="newUsername">Username</t:Label></td><td><input t:type="Textfield" t:id="newUsername" t:validate="required" size="24"/></td>
 							</tr>
 							<tr>
-							<td><t:Label t:for="newPassword">Password</t:Label></td><td><input t:type="PasswordField" t:id="newPassword" t:validate="required" size="24"/></td>
+							<td><t:Label style="font-weight:bold;" t:for="newPassword">Password</t:Label></td><td><input t:type="PasswordField" t:id="newPassword" t:validate="required" size="24"/></td>
 							</tr>
 							<tr>
-							<td><t:Label t:for="newEMail">Email</t:Label></td><td><input t:type="Textfield" t:id="newEMail" t:validate="required" size="24"/></td>
+							<td><t:Label style="font-weight:bold;" t:for="newEMail">Email</t:Label></td><td><input t:type="Textfield" t:id="newEMail" t:validate="required" size="24"/></td>
 							</tr>
 							<tr>
 							<td></td><td><input type="submit" value="Create"/></td>
