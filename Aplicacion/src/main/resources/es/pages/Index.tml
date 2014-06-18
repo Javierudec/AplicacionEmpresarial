@@ -38,7 +38,7 @@
 			</t:If>
 		</div>
 		<div class="menu_simple" id="debutMoviesWidget">
-			<h1 class="textSection">Debut</h1>
+			<h1 class="textSection">Release</h1>
 			<ul>
 				<t:Loop t:source="debutMovies" value="movieName">
 					<li><t:actionLink t:id="viewProfileLastAdded" t:context="movieName.name">${movieName.name}</t:actionLink></li>
@@ -58,7 +58,7 @@
 		
 	<div id="lowerWidgetContainer">
 		<div class="menu_simple" id="recommededTagForSearch">
-			<h1 class="textSection">Tags</h1>
+			<h1 class="textSection">Search by Genre</h1>
 			<ul>
 				<t:Loop t:source="tags" value="tag">
 					<li><t:actionLink t:id="viewSearch" t:context="tag">${tag}</t:actionLink></li>
@@ -69,7 +69,7 @@
 				<h3 class="textSection">Movie of the month</h3>
 				<hr/>
 				<div id="movieOfMonth">
-					<t:actionLink t:id="viewMovieOfTheMonth"><h3 class="movieTitle">${momName}</h3></t:actionLink>
+					<t:actionLink t:id="viewMovieOfTheMonth" t:context="momName"><h3 class="movieTitle">${momName}</h3></t:actionLink>
 					<img class="momPoster" src="${momImage}"/>
 					<span class="description">${momDescription}</span>
 					<img class="starsClass" src="${momScore}"/>

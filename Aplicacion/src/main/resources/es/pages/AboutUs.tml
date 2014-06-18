@@ -1,5 +1,32 @@
 <html t:type="layout" title="Hi/Lo Guess"
   xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
  
-About us...
+<div id="defaultMenu">
+	<div id="faq">
+		<h2>What is the purpose of this site?</h2>
+		The purpose of this site is to have a large database of movies where users can search for a particular movie or search for something to watch based on
+		site recommendations or through the community tools (articles, user recommendations, etc).
+		<br/>
+		<br/>
+		<hr/>
+		<h2>F.A.Q. (Frequently Asked Questions)</h2>
+		<hr/>
+		<h3>Do you have any web services that my application can use?</h3>
+		Yes, we have a web service for movie information recovery from our database. If you want to use
+		our movies database then you can use this web service, you will have access to standard movie information 
+		like title, description, release date. Also, you will have access other properties like movie score (average score
+		from the users of our site)
+		<hr/>
+		<h3>How can I use the web services?</h3>
+		There are three possible ways to use our web service.<br/>
+		<lu>
+			<li>Retrieve the complete movie list: <b>http://localhost:8080/recomendar/webapi/movies/</b></li>
+			<li>Retrieve one particular movie, using ID property: <b>http://localhost:8080/recomendar/webapi/movies/{id}</b></li>
+			<li>Retrieve movies whose title contains a set of keys (words): <b>http://localhost:8080/recomendar/webapi/movies/{keys}.</b> Example: {keys} = toy+story</li>
+		</lu>
+		<br/>
+		Note: Each one of these links return a XML document.
+	</div>
+</div>
+
 </html>

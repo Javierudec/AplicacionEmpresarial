@@ -7,8 +7,11 @@ import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionAttribute;
 
+import util.FilterByGenre;
+import util.MovieList;
 import util.SpringUtils;
 import util.Utils;
+import es.model.genre.Genre;
 import es.model.movie.Movie;
 import es.model.user.User;
 import es.model.util.exceptions.InstanceNotFoundException;
@@ -40,6 +43,8 @@ public class Index
 	private Index index;
 	@InjectPage
 	private ErrorPage errorPage;
+	@InjectPage
+	private Movies movies;
 	
 	public List<Movie> getLastMovies()
 	{
@@ -69,18 +74,16 @@ public class Index
 	
 	public List<String> getTags()
 	{
+		List<Genre> genreList = SpringUtils.getMovieService().getAllGenres();
+		
+		int n = genreList.size() - 6;
+		int rnd = (int)(Math.random() * n);
+		
 		List<String> listToRet = new ArrayList<String>();
 		
-		for(int i = 1; i < 7; i++)
+		for(int i = 0; i < 6; i++)
 		{
-			try 
-			{
-				listToRet.add(SpringUtils.getMovieService().findGenreByID(i).getName());
-			}
-			catch(InstanceNotFoundException e)
-			{
-				e.printStackTrace();
-			}
+			listToRet.add(genreList.get(i + rnd).getName());
 		}
 		
 		return listToRet;
@@ -191,14 +194,18 @@ public class Index
 		return movieProfile;
 	}
 	
-	Object onActionFromViewSearch(String movieName)
+	Object onActionFromViewSearch(String genreName)
 	{
-		return null;
+		MovieList.setList(FilterByGenre.FilterList(genreName, MovieList.getCompleteList()));
+		
+		return movies;
 	}
 	
-	Object onActionFromviewMovieOfTheMonth()
+	Object onActionFromviewMovieOfTheMonth(String movieName)
 	{
-		return null;
+		movieProfile.setMovieByName(movieName);
+		
+		return movieProfile;
 	}
 	
 	Object onSuccess()

@@ -11,8 +11,10 @@
         <div id="header">
             <div id="logo">
                 <h1 class="textSection">
-                    <t:pagelink page="index">MoviesDB</t:pagelink>
+                    <t:pagelink page="index" style="float:left;clear:left;position:relative;bottom:10px;">MoviesDB</t:pagelink>
+                    <br/>
                 </h1>
+                <span style="font-size:13px;float:left;position:relative;bottom:36px;">The place where you can find what you want to watch next.</span>
             </div>
             <div id="loginPannel">
             	<t:if test="username">
