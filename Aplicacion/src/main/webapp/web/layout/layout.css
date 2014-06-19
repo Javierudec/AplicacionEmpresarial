@@ -631,4 +631,13 @@ a:hover
   background: transparent url('black.jpg') repeat-x top left;
 }
 
+#reviewMenu
+{
+	background-color:#ffffff;
+	box-shadow: 1px 1px 1px #888888;
+	/*border:2px solid;*/
+	width: 100%;
+	overflow:auto;
+}
+
 

@@ -1,22 +1,48 @@
 <html t:type="layout" title="Hi/Lo Guess"
   xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 
-<div id="defaultMenu">
+<div id="reviewMenu">
 	<t:if test="review">
-		<table>
-			<tr>
-				<td>Title</td><td>${review.title}</td>
-			</tr>
-			<tr>
-				 <td>Content</td><td>${review.content}</td>
-			</tr>
-			<tr>
-				 <td>Author</td><td>${review.author}</td>
-			</tr>
-		</table>
+		<div style="float:left;box-shadow: 1px 1px 1px #888888;background-color:#ededed;margin-left:15px;margin-top:15px;"> 
+			
+			<img src="images/silhouette.png" style="width:240px; height:250px;margin:0 auto;" alt="user_avatar" />
+			<hr/>
+			<table style="width:100%;">
+				<tr><td><center>${review.author}</center></td></tr>
+				<tr><td><hr/><img style="width:128px;" src="${averageScore}"/>(${numUsersAvgScore} users)</td></tr>
+				
+				<t:if test="username">
+					<tr>
+						<td>
+						<t:Zone t:id="userScoreZone" id="userScoreZone">
+						<t:form t:id="setRank">
+							
+								<img class="yourScore" style="width:128px;" src="${reviewScore}"/>(You:  
+							
+							
+								<t:select t:id="scoreSelected" model="literal:0,1,2,3,4,5" zone="userScoreZone"/>)
+							</t:form>
+							</t:Zone>
+						</td>
+					</tr>
+				</t:if>
+				
+			</table>
+		</div>
 		
-		<img class="averageScore" src="${averageScore}"/><h3>User average (${numUsersAvgScore} users)</h3>
 		
+		<div style="float:left;">
+			<span class="textSection" style="float:left;padding-left:10px;padding-bottom:20px;padding-top:15px;">${review.title}</span>
+			<br/>
+			<span style="float:left;padding-left:10px;width:840px;padding-bottom:20px;">${review.content}</span>
+		</div>
+		<!-- 
+		<hr/>
+		<div style="left:float;clear:left;margin-left:auto;margin-right:auto;border:1px solid;width:128px;">
+			<img style="width:128px;" src="${averageScore}"/>
+		</div>
+		-->
+		<!--
 		<t:if test="username">
 			<t:Zone t:id="userScoreZone" id="userScoreZone">
 				<img class="yourScore" src="${reviewScore}"/><h3>Your Score</h3> 
@@ -25,7 +51,7 @@
 				<t:select t:id="scoreSelected" model="literal:0,1,2,3,4,5" zone="userScoreZone"/>
 			</t:form>
 		</t:if>
-		
+		-->
 	 </t:if>
 </div>
 
