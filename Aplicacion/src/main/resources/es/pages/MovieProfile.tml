@@ -8,36 +8,44 @@
 			 <t:ActionLink t:id="DeleteMovie">Delete</t:ActionLink>]
 		</t:if>
 	</h1>
-	<img class="moviePoster" alt="MoviePoster" src="${movieImage}" width="362" height="512" />
-	<span class="description">${movieDescription}</span>
-	<hr/>
-	
-	<t:zone t:id="genreListZone" id="genreListZone">
-		<t:Loop t:source="movieGenres" value="currGenre">
-			<t:ActionLink t:id="searchByGenre" t:context="currGenre.name">${currGenre.name}</t:ActionLink>,
-		</t:Loop>
-	</t:zone>
-	
-	<t:if test="isAdmin">
-		<t:form t:zone="genreListZone" t:id="addGenreForm">
-			<t:select value="selectedGenre" model="GenreSelectModel" encoder="genreEncoder"/>
-			<input type="submit" value="Add genre"/>
-		</t:form>
-	</t:if>
-	
-	<hr/>
-	<t:zone t:id="actorListZone" id="actorListZone">
-		<t:Loop t:source="movieActors" value="currActor">
-			<t:ActionLink t:id="searchByActor" t:context="currActor.name">${currActor.name}</t:ActionLink>,
-		</t:Loop>
-	</t:zone>
-	
-	<t:if test="isAdmin">
-		<t:form t:zone="actorListZone" t:id="addActorForm">
-			<t:select value="selectedActor" model="ActorSelectModel" encoder="actorEncoder"/>
-			<input type="submit" value="Add actor"/>
-		</t:form>
-	</t:if>
+	<img class="moviePoster" alt="MoviePoster" src="${movieImage}"/>
+	<span style="padding-left:10px;font-size:18px;padding-right:10px;float:left;width:700px;">${movieDescription}</span>
+	<br/>
+	<table style="padding-left:10px;float:left;">
+		<tr>
+			<td>
+				<t:zone t:id="genreListZone" id="genreListZone">
+					Genres: 
+					<t:Loop t:source="movieGenres" value="currGenre">
+						<t:ActionLink t:id="searchByGenre" t:context="currGenre.name">${currGenre.name} </t:ActionLink>
+					</t:Loop>
+				</t:zone>
+				<t:if test="isAdmin">
+					<t:form t:zone="genreListZone" t:id="addGenreForm">
+						<t:select value="selectedGenre" model="GenreSelectModel" encoder="genreEncoder"/>
+						<input type="submit" value="Add genre"/>
+					</t:form>
+				</t:if>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<t:zone t:id="actorListZone" id="actorListZone">
+					Actors: 
+					<t:Loop t:source="movieActors" value="currActor">
+						[<t:ActionLink t:id="searchByActor" t:context="currActor.name">${currActor.name}</t:ActionLink>]
+					</t:Loop>
+				</t:zone>
+				
+				<t:if test="isAdmin">
+					<t:form t:zone="actorListZone" t:id="addActorForm">
+						<t:select value="selectedActor" model="ActorSelectModel" encoder="actorEncoder"/>
+						<input type="submit" value="Add actor"/>
+					</t:form>
+				</t:if>
+			</td>
+		</tr>
+	</table>
 	
 	<img class="averageScore" src="${averageScore}"/><h3>User average (${numUsersAvgScore} users)</h3>
 		
@@ -57,14 +65,14 @@
 
 
 <div id="relationsMenu">
-	Users who have seen this, they also recommend...<br/>
+	<span style="padding-left:10px;padding-top:10px;">Users who have seen this, they also recommend...</span><br/>
 	<t:Loop t:source="relations" value="relation">
 		<div id="relationContainer">
-			<t:actionLink t:id="viewProfileRelation" t:context="relation.destinyMovie"><h2>${relation.destinyMovie}</h2></t:actionLink>
+			<t:actionLink t:id="viewProfileRelation" t:context="relation.destinyMovie"><h2 style="padding-left:10px;">${relation.destinyMovie}</h2></t:actionLink>
 			<img class="moviePoster" alt="MoviePoster" src="${destinyMovieImage}" width="362" height="512" />
 			<span class="description">${relation.comment}</span>
 			<span class="username">by ${relation.username}</span>
-			<img class="averageScore" src="${averageScoreRelation}"/>
+			<img style="padding-left:10px; padding-top:5px;" class="averageScore" src="${averageScoreRelation}"/>
 		</div>
 	</t:Loop>
 	<hr/>

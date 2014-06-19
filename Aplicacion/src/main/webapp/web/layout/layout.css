@@ -322,7 +322,7 @@ body {
 	background-color:#ffffff;
 	box-shadow: 1px 1px 1px #888888;
 	/*border:2px solid;*/
-	width: 98.78%;
+	width: 1142px;
 	overflow:auto;
 	padding-left:10px;
 	padding-bottom:5px;
@@ -348,6 +348,8 @@ body {
 #movieProfile .moviePoster {
 	float:left;
 	margin-bottom:5px;
+	width:362px;
+	height:512px;
 }
 
 #movieProfie .description {
@@ -388,6 +390,18 @@ body {
 	padding-right:20px;
 }
 
+#reviewList {
+	background-color:#ffffff;
+	box-shadow: 1px 1px 1px #888888;
+	/*border:2px solid;*/
+	width: 1112px;
+	padding-left:20px;
+	padding-bottom:15px;
+	overflow:auto;
+	padding-right:20px;
+	padding-top:10px;
+}
+
 #movieListItem {
 	box-shadow: 1px 1px 1px #888888;
 	background-color:#ededed;
@@ -412,6 +426,7 @@ body {
 
 #reviewListItem .reviewScore {
 	width:128px;	
+	float:right;
 }
 
 #movieListItem .movieTitle {
@@ -468,7 +483,7 @@ body {
 	background-color:#ffffff;
 	box-shadow: 1px 1px 1px #888888;
 	/*border:2px solid;*/
-	width: 98.98%;
+	width: 1147px;
 	overflow:auto;	
 	margin-top:5px;
 	padding-left:5px;
@@ -497,9 +512,10 @@ body {
 	/*border:2px solid;*/
 	width:98%;
 	overflow:auto;
-	padding-left:5px;
 	padding-bottom:5px;
+	margin:0 auto;
 	margin-bottom:5px;
+	background-color:#ededed;
 }
 
 #relationsMenu .moviePoster {
@@ -508,6 +524,7 @@ body {
 	float:left;
 	clear:left;
 	margin-right:10px;
+	padding-left:10px;
 }
 
 #relationsMenu .description 

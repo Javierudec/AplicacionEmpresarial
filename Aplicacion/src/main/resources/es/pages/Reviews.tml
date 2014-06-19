@@ -24,7 +24,7 @@
 	</t:form>
 </div>
  
-<div id="movieList">	
+<div id="reviewList">	
 	 <t:zone t:id="reviewListZone" id="reviewListZone"> 
 		What's a review? A review is a text talking about anything you want about something related to the website. A movie, actor, a specific genre...<br/>
 		<t:if test="username">
@@ -36,6 +36,10 @@
 				<div id="reviewListItem">
 					<t:ActionLink t:id="viewReview" t:context="currentReview.id">${currentReview.title}</t:ActionLink> 
 					created by ${currentReview.author}
+					
+					<t:Loop t:source="tagList" value="currentTag">
+						[<t:ActionLink t:zone="reviewListZone" t:id="viewByTag" t:context="currentTag.name">${currentTag.name}</t:ActionLink>]
+					</t:Loop>
 					<img class="reviewScore" src="${averageScore}"/>
 				</div>
 			</t:Loop>

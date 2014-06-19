@@ -39,6 +39,8 @@ public class Reviews
 	private SelectModel tagSelectModel;
 	@Property
 	private TagEncoder tagEncoder;
+	@Property
+	private Tag currentTag;
 	
 	@Inject
 	SelectModelFactory selectModelFactory;
@@ -66,6 +68,11 @@ public class Reviews
 		return ReviewList.getList();
 	}
 	
+	public List<Tag> getTagList()
+	{
+		return SpringUtils.getArticleService().findTagsByArticleID(currentReview.getID());
+	}
+	
 	public String getAverageScore()
 	{
 		int score = SpringUtils.getArticleService().findCalificationAverage(currentReview.getID());
@@ -86,6 +93,13 @@ public class Reviews
 		return reviewProfile;
 	}
 	
+	Object onActionFromViewByTag(String tagName)
+	{
+		ReviewList.setList(FilterByTag.FilterArticleList(tagName, ReviewList.getCompleteList()));
+		
+		return reviewListZone.getBody();
+	}
+	
 	Object onSuccessFromFilterArticle()
 	{
 		ReviewList.setList(ReviewList.getCompleteList());
@@ -93,7 +107,6 @@ public class Reviews
 		if(title != null && title.length() > 0)
 		{
 			ReviewList.setList(FilterByTitle.FilterArticleList(title, ReviewList.getCurrentList()));
-			System.out.println("TagList1");
 		}
 		
 		if(selectedTag1 != null && selectedTag1.getName().compareTo("None") != 0)
@@ -110,8 +123,6 @@ public class Reviews
 		{
 			ReviewList.setList(FilterByTag.FilterArticleList(selectedTag3.getName(), ReviewList.getCurrentList()));
 		}
-		
-		//System.out.println(ReviewList.getList());
 		
 		return reviewListZone.getBody();
 	}
