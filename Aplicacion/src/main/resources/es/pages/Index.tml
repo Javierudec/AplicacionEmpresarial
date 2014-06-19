@@ -6,7 +6,7 @@
 	<div id="upperWidgetContainer">			
 		<div id="recommenderWidget">
 			<t:If t:test="isLoggedIn">
-				<h3 class="textSection">Recomendaciones</h3>
+				<h3 class="textSection">Recommendations</h3>
 				<t:Loop t:source="recommendedMovies" value="recoMovie">
 					<div id="recommendedMovie">
 						<t:actionLink t:id="viewProfileRecoList" t:context="recoMovie.name"><h3>${recoMovie.name} (${recoMovieYear})</h3></t:actionLink>
