@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.jdbc.datasource.DataSourceUtils;
+
 import util.SpringUtils;
 import es.model.util.exceptions.InstanceNotFoundException;
 
@@ -19,7 +21,7 @@ public class JdbcArticleDAO implements ArticleDAO {
 	public int findLastID() {
 		int lastID = 0;
 		try{
-			Connection connection = SpringUtils.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT MAX(id) FROM article"); 
 			// TODO: el MAX(id) se puede cambiar por la secuencia utilizada, ¿mas eficiente?
@@ -39,7 +41,7 @@ public class JdbcArticleDAO implements ArticleDAO {
 	public Article find(int articleID) throws InstanceNotFoundException {
 		Article article = null;
 		try{
-			Connection connection = SpringUtils.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT id,  title, content, username FROM article WHERE id = ?");
 			statement.setInt( 1, articleID );
@@ -69,7 +71,7 @@ public class JdbcArticleDAO implements ArticleDAO {
 		ArrayList<Article> articleList = new ArrayList<Article>();
 		
 		try{
-			Connection connection = SpringUtils.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT id,  title, content, username FROM article WHERE username = ?");
 			statement.setString( 1, authorName );
@@ -94,7 +96,7 @@ public class JdbcArticleDAO implements ArticleDAO {
 	public Article insert(String articleTitle, String articleContent, String authorName) {
 		Article article = null;
 		try{
-			Connection connection = SpringUtils.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			
 			//System.out.println(articleTitle + " " + articleContent + " " + authorName);
 			
@@ -137,7 +139,7 @@ public class JdbcArticleDAO implements ArticleDAO {
 	// TODO: de momento se podran calificar los articulos una sola vez :P
 	public void addArticleCalification(int calification, String userName, int articleID) {
 		try{
-			Connection connection = SpringUtils.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			
 			PreparedStatement statement = connection.prepareStatement("DELETE FROM rank_article WHERE username=? AND rankedarticle=?");
 			statement.setString(1, userName );
@@ -161,7 +163,7 @@ public class JdbcArticleDAO implements ArticleDAO {
 			throws InstanceNotFoundException {
 		int Calification = 0;
 		try{
-			Connection connection = SpringUtils.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			
 			PreparedStatement statement = connection.prepareStatement("SELECT rank FROM rank_article WHERE username=? AND rankedarticle=?;");
 			
@@ -184,7 +186,7 @@ public class JdbcArticleDAO implements ArticleDAO {
 	public int findCalificationAverage(int articleID) {
 			int Calification = 0;
 			try{
-				Connection connection = SpringUtils.getConnection();
+				Connection connection = DataSourceUtils.getConnection(dataSource);
 				PreparedStatement statement = connection.prepareStatement(
 						"SELECT AVG(rank) FROM rank_article WHERE rankedarticle=?;");
 				
@@ -205,7 +207,7 @@ public class JdbcArticleDAO implements ArticleDAO {
 
 	public Article update(Article article) throws InstanceNotFoundException {
 		try{
-			Connection connection = SpringUtils.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			PreparedStatement statement = connection.prepareStatement(
 					"UPDATE article SET title = '?', content = '?', username = '?' WHERE id = '?' ;");
 			
@@ -224,7 +226,7 @@ public class JdbcArticleDAO implements ArticleDAO {
 
 	public void delete(int articleID) throws InstanceNotFoundException {
 		try{
-			Connection connection = SpringUtils.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			PreparedStatement statement = connection.prepareStatement(
 					"DELETE FROM article WHERE id = '?';");
 			
@@ -246,7 +248,7 @@ public class JdbcArticleDAO implements ArticleDAO {
 	{
 		List<Article> articleList = new ArrayList<Article>();
 		
-		Connection connection = SpringUtils.getConnection();
+		Connection connection = DataSourceUtils.getConnection(dataSource);
 		PreparedStatement statement;
 		try 
 		{
@@ -277,7 +279,7 @@ public class JdbcArticleDAO implements ArticleDAO {
 		
 		try
 		{
-			Connection connection = SpringUtils.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			PreparedStatement statement = connection.prepareStatement("SELECT COUNT(*) FROM rank_article WHERE rankedarticle = ?"); 
 			statement.setInt(1, id);
 			ResultSet resultSet = statement.executeQuery();

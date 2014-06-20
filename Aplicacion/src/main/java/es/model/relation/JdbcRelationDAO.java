@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
+import org.springframework.jdbc.datasource.DataSourceUtils;
+
 import es.model.util.exceptions.InstanceNotFoundException;
 
 public class JdbcRelationDAO implements RelationDAO {
@@ -27,7 +29,7 @@ public class JdbcRelationDAO implements RelationDAO {
 		ArrayList<Relation> relations = new ArrayList<Relation>();
 		
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT * FROM relate WHERE sourcemovie = ?;");
 			
@@ -51,7 +53,7 @@ public class JdbcRelationDAO implements RelationDAO {
 	public void insert(Relation relation) {
 
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			PreparedStatement statement = connection.prepareStatement(
 					"INSERT INTO relate (sourcemovie, destinymovie, authorname, content) " +
 					"VALUES (?,?,?,?);");	
@@ -70,7 +72,7 @@ public class JdbcRelationDAO implements RelationDAO {
 
 	public boolean userHasApprovedMovieRelation(String sourceName, String destinyName, String authorName, String userName){
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT * FROM user_approve WHERE sourcemovie = ? AND destinymovie = ? AND authorname = ? AND username = ?");			
 			statement.setString(1, sourceName );
@@ -97,7 +99,7 @@ public class JdbcRelationDAO implements RelationDAO {
 			String authorName, String userName) {
 		
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			PreparedStatement statement = connection.prepareStatement(
 					"INSERT INTO user_approve VALUES (?,?,?,?)");			
 			statement.setString(1, sourceMovie );
@@ -117,7 +119,7 @@ public class JdbcRelationDAO implements RelationDAO {
 			String authorName, String userName)
 			throws InstanceNotFoundException {
 		try{
-			Connection connection = dataSource.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			PreparedStatement statement = connection.prepareStatement(
 					"DELETE FROM user_approve WHERE sourcemovie = ? AND destinymovie = ? AND authorname = ? AND username = ? ");			
 			statement.setString(1, sourceMovie );

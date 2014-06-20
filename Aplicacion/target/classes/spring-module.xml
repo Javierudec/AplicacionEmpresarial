@@ -10,6 +10,8 @@
   	http://www.springframework.org/schema/tx 
   	http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+	<tx:annotation-driven proxy-target-class="true"/>
+
 	<!-- Data Source -->
 	<bean id="dataSourceBean" class="org.apache.commons.dbcp.BasicDataSource"
     	destroy-method="close">
@@ -60,7 +62,7 @@
 	</bean>
 	
 	<!-- Transaction management -->	
-	<bean id="transactionManagerBean"
+	<bean id="transactionManager"
   			class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
     	<property name="dataSource" ref="dataSourceBean" />
   	</bean>
@@ -70,7 +72,7 @@
 		<property name="UserDAO" ref="userDAOBean" />
 		<property name="ArticleDAO" ref="articleDAOBean" />
 		<property name="TagDAO" ref="tagDAOBean" />
-		<property name="transactionManager" ref="transactionManagerBean" />
+		<property name="transactionManager" ref="transactionManager" />
 	</bean>
 	
 	<!-- UserService -->
@@ -78,7 +80,7 @@
 		<property name="UserDAO" ref="userDAOBean" />
 		<property name="MovieDAO" ref="movieDAOBean" />
 		<property name="ArticleDAO" ref="articleDAOBean" />
-		<property name="transactionManager" ref="transactionManagerBean" />
+		<property name="transactionManager" ref="transactionManager" />
 	</bean>
 	
  	<!-- MovieService -->
@@ -87,6 +89,6 @@
 		<property name="GenreDAO" ref="genreDAOBean" />
 		<property name="RelationDAO" ref="relationDAOBean" />
 		<property name="MovieDAO" ref="movieDAOBean" />
-		<property name="transactionManager" ref="transactionManagerBean" />
+		<property name="transactionManager" ref="transactionManager" />
 	</bean>
 </beans>

@@ -13,6 +13,7 @@ import es.model.tag.TagDAO;
 import es.model.user.UserDAO;
 import es.model.util.exceptions.InstanceNotFoundException;
 
+@Transactional
 public class ArticleService implements ArticleServiceInterface{
 
 private TagDAO tagDAO;
@@ -22,7 +23,7 @@ private UserDAO userDAO;
 private PlatformTransactionManager transactionManager;
 
 
-@Transactional(rollbackFor={ InstanceNotFoundException.class })
+//@Transactional(rollbackFor={ InstanceNotFoundException.class })
 public Article addArticle( String articleTitle, String articleContent, String authorName, ArrayList<Integer> tagsID ) throws InstanceNotFoundException{
 	
 	
@@ -38,7 +39,7 @@ public Article addArticle( String articleTitle, String articleContent, String au
 	return articleDAO.insert(articleTitle, articleContent, authorName);
 }
 
-@Transactional(rollbackFor={InstanceNotFoundException.class})
+//@Transactional(rollbackFor={InstanceNotFoundException.class})
 public void addArticleCalificationForUser( int calification, String userName, int articleID )  throws InstanceNotFoundException{
 	/* 
 	 * TODO: es valido verificar la existencia del userName y articleID aqui haciendo que

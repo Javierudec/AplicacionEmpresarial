@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.jdbc.datasource.DataSourceUtils;
+
 import util.SpringUtils;
 import es.model.movie.Movie;
 import es.model.util.exceptions.InstanceNotFoundException;
@@ -22,7 +24,7 @@ public class JdbcUserDAO implements UserDAO {
 		User user = null;
 		
 		try{
-			Connection connection = SpringUtils.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			//Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT name, password, mail, rights, id FROM site_user WHERE name = ?");
@@ -61,7 +63,7 @@ public class JdbcUserDAO implements UserDAO {
 	public User insert(User user) {		
 		PreparedStatement statement;
 		try{
-			Connection connection = SpringUtils.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			
 			statement = connection.prepareStatement("SELECT name, password, mail, rights FROM site_user WHERE name = ?");
 			statement.setString(1, user.getName());
@@ -91,7 +93,7 @@ public class JdbcUserDAO implements UserDAO {
 
 	public User update(User user) throws InstanceNotFoundException {
 		try{
-			Connection connection = SpringUtils.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			//Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"UPDATE site_user SET password = '?', mail = '?'  WHERE name = '?';");
@@ -110,7 +112,7 @@ public class JdbcUserDAO implements UserDAO {
 
 	public void delete(String userName) throws InstanceNotFoundException {
 		try{
-			Connection connection = SpringUtils.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			
 			User u = find(userName);
 			
@@ -140,7 +142,7 @@ public class JdbcUserDAO implements UserDAO {
 		List<User> userList = new ArrayList<User>();
 		
 		try{
-			Connection connection = SpringUtils.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			//Connection connection = dataSource.getConnection();
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT id, name, password, mail, rights FROM site_user");
@@ -178,7 +180,7 @@ public class JdbcUserDAO implements UserDAO {
 	@Override
 	public void insertPredictedRank(int userID, int movieID, double pUJ) {
 		try{
-			Connection connection = SpringUtils.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			PreparedStatement statement = connection.prepareStatement("DELETE FROM predicted_rank WHERE user_id = ? AND movie_id = ?");
 			statement.setInt(1, userID);
 			statement.setInt(2, movieID);
@@ -198,7 +200,7 @@ public class JdbcUserDAO implements UserDAO {
 
 	@Override
 	public void resetPredictionsFor(int userID) {
-		Connection connection = SpringUtils.getConnection();
+		Connection connection = DataSourceUtils.getConnection(dataSource);
 		try {
 			PreparedStatement statement = connection.prepareStatement("DELETE FROM predicted_rank WHERE user_id = ?");
 			statement.setInt(1,  userID);

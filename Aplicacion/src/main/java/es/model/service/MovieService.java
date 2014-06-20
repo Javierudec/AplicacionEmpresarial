@@ -17,6 +17,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 public class MovieService implements MovieServiceInterface {
 	private ActorDAO actorDAO;
 	private MovieDAO movieDAO;
@@ -27,8 +28,6 @@ public class MovieService implements MovieServiceInterface {
 	private PlatformTransactionManager transactionManager;
 	
 	
-	// Tested
-	@Transactional
 	public Genre addGenre(String genreName) 
 	{
 		Genre genre = genreDAO.insert(genreName);
@@ -36,8 +35,6 @@ public class MovieService implements MovieServiceInterface {
 		return genre;
 	}
 	
-	// Tested!
-	@Transactional
 	public Actor addActor(String actorName)
 	{
 		Actor actor = actorDAO.insert(actorName);
@@ -45,8 +42,6 @@ public class MovieService implements MovieServiceInterface {
 		return actor;
 	}
 	
-	//Tested!
-	@Transactional
 	public Movie addMovie(String name, String synopsis, Date premierDate, ArrayList<Integer> actorsID, ArrayList<Integer> genresID) 
 	{
 		Movie movie = movieDAO.insert(new Movie(name, synopsis, premierDate));

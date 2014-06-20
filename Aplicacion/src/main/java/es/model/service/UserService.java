@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.model.article.Article;
 import es.model.article.ArticleDAO;
@@ -14,7 +15,7 @@ import es.model.user.User;
 import es.model.user.UserDAO;
 import es.model.util.exceptions.InstanceNotFoundException;
 
-
+@Transactional
 public class UserService implements UserServiceInterface {
 	
 	private UserDAO userDAO;

@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.jdbc.datasource.DataSourceUtils;
+
 import util.SpringUtils;
 import es.model.article.Article;
 import es.model.util.exceptions.InstanceNotFoundException;
@@ -24,7 +26,7 @@ public class JdbcTagDAO implements TagDAO {
 		Tag tag = null;
 		
 		try{
-			Connection connection = SpringUtils.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT id, name FROM tag WHERE id = ?");
 			statement.setInt(1, tagID);
@@ -52,7 +54,7 @@ public class JdbcTagDAO implements TagDAO {
 		Tag tag = null;
 		
 		try{
-			Connection connection = SpringUtils.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT id, name FROM tag WHERE name = ?");
 			statement.setString(1, tagName);
@@ -77,7 +79,7 @@ public class JdbcTagDAO implements TagDAO {
 		ArrayList<Tag> tagList = new ArrayList<Tag>();
 		
 		try{
-			Connection connection = SpringUtils.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			PreparedStatement statement = connection.prepareStatement(
 					"SELECT tag.* FROM tag, article_has_tag WHERE article_has_tag.idarticle = ? AND article_has_tag.idtag = tag.id ");
 			statement.setInt(1, articleID);
@@ -100,7 +102,7 @@ public class JdbcTagDAO implements TagDAO {
 	public Tag insert(String tagName) {
 		Tag tag = null;
 		try{
-			Connection connection = SpringUtils.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			PreparedStatement statement = connection.prepareStatement(
 					"INSERT INTO tag (name) VALUES (?) RETURNING id;");
 			statement.setString(1, tagName);
@@ -123,7 +125,7 @@ public class JdbcTagDAO implements TagDAO {
 	public void insertArticleOwnTag(Article article, Tag tag) {
 		
 		try{
-			Connection connection = SpringUtils.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			PreparedStatement statement = connection.prepareStatement(
 					"INSERT INTO article_has_tag (idarticle, idtag) VALUES (?,?);");
 			statement.setInt(1, article.getID());
@@ -140,7 +142,7 @@ public class JdbcTagDAO implements TagDAO {
 
 	public Tag update(Tag tag) {
 		try{
-			Connection connection = SpringUtils.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			PreparedStatement statement = connection.prepareStatement(
 					"UPDATE tag SET name = '?' WHERE id = '?';");
 			statement.setString(1, tag.getName());
@@ -169,7 +171,7 @@ public class JdbcTagDAO implements TagDAO {
 		List<Tag> tagList = new ArrayList<Tag>();
 		
 		try{
-			Connection connection = SpringUtils.getConnection();
+			Connection connection = DataSourceUtils.getConnection(dataSource);
 			PreparedStatement statement = connection.prepareStatement("SELECT id, name FROM tag ORDER BY id");
 			
 			ResultSet resultSet = statement.executeQuery();
